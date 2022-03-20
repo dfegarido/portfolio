@@ -1,16 +1,13 @@
-
-import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import CharacterAnimation from "../components/CharacterAnimation"
 import About from "../pages/About"
 import Services from "../pages/Services"
+import Portfolio from "../pages/Portfolio"
 
 
 const Body = () => {
 
     const { windowHeight, scrollTop }  = useSelector(({ metadata }) => metadata)
-
-   
 
     const nameToAnimate = [
         "Fullstack Developer", 
@@ -40,8 +37,10 @@ const Body = () => {
                 
             </div>
             <div>
+                {/* Pages */}
                 <About />
                 <Services />
+                <Portfolio />
             </div>
         </div>
         

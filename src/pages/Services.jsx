@@ -47,15 +47,15 @@ const Services = () => {
 
     return (
         <div 
-            className={`relative flex flex-col items-center pt-10`}
-            style={{...styles.container, height: `${windowHeight}px`}}
-        >
+            className={`relative flex flex-col items-center pt-10 pb-10`}
+            style={{...styles.container, height: `${windowHeight}px`}}>
+
             <Title label={"Services"} />
             
             <div className={"grid grid-cols-3 gap-20 mt-10"} style={styles.card}>
                 { 
-                    servicesData.map(({ logo, title, description }) => (
-                        <Card className={'p-10 grid grid-rows-3 items-start place-items-center'}>
+                    servicesData.map(({ logo, title, description }, key) => (
+                        <Card className={'p-10 grid grid-rows-3 items-start place-items-center'} key={key}>
                             <CircleLogo  name={logo} />
                             <CardTitle className={'pt-5'} label={title} />
                             <CardDescription className={'-mt-7'} label={description}/>

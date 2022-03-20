@@ -10,7 +10,7 @@ export const metadata = createSlice({
   },
   reducers: {
     setWindowHeight: (state, { payload }) => {
-      state.windowHeight = payload
+      state.windowHeight = payload + 200
     },
     setScrollTop: (state, { payload }) => {
       state.scrollTop = payload
