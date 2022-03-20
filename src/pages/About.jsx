@@ -4,15 +4,10 @@ import AboutMe from '../components/AboutMe'
 
 const About = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
-    const [innerHeight, setInnerHeight] = useState('')
-
-    useEffect(() => {
-        setInnerHeight(windowHeight)
-    }, [windowHeight])
 
     const profileImage = require('../assets/profile-image.png')
     return (
-        <div className={`grid grid-flow-row-dense grid-cols-2 h-[${innerHeight}px] w-full`} >
+        <div className={`grid grid-flow-row-dense grid-cols-2 h-[${windowHeight}px] w-full`} >
             <div className="grow h-full place-content-end" >
                 <AboutMe />
             </div>

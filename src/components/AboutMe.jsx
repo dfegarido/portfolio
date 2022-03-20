@@ -8,7 +8,7 @@ const AboutMe = () => {
     const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non volutpat turpis. Nulla nisi leo, dictum quis cursus faucibus, viverra quis orci. Praesent pulvinar, mi vitae ultricies suscipit, libero est egestas lectus, quis egestas neque diam et augue. Praesent ipsum lectus, elementum a faucibus id, vehicula convallis ligula. Sed justo lectus, tempor nec lobortis ac, eleifend eget magna. `
 
     return (
-        <div className="flex flex-col items-end  p-10" style={styles.aboutContainer}>
+        <div className="flex flex-col items-end mt-10 mb-20 p-10" style={styles.aboutContainer}>
             <Title label={"About Me"} />
             <SubTitle label={"Fullstack Developer"} />
             <Description label={description} />
@@ -22,7 +22,6 @@ const AboutMe = () => {
 
 const styles = {
     aboutContainer: {
-        marginTop: '77px',
         marginLeft: '57px',
         width: '855px',
         height: '735px',
@@ -32,7 +31,7 @@ const styles = {
 
     buttonContainer: {
         position: 'relative',
-        top: '10px'
+        top: '304px'
     }
     
 }

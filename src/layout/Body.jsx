@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import CharacterAnimation from "../components/CharacterAnimation"
 import About from "../pages/About"
+import Services from "../pages/Services"
 
 
 const Body = () => {
@@ -40,7 +41,7 @@ const Body = () => {
             </div>
             <div>
                 <About />
-
+                <Services />
             </div>
         </div>
         
