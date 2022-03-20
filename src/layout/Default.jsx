@@ -1,19 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { firstName, lastName } from '../store/metadata'
+import { setScrollTop, setWindowHeight } from '../store/metadata'
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
-import { useEffect, use } from 'react';
+import { useEffect } from 'react';
 
 
 const Default = () => {
-    // const { firstname, lastname } = useSelector(({ metadata }) => metadata)
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(firstName('Darwin'))
-    //     dispatch(lastName('Fegarido'))
-    // }, [])
-   
+    const dispatch = useDispatch()
+
+    const scrollListener = () => {
+        dispatch(setScrollTop(document.documentElement.scrollTop))
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', scrollListener )
+        dispatch(setWindowHeight(window.innerHeight))
+    }, [])
+
     return (
       <div>
           <Header />
