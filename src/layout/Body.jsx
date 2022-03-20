@@ -1,7 +1,12 @@
+
+
 const Body = () => {
+
+    const landingPageBackground = require('../assets/landing-background.jpg')
+
     return (
-        <div>
-            <h1 className="text-3xl">this is body</h1>
+        <div className='bg-local'>
+            <img src={landingPageBackground} alt="landing page background" />
         </div>
     )
 }

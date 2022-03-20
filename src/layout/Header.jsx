@@ -8,8 +8,12 @@ const Header = () => {
     }, [state])
 
     return (
-        <div className="container mx-auto">
-            <h1 className="text-3xl">this is header</h1>
+        <div className="flex flex-row w-full fixed ">
+            <div className="flex-none w-[30%] h-14" style={{backgroundColor: 'red'}}>
+               <p>Fegarido</p> 
+            </div>
+            <div className="grow h-14" style={{backgroundColor: 'blue'}}>2</div>
+
         </div>
     )
 }
