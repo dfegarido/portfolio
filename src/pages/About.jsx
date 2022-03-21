@@ -7,7 +7,10 @@ const About = () => {
 
     const profileImage = require('../assets/profile-image.png')
     return (
-        <div className={`grid grid-flow-row-dense grid-cols-2 h-[${windowHeight}px] w-full`} >
+        <div 
+            className={`grid grid-flow-row-dense grid-cols-2 w-full`}
+            style={{ height: `${windowHeight}px`}}
+        >
             <div className="grow h-full place-content-end" >
                 <AboutMe />
             </div>
