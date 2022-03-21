@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setScrollTop, setWindowHeight } from '../store/metadata'
 import Header from './Header';
 import Body from './Body';
