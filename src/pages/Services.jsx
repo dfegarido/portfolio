@@ -70,9 +70,6 @@ const Services = () => {
 const styles = {
     container: {
         background: '#F9F9F9',
-    },
-    card: {
-
     }
 }
 

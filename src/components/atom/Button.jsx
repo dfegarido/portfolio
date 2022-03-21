@@ -10,7 +10,7 @@ const Button = ({ label, dark=true }) => {
 
     return (
         <div 
-            className="px-10 py-5 text-center" 
+            className="px-10 py-5 text-center items-center justify-center flex " 
             style={{
                 ...styles.container,
                 ...(dark ? styles.dark : null),
@@ -26,6 +26,8 @@ const Button = ({ label, dark=true }) => {
 
 const styles = {
     container: {
+        width: '300px',
+        height: '49px',
         borderRadius: '10px',
         fontWeight: '800',
         fontSize: '23px',

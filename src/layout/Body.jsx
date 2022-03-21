@@ -3,6 +3,7 @@ import CharacterAnimation from "../components/CharacterAnimation"
 import About from "../pages/About"
 import Services from "../pages/Services"
 import Portfolio from "../pages/Portfolio"
+import Contact from "../pages/Contact"
 
 
 const Body = () => {
@@ -41,6 +42,7 @@ const Body = () => {
                 <About />
                 <Services />
                 <Portfolio />
+                <Contact />
             </div>
         </div>
         

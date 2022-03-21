@@ -5,6 +5,9 @@ import cloud from '../../assets/cloud.svg'
 import development from '../../assets/development.svg'
 import mobile from '../../assets/mobile.svg'
 import link from '../../assets/link.svg'
+import pin from '../../assets/pin.svg'
+import email from '../../assets/email.svg'
+import phone from '../../assets/phone.svg'
 
 const Icon = ({ name }) => {
     let icon = ''
@@ -29,6 +32,15 @@ const Icon = ({ name }) => {
             break;
         case name === 'link' :
             icon = link
+            break;
+        case name === 'pin' :
+            icon = pin
+            break;
+        case name === 'email' :
+            icon = email
+            break;
+        case name === 'phone' :
+            icon = phone
             break;
         default:
             icon = computer
