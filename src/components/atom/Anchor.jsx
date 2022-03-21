@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
-const Anchor = ({ label }) => {
+const Anchor = ({ label, dark=false }) => {
     const [hover, setHover] = useState(false)
+    const [active, setActive] = useState(false)
 
+    useEffect(() => console.log(active), [active])
 
     return (
         <div 
             className="grid justify-items-center"
             style={{
                 ...styles.normal, 
-                ...(hover ? styles.hover : styles.normal)}} 
+                ...(dark ? styles.dark : null ),
+                ...(hover && dark ? styles.darkHover : null ),
+                ...(hover && !dark? styles.hover : null )}} 
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
+            onClickCapture={() => setActive(true)}
+            onAuxClickCapture={() => console.log('testing')}
          >
             { label }
 
             <div 
                  style={{ 
                      ...styles.line, 
-                     ...(hover ? styles.lineHover : styles.line) }}
+                     ...(hover && dark? styles.lineHoverDark : null),
+                     ...(hover && !dark? styles.lineHover : null) }}
             ></div>
+            
         </div>
     )
 }
@@ -37,6 +45,12 @@ const styles = {
         cursor: 'pointer',
         color: '#ffffffd1',
     },
+    dark: {
+        color: '#9A9A9A'
+    },
+    darkHover: {
+        color: '#000000'
+    },
     hover: {
         color: '#FFFFFF',
     },
@@ -50,8 +64,10 @@ const styles = {
     lineHover: {
         width: '100%',
         borderBottom: '1px solid #FFFFFF',
-
-
+    },
+    lineHoverDark: {
+        width: '100%',
+        borderBottom: '1px solid #000000',
     }
 
     

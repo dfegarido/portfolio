@@ -1,8 +1,10 @@
-import { useState } from "react";
+
 import { useSelector } from "react-redux";
 import Title from "../components/atom/Title";
 import Card from "../components/Card";
 import CardImage from "../components/atom/CardImage";
+import Anchor from '../components/atom/Anchor'
+import Icon from '../components/atom/Icon'
 
 const Portfolio = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
@@ -46,12 +48,18 @@ const Portfolio = () => {
             style={{...styles.container, height: `${windowHeight}px`}}>
 
             <Title label={"Portfolio"} />
+            
+            <div className="grid grid-cols-3 gap-[200px]  mt-10">
+                <Anchor label={"All"} dark={true} />
+                <Anchor label={"Desktop"} dark={true}/>
+                <Anchor label={"Mobile"} dark={true}/>
+            </div>
 
             <div className={"grid grid-cols-3 gap-20 mt-10"} style={styles.card}>
                 { 
                     portfolioData.map(({ name, url, link }, key) => (
                         <Card className={'grid grid-rows-3 items-start place-items-center'} key={key}>
-                            <CardImage name={name} image={url} link={link} />
+                            <CardImage name={name} image={url} link={link} />   
                         </Card>
                     )) 
                 }
@@ -65,7 +73,8 @@ const Portfolio = () => {
 const styles = {
     container: {
         background: '#FFF',
-    }
+    },
+    
 }
 
 export default Portfolio;

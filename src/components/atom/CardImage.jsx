@@ -1,10 +1,11 @@
 import { useState } from "react";
+import Icon from "./Icon";
 
 
-const CardImage = ({ name, image, link }) => {
+const CardImage = ({ name, image, link, children }) => {
     const [hover, setHover] = useState(false)
 
-    const onHover = () => setHover(prevState => !prevState)
+    const onHover = (value) => setHover(value)
 
     return (
         <div style={styles.container}>
@@ -15,9 +16,19 @@ const CardImage = ({ name, image, link }) => {
                     ...styles.image,
                     ...(hover ? styles.hover : null)
                     }}
-                onMouseEnter={onHover}
-                onMouseLeave={onHover}
+                onMouseEnter={() => onHover(true)}
+                onMouseLeave={() => onHover(false)}
             />
+            {
+                hover ? 
+                (<div 
+                    style={styles.link}
+                    onMouseEnter={() => onHover(true)}>
+                    <Icon name={'link'} />
+                </div>)
+                : null
+            }
+            
         </div>
     )
 }
@@ -30,10 +41,23 @@ const styles = {
         width: '345px',
         height: '323px',
         borderRadius: '5px',
+        transition: 'opacity 1'
     },
     hover: {
-        opacity: '.5',
+        opacity: '.8',
+    },
+    link: {
+        position: 'relative',
+        width: '33.35px',
+        height: '33.35px',
+        left: '10rem',
+        bottom: '11rem',
+        background: '#000000',
+        padding: '5px',
+        borderRadius: '50px',
+        transform: 'rotate(45deg)',
         cursor: 'pointer'
+
     }
 }
 

@@ -4,6 +4,7 @@ import brush from '../../assets/brush.svg'
 import cloud from '../../assets/cloud.svg'
 import development from '../../assets/development.svg'
 import mobile from '../../assets/mobile.svg'
+import link from '../../assets/link.svg'
 
 const Icon = ({ name }) => {
     let icon = ''
@@ -25,6 +26,9 @@ const Icon = ({ name }) => {
             break;
         case name === 'mobile' :
             icon = mobile
+            break;
+        case name === 'link' :
+            icon = link
             break;
         default:
             icon = computer
