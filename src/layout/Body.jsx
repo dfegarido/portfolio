@@ -1,14 +1,22 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import CharacterAnimation from "../components/CharacterAnimation"
 import About from "../pages/About"
 import Services from "../pages/Services"
 import Portfolio from "../pages/Portfolio"
 import Contact from "../pages/Contact"
+import { useEffect, useRef } from "react"
+import { setReference } from "../store/metadata"
 
 
 const Body = () => {
 
     const { windowHeight, scrollTop }  = useSelector(({ metadata }) => metadata)
+    const homeRef = useRef(null)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setReference({name: 'homeRef', value: homeRef }))
+    })
 
     const nameToAnimate = [
         "Fullstack Developer", 
@@ -20,12 +28,13 @@ const Body = () => {
     ]
 
     return (
-        <div className="w-full flex-row ">
+        <div 
+            ref={homeRef}
+            className="w-full flex-row ">
             {/* Landing Page Background */}
             <div 
                 className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two`} 
-                style={{ height: `${windowHeight}px` }}
-            >
+                style={{ height: `${windowHeight}px` }}>
                 <div style={{
                     ...styles.container,
                     ...(scrollTop > 100 ? styles.hideContainer : null)

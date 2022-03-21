@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 
 
-const Anchor = ({ label, dark=false }) => {
+const Anchor = ({ label, dark=false, onClick }) => {
     const [hover, setHover] = useState(false)
-    const [active, setActive] = useState(false)
-
-    useEffect(() => console.log(active), [active])
 
     return (
         <div 
@@ -17,8 +14,7 @@ const Anchor = ({ label, dark=false }) => {
                 ...(hover && !dark? styles.hover : null )}} 
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClickCapture={() => setActive(true)}
-            onAuxClickCapture={() => console.log('testing')}
+            onClick={onClick}
          >
             { label }
 

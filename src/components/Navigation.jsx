@@ -1,10 +1,10 @@
 import Logo from "./atom/Logo";
 import Anchor from "./atom/Anchor";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { scrollTo } from "../helpers/common";
 
 const Navigation = () => {
-    const { scrollTop } = useSelector(({metadata}) => metadata)
+    const { scrollTop, listRef } = useSelector(({metadata}) => metadata)
 
     return (
         <div 
@@ -18,12 +18,21 @@ const Navigation = () => {
                 <Logo  label="Fegarido" />
             </div>
             <div className="grid grid-cols-6 gap-10 content-end ">
-                <Anchor label="Home" />
-                <Anchor label="About" />
-                <Anchor label="Service" />
-                <Anchor label="Works" />
-                <Anchor label="Blog" />
-                <Anchor label="Contact" />
+                <Anchor label="Home" onClick={() => {
+                    scrollTo(listRef.homeRef)
+                }}/>
+                <Anchor label="About" onClick={() => {
+                    scrollTo(listRef.aboutRef)
+                }}/>
+                <Anchor label="Service" onClick={() => {
+                    scrollTo(listRef.serviceRef)
+                }}/>
+                <Anchor label="Works" onClick={() => {
+                    scrollTo(listRef.worksRef)
+                }}/>
+                <Anchor label="Contact" onClick={() => {
+                    scrollTo(listRef.contactRef)
+                }}/>
                 
             </div>
         </div>

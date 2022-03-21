@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Title from '../components/atom/Title';
 import CircleLogo from '../components/atom/CircleLogo';
 import CardTitle from "../components/atom/CardTitle";
@@ -6,10 +6,19 @@ import CardDescription from "../components/atom/CardDescription";
 import Input from "../components/atom/Input";
 import TextArea from "../components/atom/TextArea";
 import Button from "../components/atom/Button"
-
+import { useEffect, useRef } from "react";
+import { setReference } from "../store/metadata";
 
 const Contact = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
+    const contactRef = useRef(null)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setReference({name: 'contactRef', value: contactRef }))
+    })
+
+
 
     const contactUs = [
         {
@@ -31,6 +40,7 @@ const Contact = () => {
 
     return (
         <div 
+            ref={contactRef}
             style={{
                 ...styles.container,
                 height: `${windowHeight}px`

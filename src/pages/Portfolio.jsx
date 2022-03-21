@@ -1,13 +1,20 @@
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Title from "../components/atom/Title";
 import Card from "../components/Card";
 import CardImage from "../components/atom/CardImage";
 import Anchor from '../components/atom/Anchor'
-import Icon from '../components/atom/Icon'
+import { useEffect, useRef } from "react";
+import { setReference } from "../store/metadata";
 
 const Portfolio = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
+    const worksRef = useRef(null)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setReference({name: 'worksRef', value: worksRef }))
+    })
     
     const portfolioData = [
         {
@@ -44,6 +51,7 @@ const Portfolio = () => {
 
     return (
         <div 
+            ref={worksRef}
             className={"relative flex flex-col items-center pt-10 mt-10"} 
             style={{...styles.container, height: `${windowHeight}px`}}>
 
