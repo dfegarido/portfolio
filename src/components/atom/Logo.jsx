@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 
 
-const Logo = ({ label }) => {
-    const { scrollTop } = useSelector(({ metadata }) => metadata )
+const Logo = ({ label, onClick }) => {
+    const { scrollTop, windowWidth } = useSelector(({ metadata }) => metadata )
 
     return (
-        <div style={{
-            ...styles.logo,
-            ...(scrollTop > 500 ? styles.onScrollTop : null)
-        }}>
+        <div 
+            style={{
+                ...styles.logo,
+                ...( windowWidth >= 600 && scrollTop > 500 ? styles.onScrollTop : null)
+            }}
+            onClick={onClick}
+        >
             {label}
         </div>
     )
@@ -24,6 +27,7 @@ const styles = {
         fontSize: '35px',
         lineHeight: '48px',
         color: '#FFFFFF',
+        cursor: 'pointer'
     },
     onScrollTop: {
         fontSize: '25px',

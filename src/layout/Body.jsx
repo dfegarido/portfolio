@@ -19,28 +19,41 @@ const Body = () => {
     })
 
     const nameToAnimate = [
-        "Fullstack Developer", 
         "Darwin Fegarido",
+        "Javascript Developer",
+        "Python Developer",
+        "Frontend Developer",
+        "Backend Developer",
         "Solution Architect",
         "UI / UX Designer", 
-        "SEO Specialist",
-        "Dev Ops",
+        "Shopify Developer",
     ]
 
     return (
         <div 
             ref={homeRef}
-            className="w-full flex-row ">
+            className="flex-1 flex-row "
+            style={{ background: 'blue' }}
+        >
             {/* Landing Page Background */}
             <div 
-                className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two`} 
-                style={{ height: `${windowHeight}px` }}>
-                <div style={{
-                    ...styles.container,
-                    ...(scrollTop > 100 ? styles.hideContainer : null)
-                }}>
-                    <p  style={styles.hello}>HELLO</p>
-                    <div className="text-center "  style={styles.iAm}>
+                className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two flex min-w-full`} 
+                style={{ 
+                    height: `${windowHeight}px` ,
+                    ...styles.bodyBackgroundImage,
+                }}
+            >
+                <div 
+                    style={{
+                        ...styles.container,
+                        ...(scrollTop > 100 ? styles.hideContainer : null),
+                    }}
+                    className={`flex-1 grid justify-items-center`}
+                >
+                    <div  style={styles.hello} className={`flex-1`}>
+                        HELLO
+                    </div>
+                    <div className="flex-1"  style={styles.iAm}>
                         <p>I am <CharacterAnimation label={nameToAnimate}/> </p>
                     </div>
                 </div>
@@ -59,9 +72,10 @@ const Body = () => {
 }
 
 const styles = {
+    bodyBackgroundImage: {
+        backgroundColor: 'red',
+    },
     container: {
-        position: 'relative',
-        top: '170px',
         transition: 'opacity .3s',
         opacity: '1',
     },
@@ -70,27 +84,23 @@ const styles = {
     },
     hello: {
         position: 'absolute',
-        width: '155px',
-        height: '82px',
-        left: '642px',
-        top: '199px',
+        top: '15rem',
         fontFamily: 'Nunito Sans',
         fontStyle: 'normal',
         fontWeight: '800',
-        fontSize: '60px',
+        fontSize: '3rem',
         lineHeight: '82px',
         color: '#FFFFFF',
     },
     iAm: {
         position: 'absolute',
         height: '68px',
-        width: '100%',
         top: '303px',
 
         fontFamily: 'Nunito Sans',
         fontStyle: 'normal',
         fontWeight: '300',
-        fontSize: '50px',
+        fontSize: '2rem',
         lineHeight: '68px',
 
         color: '#FFFFFF',

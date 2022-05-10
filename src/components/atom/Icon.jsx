@@ -8,10 +8,16 @@ import link from '../../assets/link.svg'
 import pin from '../../assets/pin.svg'
 import email from '../../assets/email.svg'
 import phone from '../../assets/phone.svg'
+import menu from '../../assets/menu.svg'
+import close from '../../assets/close.svg'
 
-const Icon = ({ name }) => {
+const Icon = (props) => {
+    const name = props?.name
     let icon = ''
     switch (true) {
+        case name === 'close' :
+            icon = close
+            break;
         case name === 'computer' :
             icon = computer
             break;
@@ -42,6 +48,9 @@ const Icon = ({ name }) => {
         case name === 'phone' :
             icon = phone
             break;
+        case name === 'menu' :
+            icon = menu
+            break;
         default:
             icon = computer
             break;
@@ -49,8 +58,8 @@ const Icon = ({ name }) => {
 
 
     return (
-        <div style={styles.container} >
-            <img src={icon} alt={name} />
+        <div {...props} >
+            <img src={icon} alt={name} style={styles.container} />
         </div>
     )
 }

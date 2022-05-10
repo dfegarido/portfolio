@@ -36,7 +36,7 @@ const styles = {
         left: '659px',
         top: '55px',
         fontWeight: '800',
-        fontSize: '18px',
+        fontSize: '0.9rem',
         lineHeight: '25px',
         cursor: 'pointer',
         color: '#ffffffd1',

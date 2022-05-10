@@ -6,6 +6,7 @@ export const metadata = createSlice({
     firstname: '',
     lastname: '',
     windowHeight: '',
+    windowWidth: '',
     scrollTop: '',
 
     listRef: {
@@ -21,6 +22,9 @@ export const metadata = createSlice({
   reducers: {
     setWindowHeight: (state, { payload }) => {
       state.windowHeight = payload + 200
+    },
+    setWindowWidth: (state, { payload }) => {
+      state.windowWidth = payload
     },
     setScrollTop: (state, { payload }) => {
       state.scrollTop = payload
@@ -38,6 +42,6 @@ export const metadata = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { firstName, lastName, setWindowHeight, setScrollTop, setReference } = metadata.actions
+export const { firstName, lastName, setWindowHeight, setScrollTop, setReference, setWindowWidth } = metadata.actions
 
 export default metadata.reducer

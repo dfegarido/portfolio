@@ -14,7 +14,7 @@ const AboutMe = () => {
             <Description label={description} />
             <div className="grid grid-cols-2 gap-4" style={styles.buttonContainer}>
                 <Button label={"Download Resume"} dark={true} />
-                <Button label={"Contact Us"} dark={false} />
+                <Button label={"Contact"} dark={false} />
             </div>
         </div>
     )
