@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 
-const Anchor = ({ label, dark=false, onClick }) => {
+const Anchor = ({ label, dark=false, onClick, className }) => {
     const [hover, setHover] = useState(false)
 
     return (
         <div 
-            className="grid justify-items-center"
+            className={className}
             style={{
                 ...styles.normal, 
                 ...(dark ? styles.dark : null ),
@@ -31,10 +31,6 @@ const Anchor = ({ label, dark=false, onClick }) => {
 
 const styles = {
     normal: {
-        width: '51px',
-        height: '25px',
-        left: '659px',
-        top: '55px',
         fontWeight: '800',
         fontSize: '0.9rem',
         lineHeight: '25px',

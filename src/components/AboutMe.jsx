@@ -2,6 +2,9 @@ import Title from "./atom/Title";
 import SubTitle from "./atom/SubTitle";
 import Description from "./atom/Description";
 import Button from "./atom/Button";
+import Icon from "./atom/Icon";
+
+
 
 const AboutMe = () => {
 
@@ -13,9 +16,17 @@ const AboutMe = () => {
             <SubTitle label={"Fullstack Developer"} className="font-black text-lg sm:text-xl text-neutral-400" />
             <Description label={description} className="font-thin text-justify sm:text-right text-neutral-500 mt-5 text-sm sm:text-base"/>
             <div className="grid grid-cols-2 gap-4 mt-10" >
-                <Button label={"Download Resume"} className={`cursor-pointer active:bg-slate-600 outline px-5 py-3 md:py-2 text-xs sm:text-sm text-center rounded dark:bg-slate-900 dark:text-white   `} />
-                <Button label={"Contact"} className={`cursor-pointer outline px-5 py-3 md:py-2 text-xs sm:text-sm active:bg-slate-200 text-center rounded  text-slate-900`}  />
+                <Button label={<DownloadResume />} className={`grid place-items-center cursor-pointer active:bg-slate-600 outline px-5 h-8 text-xs sm:text-sm text-center rounded dark:bg-slate-900 dark:text-white   `} />
+                <Button label={"Contact"} className={`grid place-items-center cursor-pointer outline px-5 h-8 text-xs sm:text-sm active:bg-slate-200 text-center rounded  text-slate-900`}  />
             </div>
+        </div>
+    )
+}
+
+const DownloadResume = () => {
+    return (
+        <div className="flex flex-row gap-2">
+            <span>Resume</span> <Icon name="download"className={`h-5 w-5`}/>
         </div>
     )
 }

@@ -27,7 +27,7 @@ const Default = () => {
     }, [])
 
     return (
-      <div className={`grid grid-rows-1 h-fit overflow-hidden`}>
+      <div className={`h-fit overflow-hidden`}>
           <Header />
           <Body />
           <Footer />

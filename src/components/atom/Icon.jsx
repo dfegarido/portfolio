@@ -10,45 +10,49 @@ import email from '../../assets/email.svg'
 import phone from '../../assets/phone.svg'
 import menu from '../../assets/menu.svg'
 import close from '../../assets/close.svg'
+import download from '../../assets/download.svg'
 
 const Icon = (props) => {
-    const name = props?.name
-    let icon = ''
-    switch (true) {
-        case name === 'close' :
+    const name = props?.name;
+    let icon;
+    switch (name) {
+        case 'download' :
+            icon = download
+            break;
+        case 'close' :
             icon = close
             break;
-        case name === 'computer' :
+        case 'computer' :
             icon = computer
             break;
-        case name === 'branding' :
+        case 'branding' :
             icon = branding
             break;
-        case name === 'brush' :
+        case 'brush' :
             icon = brush
             break;
-        case name === 'cloud' :
+        case 'cloud' :
             icon = cloud
             break;
-        case name === 'development' :
+        case 'development' :
             icon = development
             break;
-        case name === 'mobile' :
+        case 'mobile' :
             icon = mobile
             break;
-        case name === 'link' :
+        case 'link' :
             icon = link
             break;
-        case name === 'pin' :
+        case 'pin' :
             icon = pin
             break;
-        case name === 'email' :
+        case 'email' :
             icon = email
             break;
-        case name === 'phone' :
+        case 'phone' :
             icon = phone
             break;
-        case name === 'menu' :
+        case 'menu' :
             icon = menu
             break;
         default:
@@ -59,16 +63,8 @@ const Icon = (props) => {
 
     return (
         <div {...props} >
-            <img src={icon} alt={name} style={styles.container} />
+            <img src={icon} alt={name}  />
         </div>
     )
 }
-
-const styles = {
-    container: {
-        width: '50px',
-        height: '50px',
-    }
-}
-
 export default Icon;

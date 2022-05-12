@@ -46,25 +46,41 @@ const Navigation = () => {
                 <div className="grid justify-items-end w-full pr-6 ">
                     <Icon 
                         onClick={() => setToggleMenu(prevState => !prevState)}
-                        name={'close'} 
-                        className={`h-8 w-8 pb-12 cursor-pointer origin-center rotate-${toggleMenu ? '180' : '45'} transition-all duration-100 `}/>
+                        name={'menu'} 
+                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center rotate-${toggleMenu ? '180' : '45'} transition-all duration-100 `}/>
                     <div 
-                        style={styles.menuList} className={`fixed gap-4 -mr-6 w-full justify-items-end pr-6 pt-2 grid grid-rows-6 content-end transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 -z-10 mt-20'}`}>
-                        <Anchor label="Home" onClick={() => {
-                            scrollTo(listRef.homeRef)
-                        }}/>
-                        <Anchor label="About" onClick={() => {
-                            scrollTo(listRef.aboutRef)
-                        }}/>
-                        <Anchor label="Service" onClick={() => {
-                            scrollTo(listRef.serviceRef)
-                        }}/>
-                        <Anchor label="Portfolio" onClick={() => {
-                            scrollTo(listRef.worksRef)
-                        }}/>
-                        <Anchor label="Contact" onClick={() => {
-                            scrollTo(listRef.contactRef)
-                        }}/>
+                        style={styles.menuList} 
+                        className={`fixed gap-6 -mr-6 w-full justify-items-end text-right pr-6 pt-1 grid grid-rows-6 transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 -z-10 mt-20'}`}>
+                        <Anchor 
+                            className={`text-right`}
+                            label="Home" 
+                            onClick={() => {
+                                scrollTo(listRef.homeRef)
+                            }}/>
+                        <Anchor 
+                            className={`text-right`}
+                            label="About" 
+                            onClick={() => {
+                                scrollTo(listRef.aboutRef)
+                            }}/>
+                        <Anchor 
+                            className={`text-right`}
+                            label="Service" 
+                            onClick={() => {
+                                scrollTo(listRef.serviceRef)
+                            }}/>
+                        <Anchor 
+                            className={`text-right`}
+                            label="Portfolio" 
+                            onClick={() => {
+                                scrollTo(listRef.worksRef)
+                            }}/>
+                        <Anchor 
+                            className={`text-right`}
+                            label="Contact" 
+                            onClick={() => {
+                                scrollTo(listRef.contactRef)
+                            }}/>
                     </div>
                 </div>:null
             }
