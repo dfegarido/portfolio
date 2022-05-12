@@ -1,20 +1,11 @@
 
 
-const CardTitle = ({ label, className }) => {
+const CardTitle = (props) => {
     return (
-        <div className={className} style={styles.container} >
-            { label }
+        <div {...props} >
+            { props.label }
         </div>
     )
-}
-
-const styles = {
-    container: {
-        fontWeight: '800',
-        fontSize: '20px',
-        lineHeight: '27px',
-        color: '#000000',
-    }
 }
 
 export default CardTitle;

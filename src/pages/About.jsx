@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
 

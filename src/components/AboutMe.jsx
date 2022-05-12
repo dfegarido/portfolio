@@ -26,7 +26,7 @@ const AboutMe = () => {
 const DownloadResume = () => {
     return (
         <div className="flex flex-row gap-2">
-            <span>Resume</span> <Icon name="download"className={`h-5 w-5`}/>
+            <span className={`py-1`}>Resume</span> <Icon name="download"className={`h-5 w-5 sm:py-1`}/>
         </div>
     )
 }

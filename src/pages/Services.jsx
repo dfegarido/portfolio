@@ -9,8 +9,6 @@ import { setReference } from "../store/metadata";
 
 
 const Services = () => {
-
-    const { windowHeight } = useSelector(({ metadata }) => metadata)
     const serviceRef = useRef(null)
     const dispatch = useDispatch()
 
@@ -57,18 +55,18 @@ const Services = () => {
     return (
         <div 
             ref={serviceRef}
-            className={`relative flex flex-col items-center pt-10 pb-10`}
-            style={{...styles.container, height: `${windowHeight}px`}}>
+            className={`flex flex-col items-center pt-10 pb-10`}
+            style={{...styles.container}}>
 
-            <Title label={"Services"} />
+            <Title label={"Services"} className="font-black text-2xl sm:text-3xl "/>
             
-            <div className={"grid grid-cols-3 gap-20 mt-10"} style={styles.card}>
+            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
                 { 
                     servicesData.map(({ logo, title, description }, key) => (
-                        <Card className={'p-10 grid grid-rows-3 items-start place-items-center'} key={key}>
-                            <CircleLogo  name={logo} />
-                            <CardTitle className={'pt-5'} label={title} />
-                            <CardDescription className={'-mt-7'} label={description}/>
+                        <Card className={'p-2 grid items-start place-items-center'} key={key}>
+                            <CircleLogo  name={logo} className={`h-12 w-12 p-2 mt-1 sm:h-20 sm:w-20 sm:p-5`}/>
+                            <CardTitle className={'font-semibold'} label={title} />
+                            <CardDescription className={'text-justify my-3 text-gray-500 mx-5 text-xs sm:text-sm'} label={description}/>
                         </Card>
                     )) 
                 }

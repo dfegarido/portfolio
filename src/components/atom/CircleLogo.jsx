@@ -1,18 +1,16 @@
 import Icon from "./Icon";
 
 
-const CircleLogo = ({ name }) => {
+const CircleLogo = (props) => {
     return (
-        <div className="p-5" style={styles.container}>
-            <Icon name={name} />
+        <div {...props} style={styles.container}>
+            <Icon name={props.name} className={`h-8 w-8 sm:h-10 sm:w-10`}/>
         </div>
     )
 }
 
 const styles = {
     container: {
-        width: '90px',
-        height: '90px',
         background: '#E5E5E561',
         borderRadius: '50px',
     }

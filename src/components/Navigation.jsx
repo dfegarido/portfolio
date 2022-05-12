@@ -3,11 +3,17 @@ import Anchor from "./atom/Anchor";
 import { useSelector } from "react-redux";
 import { scrollTo } from "../helpers/common";
 import Icon from "./atom/Icon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Navigation = () => {
-    const { scrollTop, listRef, windowWidth, isMobile } = useSelector(({metadata}) => metadata)
+    const { scrollTop, listRef, isMobile } = useSelector(({metadata}) => metadata)
     const [ toggleMenu, setToggleMenu ] = useState(false)
+
+
+    const closeMenu = (ref) => {
+        setToggleMenu(prevState => !prevState)
+        scrollTo(ref)
+    }
 
     return (
         <div 
@@ -19,25 +25,25 @@ const Navigation = () => {
         >
             <div className={`grid justify-items-${ !isMobile ? 'center' : 'start'} pl-6  content-end w-[50%]`} >
                 <Logo  label="Fegarido" onClick={() => {
-                    scrollTo(listRef.homeRef)
+                    closeMenu(listRef.homeRef)
                 }}/>
             </div>
 
             <div className={`gap-10 grid grid-cols-6 content-end ${ isMobile  ? 'hidden' : ''}`}>
                 <Anchor label="Home" onClick={() => {
-                    scrollTo(listRef.homeRef)
+                    closeMenu(listRef.homeRef)
                 }}/>
                 <Anchor label="About" onClick={() => {
-                    scrollTo(listRef.aboutRef)
+                    closeMenu(listRef.aboutRef)
                 }}/>
                 <Anchor label="Service" onClick={() => {
-                    scrollTo(listRef.serviceRef)
+                    closeMenu(listRef.serviceRef)
                 }}/>
                 <Anchor label="Portfolio" onClick={() => {
-                    scrollTo(listRef.worksRef)
+                    closeMenu(listRef.worksRef)
                 }}/>
                 <Anchor label="Contact" onClick={() => {
-                    scrollTo(listRef.contactRef)
+                    closeMenu(listRef.contactRef)
                 }}/>
             </div>
 
@@ -55,31 +61,31 @@ const Navigation = () => {
                             className={`text-right`}
                             label="Home" 
                             onClick={() => {
-                                scrollTo(listRef.homeRef)
+                                closeMenu(listRef.homeRef)
                             }}/>
                         <Anchor 
                             className={`text-right`}
                             label="About" 
                             onClick={() => {
-                                scrollTo(listRef.aboutRef)
+                                closeMenu(listRef.aboutRef)
                             }}/>
                         <Anchor 
                             className={`text-right`}
                             label="Service" 
                             onClick={() => {
-                                scrollTo(listRef.serviceRef)
+                                closeMenu(listRef.serviceRef)
                             }}/>
                         <Anchor 
                             className={`text-right`}
                             label="Portfolio" 
                             onClick={() => {
-                                scrollTo(listRef.worksRef)
+                                closeMenu(listRef.worksRef)
                             }}/>
                         <Anchor 
                             className={`text-right`}
                             label="Contact" 
                             onClick={() => {
-                                scrollTo(listRef.contactRef)
+                                closeMenu(listRef.contactRef)
                             }}/>
                     </div>
                 </div>:null
