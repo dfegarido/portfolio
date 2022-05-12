@@ -33,14 +33,12 @@ const Body = () => {
         <div 
             ref={homeRef}
             className="flex-1 flex-row "
-            style={{ background: 'blue' }}
         >
             {/* Landing Page Background */}
             <div 
                 className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two flex min-w-full`} 
                 style={{ 
                     height: `${windowHeight}px` ,
-                    ...styles.bodyBackgroundImage,
                 }}
             >
                 <div 
@@ -72,9 +70,6 @@ const Body = () => {
 }
 
 const styles = {
-    bodyBackgroundImage: {
-        backgroundColor: 'red',
-    },
     container: {
         transition: 'opacity .3s',
         opacity: '1',

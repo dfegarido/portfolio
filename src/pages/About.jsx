@@ -4,7 +4,6 @@ import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
 
 const About = () => {
-    const { windowHeight } = useSelector(({ metadata }) => metadata)
     const aboutRef = useRef(null)
     const dispatch = useDispatch()
 
@@ -16,13 +15,12 @@ const About = () => {
     return (
         <div 
             ref={aboutRef}
-            className={`grid grid-flow-row-dense grid-cols-2 w-full`}
-            style={{ height: `${windowHeight}px`}}
+            className={`grid grid-cols-1 sm:grid-cols-2 mb-10`}
         >
-            <div className="grow h-full place-content-end" >
+            <div className=" w-full grid justify-items-center" >
                 <AboutMe />
             </div>
-            <div className='grid h-full place-content-end -z-10' >
+            <div className=' place-items-end -z-10 hidden sm:grid ' >
                 <img  src={profile} alt="Profile" style={styles.profileImage} />
             </div>
         </div>
@@ -31,8 +29,8 @@ const About = () => {
 
 const styles = {
     profileImage: {
-        width: '599px',
-        height: '701px',
+        // width: '599px',
+        // height: '701px',
     }
 }
 

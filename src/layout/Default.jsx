@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { setScrollTop, setWindowHeight, setWindowWidth } from '../store/metadata'
+import { setScrollTop, setWindowHeight, setWindowWidth, setIsMobile } from '../store/metadata'
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
@@ -15,9 +15,12 @@ const Default = () => {
 
     const resizeListener = () => {
         dispatch(setWindowWidth(document.body.offsetWidth))
+        dispatch(setIsMobile(document.body.offsetWidth < 640))
     }
 
     useEffect(() => {
+        dispatch(setWindowWidth(document.body.offsetWidth))
+        dispatch(setIsMobile(document.body.offsetWidth < 600))
         window.addEventListener('scroll', scrollListener)
         window.addEventListener('resize', resizeListener)
         dispatch(setWindowHeight(window.innerHeight))

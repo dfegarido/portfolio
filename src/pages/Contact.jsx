@@ -68,7 +68,7 @@ const Contact = () => {
                 <TextArea label={"Message"}/>
             </div>
             <div className="mt-5 mx-20">
-                <Button label={"Submit"} dark={true}/>
+                <Button label={"Submit"}/>
             </div>
         </div>
     )

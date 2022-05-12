@@ -2,13 +2,14 @@ import { useSelector } from "react-redux";
 
 
 const Logo = ({ label, onClick }) => {
-    const { scrollTop, windowWidth } = useSelector(({ metadata }) => metadata )
+    const { scrollTop, windowWidth, isMobile } = useSelector(({ metadata }) => metadata )
 
     return (
         <div 
             style={{
                 ...styles.logo,
-                ...( windowWidth >= 600 && scrollTop > 500 ? styles.onScrollTop : null)
+                ...( !isMobile && scrollTop > 500 ? styles.onScrollTop : null),
+                ...( isMobile ? styles.mobile : null)
             }}
             onClick={onClick}
         >
@@ -24,7 +25,7 @@ const styles = {
         width: '184px',
         height: '48px',
         fontWeight: '800',
-        fontSize: '35px',
+        fontSize: '2rem',
         lineHeight: '48px',
         color: '#FFFFFF',
         cursor: 'pointer'
@@ -32,6 +33,12 @@ const styles = {
     onScrollTop: {
         fontSize: '25px',
         lineHeight: '65px',
+    },
+    mobile: {
+        fontSize: '15px',
+        lineHeight: '65px',
+        lineHeight: '3rem',
+        fontSize: '1.5rem',
     }
 }
 

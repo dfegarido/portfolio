@@ -6,23 +6,24 @@ import Icon from "./atom/Icon";
 import { useEffect, useState } from "react";
 
 const Navigation = () => {
-    const { scrollTop, listRef, windowWidth } = useSelector(({metadata}) => metadata)
+    const { scrollTop, listRef, windowWidth, isMobile } = useSelector(({metadata}) => metadata)
     const [ toggleMenu, setToggleMenu ] = useState(false)
+
     return (
         <div 
             className="flex flex-row min-w-full" 
             style={{
                 ...styles.navigation,
-                ...(windowWidth > 600 && scrollTop > 500 ? styles.hideNavigation : null),
+                ...( !isMobile && scrollTop > 500 ? styles.hideNavigation : null),
             }}
         >
-            <div className={`grid justify-items-${!windowWidth || windowWidth >= 600 ? 'center' : 'start'} pl-6  content-end w-[50%]`} >
+            <div className={`grid justify-items-${ !isMobile ? 'center' : 'start'} pl-6  content-end w-[50%]`} >
                 <Logo  label="Fegarido" onClick={() => {
                     scrollTo(listRef.homeRef)
                 }}/>
             </div>
 
-            <div className={`gap-10 grid grid-cols-6 content-end ${(!windowWidth || windowWidth < 600) ? 'hidden' : ''}`}>
+            <div className={`gap-10 grid grid-cols-6 content-end ${ isMobile  ? 'hidden' : ''}`}>
                 <Anchor label="Home" onClick={() => {
                     scrollTo(listRef.homeRef)
                 }}/>
@@ -41,19 +42,14 @@ const Navigation = () => {
             </div>
 
             {    
-                !windowWidth || windowWidth < 600 ?
-                <div 
-                    className="grid justify-items-end w-full pr-6"
-                    onClick={() => setToggleMenu(prevState => !prevState)}
-                >
-                    {
-                        !toggleMenu ? <Icon name={'menu'} className={`cursor-pointer `}/> :
-                        <Icon name={'close'} className={`cursor-pointer origin-center rotate-${toggleMenu ? '180' : '0'} transition-all duration-300 `}/>
-                    }
-                    
-                    
+                 isMobile ?
+                <div className="grid justify-items-end w-full pr-6 ">
+                    <Icon 
+                        onClick={() => setToggleMenu(prevState => !prevState)}
+                        name={'close'} 
+                        className={`h-8 w-8 pb-12 cursor-pointer origin-center rotate-${toggleMenu ? '180' : '45'} transition-all duration-100 `}/>
                     <div 
-                        style={styles.menuList} className={`fixed gap-2  -mr-6 w-full justify-items-end pr-6 pt-4 grid grid-rows-6 content-end transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 mt-20'}`}>
+                        style={styles.menuList} className={`fixed gap-4 -mr-6 w-full justify-items-end pr-6 pt-2 grid grid-rows-6 content-end transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 -z-10 mt-20'}`}>
                         <Anchor label="Home" onClick={() => {
                             scrollTo(listRef.homeRef)
                         }}/>
