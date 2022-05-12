@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 const Anchor = ({ label, dark=false, onClick, className }) => {
@@ -19,10 +19,10 @@ const Anchor = ({ label, dark=false, onClick, className }) => {
             { label }
 
             <div 
-                 style={{ 
-                     ...styles.line, 
-                     ...(hover && dark? styles.lineHoverDark : null),
-                     ...(hover && !dark? styles.lineHover : null) }}
+                style={{ 
+                    ...styles.line, 
+                    ...(hover && dark? styles.lineHoverDark : null),
+                    ...(hover && !dark? styles.lineHover : null) }}
             ></div>
             
         </div>
@@ -36,6 +36,7 @@ const styles = {
         lineHeight: '25px',
         cursor: 'pointer',
         color: '#ffffffd1',
+        paddingBottom: '1px'
     },
     dark: {
         color: '#9A9A9A'
@@ -50,20 +51,18 @@ const styles = {
         transition: 'width .3s',
         width: '0px',
         height: '0px',
-        marginTop: '-2px',
-
+        paddingBottom: '1px',
     },
     lineHover: {
         width: '100%',
         borderBottom: '1px solid #FFFFFF',
+        paddingBottom: '0px',
     },
     lineHoverDark: {
         width: '100%',
         borderBottom: '1px solid #000000',
+        paddingBottom: '0px',
     }
-
-    
-
 
 }
 

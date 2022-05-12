@@ -53,22 +53,25 @@ const Portfolio = () => {
         <div 
             ref={worksRef}
             className={"relative flex flex-col items-center pt-10 mt-10"} 
-            style={{...styles.container, height: `${windowHeight}px`}}>
+            style={{...styles.container}}>
 
             <Title label={"Portfolio"} />
             
-            <div className="grid grid-cols-3 gap-[200px]  mt-10">
+            <div className="gap-10 sm:gap-20 grid grid-flow-col mt-10">
                 <Anchor label={"All"} dark={true} />
                 <Anchor label={"Desktop"} dark={true}/>
                 <Anchor label={"Mobile"} dark={true}/>
             </div>
 
-            <div className={"grid grid-cols-3 gap-20 mt-10"} style={styles.card}>
+            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
                 { 
                     portfolioData.map(({ name, url, link }, key) => (
-                        <Card className={'grid grid-rows-3 items-start place-items-center'} key={key}>
-                            <CardImage name={name} image={url} link={link} />   
-                        </Card>
+                            <CardImage  
+                                name={name} 
+                                image={url} 
+                                link={link} 
+                                key={key}
+                            />                               
                     )) 
                 }
             </div>

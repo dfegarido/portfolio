@@ -29,7 +29,7 @@ const Navigation = () => {
                 }}/>
             </div>
 
-            <div className={`gap-10 grid grid-cols-6 content-end ${ isMobile  ? 'hidden' : ''}`}>
+            <div className={`gap-10 grid grid-flow-col content-end ${ isMobile  ? 'hidden' : ''}`}>
                 <Anchor label="Home" onClick={() => {
                     closeMenu(listRef.homeRef)
                 }}/>
@@ -53,7 +53,7 @@ const Navigation = () => {
                     <Icon 
                         onClick={() => setToggleMenu(prevState => !prevState)}
                         name={'menu'} 
-                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center rotate-${toggleMenu ? '180' : '45'} transition-all duration-100 `}/>
+                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center  `}/>
                     <div 
                         style={styles.menuList} 
                         className={`fixed gap-6 -mr-6 w-full justify-items-end text-right pr-6 pt-1 grid grid-rows-6 transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 -z-10 mt-20'}`}>

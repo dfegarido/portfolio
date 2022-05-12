@@ -12,7 +12,7 @@ const AboutMe = () => {
 
     return (
         <div className="flex flex-col items-center sm:items-end mt-10 mb-20 p-5 w-[90%] bg-neutral-100 rounded shrink-0" >
-            <Title label={"About Me"} className="font-black text-2xl sm:text-3xl "/>
+            <Title label={"About Me"}/>
             <SubTitle label={"Fullstack Developer"} className="font-black text-lg sm:text-xl text-neutral-400" />
             <Description label={description} className="font-thin text-justify sm:text-right text-neutral-500 mt-5 text-sm sm:text-base"/>
             <div className="grid grid-cols-2 gap-4 mt-10" >
