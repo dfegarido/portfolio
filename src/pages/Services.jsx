@@ -64,9 +64,9 @@ const Services = () => {
                 { 
                     servicesData.map(({ logo, title, description }, key) => (
                         <Card className={'p-2 grid items-start place-items-center max-w-xs'} key={key}>
-                            <CircleLogo  name={logo} className={`h-12 w-12 p-2 mt-1 sm:h-20 sm:w-20 sm:p-5`}/>
-                            <CardTitle className={'font-semibold'} label={title} />
-                            <CardDescription className={'text-justify my-3 text-gray-500 mx-5 text-xs sm:text-sm'} label={description}/>
+                            <CircleLogo  name={logo} />
+                            <CardTitle label={title} className={`text-base`}/>
+                            <CardDescription className={'text-justify'} label={description}/>
                         </Card>
                     )) 
                 }

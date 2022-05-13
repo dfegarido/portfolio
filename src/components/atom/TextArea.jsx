@@ -1,16 +1,13 @@
 import { useState } from "react";
 
 
-const TextArea = ({ label }) => {
+const TextArea = (props) => {
     const [value, setValue] = useState("")
     const [hover, setHover] = useState(false)
-
-
     return (
-        <div style={styles.container}>
+        <div {...props} className={`relative h-20 ${props?.className}`}>
             <textarea 
-                className={'p-5'}
-                style={styles.textArea} 
+                className={'absolute bg-neutral-200 rounded-md text-xs w-full h-10 px-3 pt-4 text-neutral-600 min-h-full'}
                 cols="10" rows="10" 
                 value={value} 
                 onChange={e => setValue(e.target.value)}
@@ -18,46 +15,11 @@ const TextArea = ({ label }) => {
                 onBlur={() => setHover(false)}>
                     
             </textarea>
-            <div style={{
-                ...styles.label,
-                ...(hover || value.length !== 0 ? styles.hover : null)
-                }}>
-                { label }
+            <div className={`transition-all font-bold duration-300 absolute z-0 ml-3 text-neutral-400 ${hover || value.length > 0 ? 'text-xs mt-1' : 'text-base mt-2'}`}>
+                { props?.label }
             </div>
         </div>
     )
-}
-
-const styles = {
-    container: {
-        position: 'relative',
-        width: '100%',
-        height: '187px',
-    },
-    textArea: {
-        position: 'relative',
-        width: '100%',
-        height: '187px',
-        background: '#E5E5E5',
-    },
-    label: {
-        position: 'relative',
-        width: '54px',
-        height: '34px',
-        left: '20px',
-        bottom: '186px',
-        fontFamily: 'Nunito Sans',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        fontSize: '18px',
-        lineHeight: '34px',
-        color: '#9A9A9A',
-        transition: 'bottom  .5s ease-in-out',
-    },
-    hover: {
-        bottom: '195px',
-        fontSize: '12px',
-    }
 }
 
 

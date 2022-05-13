@@ -29,7 +29,7 @@ const Navigation = () => {
                 }}/>
             </div>
 
-            <div className={`gap-10 grid grid-flow-col content-end ${ isMobile  ? 'hidden' : ''}`}>
+            <div className={`gap-10 grid grid-flow-col content-end mx-4 ${ isMobile  ? 'hidden' : ''}`}>
                 <Anchor label="Home" onClick={() => {
                     closeMenu(listRef.homeRef)
                 }}/>

@@ -2,7 +2,7 @@
 
 const CardTitle = (props) => {
     return (
-        <div {...props} >
+        <div {...props} className={`font-semibold ${props?.className}`} >
             { props.label }
         </div>
     )

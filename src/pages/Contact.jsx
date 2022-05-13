@@ -42,33 +42,35 @@ const Contact = () => {
         <div 
             ref={contactRef}
             style={{
-                ...styles.container,
-                height: `${windowHeight}px`
+                ...styles.container
             }}
             >
             <div className="pt-10 grid justify-center">
                 <Title label={"Contact Us"}/>
             </div>
-            <div className="pt-10 grid grid-cols-3 gap-4 ">
+            <div className="pt-10 flex flex-col sm:flex-row gap-4 ">
                 {
                     contactUs.map((item, key) => (
-                        <div className="flex flex-col  text-center place-items-center" key={key}>
-                            <CircleLogo name={item.logo}/>
-                            <CardTitle label={item.name} className={"mt-5"}/>
-                            <CardDescription label={item.description} className={"mt-2 w-[300px] m-0 p-0"}/>
+                        <div className="flex flex-col flex-1 text-center items-center justify-items-center " key={key}>
+                            <CircleLogo name={item.logo} />
+                            <CardTitle label={item.name} className="text-xs mt-3"/>
+                            <CardDescription label={item.description} className="text-center text-xs w-48 max-w-prose"/>
                         </div>
                     ))
                 }
             </div>
-            <div className={"mx-20 mt-20 mb-10 grid grid-cols-2 gap-10"}>
-                <Input type="text" label="Name" />
-                <Input type="email" label="Email" />
-            </div>
-            <div className="mx-20">
-                <TextArea label={"Message"}/>
-            </div>
-            <div className="mt-5 mx-20">
-                <Button label={"Submit"}/>
+            <div className={"mx-5 sm:mx-10 md:mx-24 my-10 flex flex-col"}>
+                <div className="flex flex-col gap-12 sm:flex-row sm:gap-2 ">
+                    <Input type="text" label="Name" className="flex-1 w-full"/>
+                    <Input type="email" label="Email" className="flex-1"/>
+                </div>
+                <div className="flex flex-col mt-12 mb-3 ">
+                    <TextArea label={"Message"} className="w-full"/>
+                </div>
+                <Button label={"Submit"} className="w-full sm:w-48"/>
+
+                
+                
             </div>
         </div>
     )
@@ -76,8 +78,6 @@ const Contact = () => {
 
 const styles = {
     container: {
-        position: 'relative',
-        width: '100%',
         background: '#F9F9F9',
     }
 }

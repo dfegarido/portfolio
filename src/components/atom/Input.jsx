@@ -1,62 +1,28 @@
 import { useState } from "react";
 
 
-const Input = ({ label, type="text"}) => {
+const Input = (props) => {
     const [value, setValue] = useState("")
-    const [hover, setHover] = useState(false)
+    const [focus, setFocus] = useState(false)
 
     return (
-        <div style={styles.container}>
+        <div {...props} className={`relative ${props?.className}`}>
             
             <input 
-                className={" px-5 "}
-                type={type} 
+                className="absolute bg-neutral-200 rounded-md w-full h-10 px-3 pt-3 text-xs text-neutral-600 "
+                type={props?.type} 
                 value={value}
                 onChange={ e => setValue(e.target.value)}
-                style={styles.input}
-                onFocus={() => setHover(true)}
-                onBlur={() => setHover(false)}
+                onFocus={() => setFocus(true)}
+                onBlur={() => setFocus(false)}
+                required={true}
+                autoFocus={true}
             />
-            <div style={{
-                ...styles.label,
-                ...(hover || value.length !== 0 ? styles.hover : null)
-                }}>
-                { label }
+            <div className={`transition-all font-bold duration-300 absolute z-0 ml-3 text-neutral-400 ${focus || value.length > 0 ? 'text-xs mt-1' : 'text-base mt-2'}`}>
+                { props?.label }
             </div>
         </div>
     )
-}
-
-const styles = {
-    container: {
-        position: 'relative',
-        width: '100%',
-        height: '69px',
-    },
-    input: {
-        position: 'relative',
-        width: '100%',
-        height: '69px',
-        background: '#E5E5E5',
-    },
-    label: {
-        position: 'relative',
-        width: '54px',
-        height: '34px',
-        left: '20px',
-        bottom: '50px',
-        fontFamily: 'Nunito Sans',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        fontSize: '18px',
-        lineHeight: '34px',
-        color: '#9A9A9A',
-        transition: 'bottom  .5s ease-in-out',
-    },
-    hover: {
-        bottom: '68px',
-        fontSize: '12px',
-    }
 }
 
 export default Input;

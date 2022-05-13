@@ -12,7 +12,7 @@ const CardImage = (props) => {
                 alt={props.name} 
             /> 
             <Icon 
-                className="absolute cursor-pointer grid place-items-center justify-items-center opacity-0 hover:opacity-100 transition-all duration-300 z-10 w-full  w-full h-full p-2 hover:animate-pulse"
+                className="rounded-md absolute cursor-pointer grid place-items-center justify-items-center opacity-0 hover:opacity-100 transition-all duration-300 z-10 w-full h-full p-2 bg-neutral-700/75"
                 name={'link'}
             />         
         </div>
