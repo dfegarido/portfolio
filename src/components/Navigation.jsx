@@ -25,7 +25,7 @@ const Navigation = () => {
         >
             <div className={`grid justify-items-${ !isMobile ? 'center' : 'start'} pl-6  content-end w-[50%]`} >
                 <Logo  label="Fegarido" onClick={() => {
-                    closeMenu(listRef.homeRef)
+                    scrollTo(listRef.homeRef)
                 }}/>
             </div>
 
@@ -49,40 +49,40 @@ const Navigation = () => {
 
             {    
                  isMobile ?
-                <div className="grid justify-items-end w-full pr-6 ">
+                <div className="grid justify-items-end w-full pr-6">
                     <Icon 
                         onClick={() => setToggleMenu(prevState => !prevState)}
                         name={'menu'} 
-                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center  `}/>
+                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center `}/>
                     <div 
                         style={styles.menuList} 
-                        className={`fixed gap-6 -mr-6 w-full justify-items-end text-right pr-6 pt-1 grid grid-rows-6 transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-1 pt-10 opacity-0 -z-10 mt-20'}`}>
+                        className={`fixed gap-6 -mr-6 w-full justify-items-end text-right pr-6 pt-1 grid grid-rows-6 transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-0 pt-10 opacity-0 -z-10'}`}>
                         <Anchor 
-                            className={`text-right`}
+                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
                             label="Home" 
                             onClick={() => {
                                 closeMenu(listRef.homeRef)
                             }}/>
                         <Anchor 
-                            className={`text-right`}
+                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
                             label="About" 
                             onClick={() => {
                                 closeMenu(listRef.aboutRef)
                             }}/>
                         <Anchor 
-                            className={`text-right`}
+                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
                             label="Service" 
                             onClick={() => {
                                 closeMenu(listRef.serviceRef)
                             }}/>
                         <Anchor 
-                            className={`text-right`}
+                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
                             label="Portfolio" 
                             onClick={() => {
                                 closeMenu(listRef.worksRef)
                             }}/>
                         <Anchor 
-                            className={`text-right`}
+                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
                             label="Contact" 
                             onClick={() => {
                                 closeMenu(listRef.contactRef)

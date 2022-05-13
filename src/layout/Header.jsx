@@ -3,7 +3,7 @@ import Navigation from "../components/Navigation";
 const Header = () => {
 
     return (
-        <div className="min-w-full fixed z-10">
+        <div className="min-w-full fixed z-50">
             <Navigation />
         </div>
     )
