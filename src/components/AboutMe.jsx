@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Title from "./atom/Title";
 import SubTitle from "./atom/SubTitle";
 import Description from "./atom/Description";

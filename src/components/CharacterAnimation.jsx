@@ -38,18 +38,10 @@ const CharacterAnimation = ({ label }) => {
     }, [])
 
     return (
-        <span style={styles.description}>
+        <span className="text-neutral-200 font-bold text-2xl sm:text-4xl">
             {description} 
         </span>
     )
-}
-
-const styles = {
-    description: {
-        fontWeight: '600',
-        fontSize: '2rem',
-    },
-
 }
 
 export default CharacterAnimation

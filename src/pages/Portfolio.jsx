@@ -1,53 +1,22 @@
-
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "../components/atom/Title";
-import Card from "../components/Card";
 import CardImage from "../components/atom/CardImage";
 import Anchor from '../components/atom/Anchor'
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
+import config from "../config";
 
 const Portfolio = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
     const portfolioRef = useRef(null)
     const dispatch = useDispatch()
+    const { portfolio } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'portfolio', value: portfolioRef }))
     }, [])
     
-    const portfolioData = [
-        {
-            'name':'name',
-            'url': require('../assets/landing-background.jpg'),
-            'link':'https://www.google.com'
-        },
-        {
-            'name':'name',
-            'url': require('../assets/landing-background1.jpg'),
-            'link':'https://www.google.com'
-        },
-        {
-            'name':'name',
-            'url': require('../assets/landing-background2.jpg'),
-            'link':'https://www.google.com'
-        },
-        {
-            'name':'name',
-            'url': require('../assets/landing-background3.jpg'),
-            'link':'https://www.google.com'
-        },
-        {
-            'name':'name',
-            'url': require('../assets/landing-background1.jpg'),
-            'link':'https://www.google.com'
-        },
-        {
-            'name':'name',
-            'url': require('../assets/landing-background2.jpg'),
-            'link':'https://www.google.com'
-        },
-    ]
 
     return (
         <div 
@@ -58,18 +27,16 @@ const Portfolio = () => {
             <Title label={"Portfolio"} />
             
             <div className="gap-10 sm:gap-20 grid grid-flow-col mt-10">
-                <Anchor label={"All"} dark={true} />
-                <Anchor label={"Desktop"} dark={true}/>
-                <Anchor label={"Mobile"} dark={true}/>
+                <Anchor label={"All"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('all') }/>
+                <Anchor label={"Desktop"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('desktop') }/>
+                <Anchor label={"Mobile"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('mobile') }/>
             </div>
 
-            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
+            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 mx-8"} style={styles.card}>
                 { 
-                    portfolioData.map(({ name, url, link }, key) => (
+                    portfolio.filter(({ brand }) => brand === brands || 'all' === brands).map((items, key) => (
                             <CardImage  
-                                name={name} 
-                                image={url} 
-                                link={link} 
+                                {...items}
                                 key={key}
                             />                               
                     )) 

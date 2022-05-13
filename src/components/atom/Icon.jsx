@@ -11,11 +11,27 @@ import phone from '../../assets/phone.svg'
 import menu from '../../assets/menu.svg'
 import close from '../../assets/close.svg'
 import download from '../../assets/download.svg'
+import architecture from '../../assets/architecture.svg'
+import developer from '../../assets/developer.svg'
+import monetization from '../../assets/monetization.svg'
+import description from '../../assets/description.svg'
 
 const Icon = (props) => {
     const name = props?.name;
     let icon;
     switch (name) {
+        case 'description' :
+            icon = description
+            break;
+        case 'monetization' :
+            icon = monetization
+            break;
+        case 'developer' :
+            icon = developer
+            break;
+        case 'architecture' :
+            icon = architecture
+            break;
         case 'download' :
             icon = download
             break;

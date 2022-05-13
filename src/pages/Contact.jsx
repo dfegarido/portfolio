@@ -8,11 +8,12 @@ import TextArea from "../components/atom/TextArea";
 import Button from "../components/atom/Button"
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
+import config from "../config";
 
 const Contact = () => {
-    const { windowHeight } = useSelector(({ metadata }) => metadata)
     const contactRef = useRef(null)
     const dispatch = useDispatch()
+    const { contact } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'contact', value: contactRef }))
@@ -24,17 +25,17 @@ const Contact = () => {
         {
             logo: 'pin',
             name: 'Address',
-            description: 'Lorem Ipsum address this is another address #1234 CA.'
+            description: contact?.address
         },
         {
             logo: 'email',
             name: 'Email Address',
-            description: 'thisisasample@example.com'
+            description: contact?.email
         },
         {
             logo: 'phone',
             name: 'Phone',
-            description: '+23 234 2344'
+            description: contact?.phone
         },
     ];
 
@@ -59,7 +60,7 @@ const Contact = () => {
                     ))
                 }
             </div>
-            <div className={"mx-5 sm:mx-10 md:mx-24 my-10 flex flex-col"}>
+            <div className={"mx-5 sm:mx-10 md:mx-24 lg:mx-80 my-10 flex flex-col "}>
                 <div className="flex flex-col gap-12 sm:flex-row sm:gap-2 ">
                     <Input type="text" label="Name" className="flex-1 w-full"/>
                     <Input type="email" label="Email" className="flex-1"/>
@@ -68,9 +69,6 @@ const Contact = () => {
                     <TextArea label={"Message"} className="w-full"/>
                 </div>
                 <Button label={"Submit"} className="w-full sm:w-48"/>
-
-                
-                
             </div>
         </div>
     )

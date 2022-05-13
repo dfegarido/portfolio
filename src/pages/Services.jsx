@@ -6,51 +6,20 @@ import CardTitle from "../components/atom/CardTitle";
 import CardDescription from "../components/atom/CardDescription";
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
+import config from "../config";
 
 
 const Services = () => {
     const serviceRef = useRef(null)
     const dispatch = useDispatch()
+    const { services } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'service', value: serviceRef }))
     }, [])
     
 
-    const cardContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel quam tempus, scelerisque lorem quis, sollicitudin enim. Praesent at consectetur dolor, eget finibus arcu.';
-    const servicesData = [
-        {
-            'logo':'computer',
-            'title':'Web Design',
-            'description':cardContent,
-        },
-        {
-            'logo':'branding',
-            'title':'Branding',
-            'description':cardContent,
-        },
-        {
-            'logo':'development',
-            'title':'Development',
-            'description':cardContent,
-        },
-        {
-            'logo':'brush',
-            'title':'Creative Design',
-            'description':cardContent,
-        },
-        {
-            'logo':'mobile',
-            'title':'Fully Responsive',
-            'description':cardContent,
-        },
-        {
-            'logo':'cloud',
-            'title':'Search Engine Optimization',
-            'description':cardContent,
-        },
-    ]
-
+    
 
     return (
         <div 
@@ -62,7 +31,7 @@ const Services = () => {
             
             <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
                 { 
-                    servicesData.map(({ logo, title, description }, key) => (
+                    services?.map(({ logo, title, description }, key) => (
                         <Card className={'p-2 grid items-start place-items-center max-w-xs'} key={key}>
                             <CircleLogo  name={logo} />
                             <CardTitle label={title} className={`text-base`}/>

@@ -21,6 +21,7 @@ const Body = () => {
     const { windowHeight, scrollTop, listRef }  = useSelector(({ metadata }) => metadata)
     const homeRef = useRef(null)
     const dispatch = useDispatch()
+    const { landingPage } = config
 
     
 
