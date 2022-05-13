@@ -7,7 +7,9 @@ const TextArea = (props) => {
     return (
         <div {...props} className={`relative h-20 ${props?.className}`}>
             <textarea 
-                className={'absolute bg-neutral-200 rounded-md text-xs w-full h-10 px-3 pt-4 text-neutral-600 min-h-full'}
+                id="message"
+                name="message"
+                className={`absolute bg-neutral-200 rounded-md text-sm w-full h-10 px-3 pt-4 ring-1 text-neutral-600 min-h-full ${props?.error ? 'ring-red-500' : 'ring-green-500'}`}
                 cols="10" rows="10" 
                 value={value} 
                 onChange={e => setValue(e.target.value)}

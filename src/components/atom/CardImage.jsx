@@ -6,7 +6,7 @@ import CardDescription from "./CardDescription";
 
 const CardImage = (props) => {
     const [flip, setFlip] = useState(false)
-    console.log(props)
+
     return (
         <div 
             {...props} 
