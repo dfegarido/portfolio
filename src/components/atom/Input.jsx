@@ -9,8 +9,8 @@ const Input = (props) => {
         <div {...props} className={`relative ${props?.className}`}>
             
             <input 
-                id={props?.type} 
-                name={props?.type} 
+                id={props?.label} 
+                name={props?.label} 
                 className={`absolute bg-neutral-200 rounded-md w-full h-10 px-3 pt-3 text-base text-neutral-600 ring-1 ${props?.error ? 'ring-red-500' : 'ring-green-500'}`}
                 type={props?.type} 
                 value={value}
