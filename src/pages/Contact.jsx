@@ -76,7 +76,7 @@ const Contact = () => {
             <div className={"mx-5 sm:mx-10 md:mx-24 lg:mx-80 my-10 flex flex-col "}>
                 <form onSubmit={handleSubmit}>
                     <div className={`flex flex-col ${error === undefined ? 'hidden' : ''}`}>
-                        <div className={`flex-1 w-full bg-${error ? 'red' : 'green'}-300 rounded-md h-48 text-center py-2 mb-4 font-bold text-slate-700`}>{error ? "Failed" : "Success" }</div>
+                        <div className={`flex-1 w-full ${error ? 'bg-red-300' : 'bg-green-300'} rounded-md h-48 text-center py-2 mb-4 font-bold text-slate-700`}>{error ? "Failed" : "Success" }</div>
                     </div>
                     <div className="flex flex-col gap-12 sm:flex-row sm:gap-2 ">
                         <Input type="text" label="Name" className="flex-1" error={error}/>
