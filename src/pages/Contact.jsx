@@ -36,11 +36,11 @@ const Contact = () => {
             name: 'Address',
             description: contact?.address
         },
-        {
-            logo: 'email',
-            name: 'Email Address',
-            description: contact?.email
-        },
+        // {
+        //     logo: 'email',
+        //     name: 'Email Address',
+        //     description: ''
+        // },
         {
             logo: 'phone',
             name: 'Phone',
