@@ -83,7 +83,7 @@ const Contact = () => {
                     <div className="flex flex-col mt-12 mb-3 ">
                         <TextArea label={"Message"} className="w-full" error={error}/>
                     </div>
-                    <Button label={"Submit"} type="submit" disabled={state.submitting} className="w-full sm:w-48"/>
+                    <Button label={"Submit"} type="submit" disabled={state.submitting} className="w-full sm:w-48 uppercase font-bold"/>
                 </form>
                 
             </div>
