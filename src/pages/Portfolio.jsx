@@ -30,6 +30,7 @@ const Portfolio = () => {
                 <Anchor label={"All"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('all') }/>
                 <Anchor label={"Desktop"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('desktop') }/>
                 <Anchor label={"Mobile"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('mobile') }/>
+                <Anchor label={"E-commerce"} dark={true} className={`dark:text-neutral-500 dark:hover:text-neutral-700`} onClick={ () => setBrands('ecommerce') }/>
             </div>
 
             <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 mx-8"} style={styles.card}>

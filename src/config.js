@@ -1,5 +1,5 @@
 module.exports = {
-    logoName: "Fegarido",
+    logoName: "D.F.",
     landingPage: {
         title: "Hello",
         description: [
@@ -63,6 +63,13 @@ module.exports = {
         },
         {
             "brand":"mobile",
+            'name':'RC Gem App',
+            'description':'Retail App GEM focuses on 24/7 Learning experience of Remy Cointreau brands, measurement of sell out performances and productivity by location, accuracy in store check, events, pricing, activations while creating a community platform for sharing of best practises and success stories across the globe',
+            'url': require('./assets/gemapp.png'),
+            'link':'https://play.google.com/store/apps/details?id=com.remycointreau.gem'
+        },
+        {
+            "brand":"mobile",
             'name':'Budget planner',
             'description':'Track all your finances and plan your future goal.',
             'url': require('./assets/moneytracker.png'),
@@ -90,17 +97,50 @@ module.exports = {
             'link':'https://ftxwebsite.herokuapp.com/'
         },
         {
-            "brand":"desktop",
+            "brand":"ecommerce",
             'name':'Duralex',
             'description':'International Cookware, which owns the Pyrex trademark, has acquired French tableware manufacturer Duralex.',
             'url': require('./assets/duralex.png'),
             'link':'https://www.duralex.com/'
         },
+        {
+            "brand":"ecommerce",
+            'name':'Louis XIII',
+            'description':'Louis XIII is a cognac produced by Rémy Martin, a company headquartered in Cognac, France, and owned by the Rémy Cointreau Group. The name was chosen as a tribute to King Louis XIII of France, the reigning monarch when the Rémy Martin family settled in the Cognac region',
+            'url': require('./assets/louisxiii.png'),
+            'link':'https://louisxiii-cognac.com/'
+        },
+        {
+            "brand":"ecommerce",
+            'name':'Telmont Champagne',
+            'description':'J. de Telmont is a century-old family champagne house, founded in 1912 in Damery Epernay. The house produces a range of champagnes and wines which possess the designation Champagne AOC and Côteaux Champenois AOC. A champagne house steeped in traditional craftsmanship and committed to transitioning to organic agriculture',
+            'url': require('./assets/telmont.png'),
+            'link':'https://champagne-telmont.com/'
+        },
+        {
+            "brand":"ecommerce",
+            'name':'Pyrex',
+            'description':'Pyrex (trademarked as PYREX and pyrex) is a brand introduced by Corning Inc. in 1915 for a line of clear, low-thermal-expansion borosilicate glass used for laboratory glassware and kitchenware. It was later expanded to include ware products made of soda-lime glass and other materials.',
+            'url': require('./assets/pyrex.png'),
+            'link':'https://pyrex.co.uk/'
+        },
     ],
-    contact: {
-        address: 'Philippines',
-        email: 'darwinfegarido@gmail.com',
-        phone: '+63-956-570-5207'
-    }
+    contact: [
+        {
+            logo: 'facebook',
+            name: 'Facebook',
+            link: 'https://www.facebook.com/darwin.fegarido'
+        },
+        {
+            logo: 'instagram',
+            name: 'Instagram',
+            link: 'https://www.instagram.com/darwin.fegarido/'
+        },
+        {
+            logo: 'linkedin',
+            name: 'LinkedIn',
+            link: 'https://ph.linkedin.com/in/darwinfegarido'
+        },
+    ],
 
 }

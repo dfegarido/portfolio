@@ -13,11 +13,11 @@ const CardImage = (props) => {
             className="drop-shadow-xl relative grid place-items-center justify-items-center "
         >
 
-            <div className="vertical flip-container flex">
+            <div className="vertical flip-container flex" >
                 <div className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72`}>
                     <div 
-                        style={{ backgroundImage: `url(${props.url})` }}
-                        className="drop-shadow-md front rounded-md bg-cover bg-no-repeat bg-center h-72 w-72  hover:blur">
+                        style={{ backgroundImage: `url(${props.url})`}}
+                        className="drop-shadow-md front rounded-md bg-cover bg-no-repeat bg-center bg-contain bg-black h-72 w-72">
                     </div>
                     <div className="drop-shadow-md back rounded-md text-center h-72 w-72">
                             <CardTitle label={props.name} className={`text-base`}/>
@@ -27,7 +27,7 @@ const CardImage = (props) => {
             </div>
 
 
-            <div className="absolute grid place-items-center justify-items-center opacity-0 hover:opacity-100 transition-all duration-300 z-10 w-full h-full p-2 ">
+            <div className="absolute grid place-items-center justify-items-center opacity-0 hover:opacity-100 transition-all duration-300 z-10 w-full h-full p-2">
                 <div className="flex flex-row gap-4">
                     <Icon 
                         className="cursor-pointer rotate-45 bg-black hover:bg-slate-900 rounded-full p-1"

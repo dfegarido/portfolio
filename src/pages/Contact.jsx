@@ -8,12 +8,14 @@ import Button from "../components/atom/Button"
 import { useEffect, useRef, useState } from "react";
 import { setReference } from "../store/metadata";
 import { useForm } from '@formspree/react';
+import config from "../config";
 
 const Contact = () => {
     const contactRef = useRef(null)
     const dispatch = useDispatch()
     const [error, setError] = useState()
     const [state, handleSubmit] = useForm("meqplwan");
+    const { contact:contactUs } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'contact', value: contactRef }))
@@ -23,24 +25,6 @@ const Contact = () => {
         if(state.submitting && !state.succeeded) setError(1);
         if(state.submitting && state.succeeded) setError(0);
     }, [state])
-
-    const contactUs = [
-        {
-            logo: 'facebook',
-            name: 'Facebook',
-            link: 'https://www.facebook.com/darwin.fegarido'
-        },
-        {
-            logo: 'instagram',
-            name: 'Instagram',
-            link: 'https://www.instagram.com/darwin.fegarido/'
-        },
-        {
-            logo: 'linkedin',
-            name: 'LinkedIn',
-            link: 'https://ph.linkedin.com/in/darwinfegarido'
-        },
-    ];
 
     return (
         <div 
