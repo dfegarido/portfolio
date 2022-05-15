@@ -8,7 +8,7 @@ const Logo = ({ label, onClick }) => {
     const [ isHover, setHover ] = useState(false)
 
     return (
-        <div 
+        <h1 
             style={{
                 ...styles.logo,
                 color: isHover ? SECONDARY : PRIMARY,
@@ -20,7 +20,7 @@ const Logo = ({ label, onClick }) => {
             onMouseLeave={() => setHover(false)}
         >
             {label}
-        </div>
+        </h1>
     )
 }
 

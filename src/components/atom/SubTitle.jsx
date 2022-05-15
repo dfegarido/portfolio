@@ -1,8 +1,8 @@
 const SubTitle = (props) => {
     return (
-        <div {...props}>
+        <h3 {...props}>
             { props.label }
-        </div>
+        </h3>
     )
 } 
 

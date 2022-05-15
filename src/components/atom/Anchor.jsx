@@ -5,7 +5,6 @@ import {
     SECONDARY
 } from "../../helpers/constants";
 
-
 const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
     const [hover, setHover] = useState(false)
 
@@ -74,7 +73,6 @@ const styles = {
         borderBottom: '1px solid #000000',
         paddingBottom: '0px',
     }
-
 }
 
 export default Anchor;

@@ -9,7 +9,7 @@ import Button from "../components/atom/Button"
 import { useEffect, useRef, useState } from "react";
 import { setReference } from "../store/metadata";
 import config from "../config";
-import { useForm, ValidationError } from '@formspree/react';
+import { useForm } from '@formspree/react';
 
 const Contact = () => {
     const contactRef = useRef(null)
@@ -29,10 +29,6 @@ const Contact = () => {
         if(state.submitting && !state.succeeded) setError(1);
         if(state.submitting && state.succeeded) setError(0);
     }, [state])
-
-    console.log(error)
-
-
 
     const contactUs = [
         {

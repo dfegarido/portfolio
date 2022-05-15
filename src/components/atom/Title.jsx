@@ -1,8 +1,8 @@
 const Title = (props) => {
     return (
-        <div {...props} className={`font-black text-2xl sm:text-3xl`}>
+        <h2 {...props} className={`font-black text-2xl sm:text-3xl`}>
             { props.label }
-        </div>
+        </h2>
     )
 }
 
