@@ -15,11 +15,23 @@ import architecture from '../../assets/architecture.svg'
 import developer from '../../assets/developer.svg'
 import monetization from '../../assets/monetization.svg'
 import description from '../../assets/description.svg'
+import facebook from '../../assets/facebook.svg'
+import instagram from '../../assets/instagram.svg'
+import linkedin from '../../assets/linkedin.svg'
 
 const Icon = (props) => {
     const name = props?.name;
     let icon;
     switch (name) {
+        case 'facebook' :
+            icon = facebook
+            break;
+        case 'instagram' :
+            icon = instagram
+            break;
+        case 'linkedin' :
+            icon = linkedin
+            break;
         case 'description' :
             icon = description
             break;

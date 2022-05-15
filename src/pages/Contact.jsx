@@ -2,24 +2,18 @@ import { useDispatch } from "react-redux";
 import Title from '../components/atom/Title';
 import CircleLogo from '../components/atom/CircleLogo';
 import CardTitle from "../components/atom/CardTitle";
-import CardDescription from "../components/atom/CardDescription";
 import Input from "../components/atom/Input";
 import TextArea from "../components/atom/TextArea";
 import Button from "../components/atom/Button"
 import { useEffect, useRef, useState } from "react";
 import { setReference } from "../store/metadata";
-import config from "../config";
 import { useForm } from '@formspree/react';
 
 const Contact = () => {
     const contactRef = useRef(null)
     const dispatch = useDispatch()
     const [error, setError] = useState()
- 
-
     const [state, handleSubmit] = useForm("meqplwan");
-
-    const { contact } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'contact', value: contactRef }))
@@ -32,19 +26,19 @@ const Contact = () => {
 
     const contactUs = [
         {
-            logo: 'pin',
-            name: 'Address',
-            description: contact?.address
+            logo: 'facebook',
+            name: 'Facebook',
+            link: 'https://www.facebook.com/darwin.fegarido'
         },
-        // {
-        //     logo: 'email',
-        //     name: 'Email Address',
-        //     description: ''
-        // },
         {
-            logo: 'phone',
-            name: 'Phone',
-            description: contact?.phone
+            logo: 'instagram',
+            name: 'Instagram',
+            link: 'https://www.instagram.com/darwin.fegarido/'
+        },
+        {
+            logo: 'linkedin',
+            name: 'LinkedIn',
+            link: 'https://ph.linkedin.com/in/darwinfegarido'
         },
     ];
 
@@ -58,13 +52,21 @@ const Contact = () => {
             <div className="pt-10 grid justify-center">
                 <Title label={"Contact Us"}/>
             </div>
-            <div className="pt-10 flex flex-col sm:flex-row gap-4 ">
+            <div className="pt-10 flex flex-row gap-1 ">
                 {
                     contactUs.map((item, key) => (
                         <div className="flex flex-col flex-1 text-center items-center justify-items-center " key={key}>
-                            <CircleLogo name={item.logo}/>
-                            <CardTitle label={item.name} className="text-xs mt-3"/>
-                            <CardDescription label={item.description} className="text-center text-xs w-48 max-w-prose"/>
+                            <CircleLogo 
+                                name={item.logo} 
+                                className='cursor-pointer'
+                                onClick={() => {
+                                    window.open(
+                                        item.link,
+                                        '_blank'
+                                    )
+                                }}
+                            />
+                            <CardTitle label={item.name} />
                         </div>
                     ))
                 }
