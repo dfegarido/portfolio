@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, Suspense, lazy} from "react";
+import { useDispatch } from "react-redux";
 import Title from "../components/atom/Title";
-import CardImage from "../components/atom/CardImage";
 import Anchor from '../components/atom/Anchor'
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
 import config from "../config";
+const CardImage = lazy(() => import('../components/atom/CardImage'));
+
 
 const Portfolio = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
@@ -36,10 +37,9 @@ const Portfolio = () => {
             <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 mx-8"} style={styles.card}>
                 { 
                     portfolio.filter(({ brand }) => brand === brands || 'all' === brands).map((items, key) => (
-                            <CardImage  
-                                {...items}
-                                key={key}
-                            />                               
+                        <Suspense key={key} fallback={<div>Loading...</div>}>
+                            <CardImage  {...items} />
+                        </Suspense>                             
                     )) 
                 }
             </div>
