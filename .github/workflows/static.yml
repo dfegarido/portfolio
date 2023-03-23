@@ -31,11 +31,11 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 'v15.10.0'
+          node-version: '16.15.1'
       - name: Install dependencies
-        run: npm install
+        run: yarn
       - name: Run tests
-        run: CI=true npm run test
+        run: CI=true yarn test
   # Build and Deploy
   deploy:
     environment:
@@ -54,11 +54,11 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 'v15.10.0'
+          node-version: '16.15.1'
       - name: Install dependencies
-        run: npm install
+        run: yarn
       - name: Run build
-        run: CI=false npm run build
+        run: CI=false yarn build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
