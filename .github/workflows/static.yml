@@ -33,23 +33,25 @@ jobs:
     - name: Run tests
       run: CI=true npm run test
   # Build 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   needs: test
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v3
-  #   - name: Install dependencies
-  #     run: npm install
-  #   - name: Run build
-  #     run: npm run build
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Remove old builds
+      run: rm -rfv ./docs/
+    - name: Install dependencies
+      run: npm install
+    - name: Run build
+      run: CI=false npm run build
   # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: test
+    needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
