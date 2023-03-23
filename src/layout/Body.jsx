@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import CharacterAnimation from "../components/CharacterAnimation"
 import About from "../pages/About"
@@ -6,6 +7,7 @@ import Portfolio from "../pages/Portfolio"
 import Contact from "../pages/Contact"
 import { useEffect, useRef } from "react"
 import { setReference } from "../store/metadata"
+import { scrollTo } from "../helpers/common";
 import { 
     WHITE, 
     LIME, 
@@ -15,9 +17,16 @@ import Button from '../components/atom/Button'
 
 const Body = () => {
 
-    const { windowHeight, scrollTop }  = useSelector(({ metadata }) => metadata)
+    const { windowHeight, scrollTop, listRef }  = useSelector(({ metadata }) => metadata)
     const homeRef = useRef(null)
     const dispatch = useDispatch()
+    const [ toggleMenu, setToggleMenu ] = useState(false)
+
+
+    const closeMenu = (ref) => {
+        setToggleMenu(prevState => !prevState)
+        scrollTo(ref)
+    }
 
     useEffect(() => {
         dispatch(setReference({name: 'homeRef', value: homeRef }))
@@ -50,9 +59,9 @@ const Body = () => {
                 <div 
                     style={{
                         ...styles.container,
-                        ...(scrollTop > 100 ? styles.hideContainer : null),
+                        ...(scrollTop > 200 ? styles.hideContainer : null),
                     }}
-                    className={`flex-1 grid justify-items-center`}>
+                    className={`flex-1 grid justify-items-center backdrop-blur-sm`}>
                     <div  style={styles.greetings} className={`flex-1`}>
                         { greetings }
                     </div>
@@ -63,7 +72,13 @@ const Body = () => {
                         <p> <CharacterAnimation label={nameToAnimate}/> </p>
                     </div>
                     <div  style={styles.contactBtn} className={`flex-1`}>
-                        <Button label={"Contact"} style={styles.contactLabel} className={`h-10`}  />
+                        <Button 
+                            onClick={() => {
+                                closeMenu(listRef.contactRef)
+                            }}
+                            label={"Contact"} 
+                            style={styles.contactLabel} 
+                            className={`h-10 border-lime-500 hover:border-lime-400 text-lime-500 hover:text-lime-400`}  />
                     </div>
                 </div>
                 
@@ -136,7 +151,6 @@ const styles = {
     contactLabel: {
         fontSize: '21px',
         fontWeight: '600',
-        color: LIME
     }
 }
 

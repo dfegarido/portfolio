@@ -13,10 +13,10 @@ const Input = (props) => {
                 type={props?.type} 
                 value={value}
                 onChange={ e => setValue(e.target.value)}
-                onFocus={() => setFocus(true)}
+                onFocus={() => setFocus(false)}
                 onBlur={() => setFocus(false)}
                 required={true}
-                autoFocus={true}
+                autoFocus={false}
             />
             <div className={`transition-all font-bold duration-300 absolute z-0 ml-3 text-neutral-400 ${focus || value.length > 0 ? 'text-xs mt-1' : 'text-base mt-2'}`}>
                 { props?.label }
