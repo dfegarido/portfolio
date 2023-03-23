@@ -22,6 +22,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Testing 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: npm install
+    - name: Run tests
+      run: npm run test
+  # Build 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: npm install
+    - name: Run build
+      run: npm run build
   # Single deploy job since we're just deploying
   deploy:
     environment:
