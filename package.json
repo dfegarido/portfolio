@@ -23,6 +23,7 @@
     "eject": "react-scripts eject",
     "build:clean": "rm -rfv ./build && npm run build"
   },
+  "homepage": "https://dfegarido.github.io/my-web-page-v2",
   "eslintConfig": {
     "extends": [
       "react-app",
