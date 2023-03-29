@@ -1,11 +1,10 @@
+import PDFfile from '../assets/Resume-Darwin-Fegarido.pdf'
 
-
-
-const scrollTo = (ref) => {
+export const scrollTo = (ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' })
 }
 
-
-module.exports = {
-    scrollTo
+export const downloadPDF = () => {
+    window.open(PDFfile, '_blank')
 }
+

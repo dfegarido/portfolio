@@ -3,21 +3,26 @@ import SubTitle from "./atom/SubTitle";
 import Description from "./atom/Description";
 import Button from "./atom/Button";
 import Icon from "./atom/Icon";
+import { 
+    DESCRIPTION, 
+    ABOUT_ME,
+    FONT_FAMILY,
+    SLATE,
+    LIGHT_GRAY,
+    TITLE
+} from "../helpers/constants";
+import { downloadPDF } from '../helpers/common'
 
 
 
 const AboutMe = () => {
-
-    const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non volutpat turpis. Nulla nisi leo, dictum quis cursus faucibus, viverra quis orci. Praesent pulvinar, mi vitae ultricies suscipit, libero est egestas lectus, quis egestas neque diam et augue. Praesent ipsum lectus, elementum a faucibus id, vehicula convallis ligula. Sed justo lectus, tempor nec lobortis ac, eleifend eget magna. `
-
     return (
-        <div className="flex flex-col items-center sm:items-end mt-10 mb-20 p-5 w-[90%] bg-neutral-100 rounded shrink-0" >
-            <Title label={"About Me"}/>
-            <SubTitle label={"Fullstack Developer"} className="font-black text-lg sm:text-xl text-neutral-400" />
-            <Description label={description} className="font-thin text-justify sm:text-right text-neutral-500 mt-5 text-sm sm:text-base"/>
-            <div className="grid grid-cols-2 gap-4 mt-10" >
-                <Button label={<DownloadResume />} className={`dark:bg-slate-900 dark:text-white`} />
-                <Button label={"Contact"}   />
+        <div className="flex flex-col items-center sm:items-end mt-10 mb-20 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-xl" >
+            <Title label={ABOUT_ME} style={styles.aboutMe}/>
+            <SubTitle label={TITLE} style={styles.subtitle} className="" />
+            <Description label={DESCRIPTION} style={styles.description} className="font-thin text-justify mt-5 text-sm sm:text-base"/>
+            <div className="grid grid-cols-1 gap-4 mt-10" >
+                <Button onClick={downloadPDF} label={<DownloadResume />} style={ styles.downloadBtn } className={` text-slate-100 font-semibold border-slate-600`} />
             </div>
         </div>
     )
@@ -26,9 +31,44 @@ const AboutMe = () => {
 const DownloadResume = () => {
     return (
         <div className="flex flex-row gap-2">
-            <span className={`py-1`}>Resume</span> <Icon name="download"className={`h-5 w-5 sm:py-1`}/>
+            <span className={`py-1`}>Resume</span> <Icon name="download" style={{color: 'red'}} className={`h-5 w-5 sm:py-1`}/>
         </div>
     )
 }
 
+
+const styles = {
+    aboutMe: {
+        fontFamily: FONT_FAMILY,
+        fontWeight: '700',
+        letterSpacing: '3px',
+        color: SLATE
+    },
+    subtitle: {
+        fontFamily: FONT_FAMILY,
+        letterSpacing: '2px',
+        color: LIGHT_GRAY,
+        fontWeight: '600',
+        fontSize: '20px',
+        marginTop: '-7px',
+    },
+    description: {
+        fontFamily: FONT_FAMILY,
+        color: SLATE,
+        letterSpacing: '1px',
+        lineHeight: '30px',
+        fontWeight: '400',
+    },
+    downloadBtn: {
+        fontFamily: FONT_FAMILY,
+        height: '40px',
+        width: '130px',
+        letterSpacing: '2px',
+        backgroundColor: SLATE,
+    },
+
+}
+
 export default AboutMe;
+
+
