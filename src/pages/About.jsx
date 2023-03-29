@@ -15,12 +15,12 @@ const About = () => {
     return (
         <div 
             ref={aboutRef}
-            className={`grid grid-cols-1 sm:grid-cols-2 mb-10`}
+            className={`grid grid-cols-1 sm:grid-cols-2`}
         >
             <div className=" w-full grid justify-items-center" >
                 <AboutMe />
             </div>
-            <div className=' place-items-end -z-10 hidden sm:grid ' >
+            <div className='saturate-[120%] place-items-end -z-10 hidden sm:grid mt-10' >
                 <img  src={profile} alt="Profile" style={styles.profileImage} />
             </div>
         </div>
@@ -29,8 +29,7 @@ const About = () => {
 
 const styles = {
     profileImage: {
-        // width: '599px',
-        // height: '701px',
+        filter: 'blur(0.2px)'
     }
 }
 

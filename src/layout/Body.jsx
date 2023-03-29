@@ -124,6 +124,7 @@ const styles = {
         fontSize: '3.5rem',
         lineHeight: '82px',
         color: WHITE,
+        letterSpacing: '6px',
     },
     iAm: {
         position: 'absolute',
@@ -136,7 +137,7 @@ const styles = {
         fontWeight: '300',
         fontSize: '2rem',
         lineHeight: '68px',
-
+        letterSpacing: '2px',
         color: WHITE,
 
     },
@@ -151,6 +152,8 @@ const styles = {
     contactLabel: {
         fontSize: '21px',
         fontWeight: '600',
+        minHeight: '60px',
+        letterSpacing: '2px'
     }
 }
 
