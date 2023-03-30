@@ -34,7 +34,7 @@ const AboutMe = () => {
                         ...styles.downloadBtn,
                         opacity: isHover ? 1 : 0.9,
                     }} 
-                    className={` text-slate-100 font-semibold border-slate-600`}/>
+                    className={`text-slate-100 font-semibold border-slate-600`}/>
             </div>
         </div>
     )
