@@ -40,6 +40,7 @@ const Portfolio = () => {
                 {
                     labels.map( label => (
                         <Anchor 
+                            key={label}
                             label={label} 
                             dark={true}
                             isActive={ brands === label.toLocaleLowerCase() }

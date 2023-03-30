@@ -128,7 +128,7 @@ module.exports = {
         {
             logo: 'facebook',
             name: 'Facebook',
-            link: 'https://www.facebook.com/darwin.fegarido'
+            link: 'https://www.facebook.com/dfegarido'
         },
         {
             logo: 'instagram',
