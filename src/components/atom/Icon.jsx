@@ -21,13 +21,7 @@ import linkedin from '../../assets/linkedin.svg'
 import { useSelector } from 'react-redux'
 
 
-const Icon = (props) => {
-    const { isMobile }  = useSelector(({ metadata }) => metadata)
-
-    const height = isMobile ? 32 : 40
-    const width = isMobile ? 32 : 40
-
-
+const Icon = (props) => {    
     const name = props?.name;
     let icon;
     switch (name) {
@@ -99,7 +93,7 @@ const Icon = (props) => {
 
     return (
         <div {...props} >
-            <img height={height} width={width} src={icon} alt={name}  />
+            <img height={props.height} width={props.width} src={icon} alt={name}  />
         </div>
     )
 }

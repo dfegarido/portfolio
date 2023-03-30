@@ -80,6 +80,8 @@ const Navigation = () => {
                  isMobile ?
                 <div className="grid justify-items-end w-full pr-6">
                     <Icon 
+                        height={24}
+                        width={24}
                         onClick={() => setToggleMenu(prevState => !prevState)}
                         name={'menu'} 
                         className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center `}/>

@@ -28,6 +28,8 @@ const CardImage = (props) => {
             <div className="absolute grid place-items-center justify-items-center opacity-0 hover:opacity-100 transition-all duration-300 z-10 w-full h-full p-2">
                 <div className="flex flex-row gap-4">
                     <Icon 
+                        height={24}
+                        width={24}
                         className="cursor-pointer rotate-45 bg-black hover:bg-slate-900 rounded-full p-1"
                         name={'link'}
                         onClick={() => {
@@ -38,6 +40,8 @@ const CardImage = (props) => {
                         }}
                     />  
                     <Icon 
+                        height={24}
+                        width={24}
                         className="cursor-pointer bg-black hover:bg-slate-900 rounded-full p-1"
                         name={'description'}
                         onClick={() => {
