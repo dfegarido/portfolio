@@ -13,8 +13,8 @@ const Services = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setReference({name: 'serviceRef', value: serviceRef }))
-    })
+        dispatch(setReference({name: 'service', value: serviceRef }))
+    }, [])
     
 
     const cardContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel quam tempus, scelerisque lorem quis, sollicitudin enim. Praesent at consectetur dolor, eget finibus arcu.';

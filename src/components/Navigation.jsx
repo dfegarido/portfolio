@@ -3,17 +3,47 @@ import Anchor from "./atom/Anchor";
 import { useSelector } from "react-redux";
 import { scrollTo } from "../helpers/common";
 import Icon from "./atom/Icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LOGO, HOME, ABOUT, SERVICE, PORTFOLIO, CONTACT } from "../helpers/constants";
 
 const Navigation = () => {
-    const { scrollTop, listRef, isMobile } = useSelector(({metadata}) => metadata)
+    const { scrollTop, listRef, isMobile, refLocation } = useSelector(({metadata}) => metadata)
     const [ toggleMenu, setToggleMenu ] = useState(false)
-
+    const [ currentNavigation, setNavigation ] = useState(refLocation)
 
     const closeMenu = (ref) => {
         setToggleMenu(prevState => !prevState)
         scrollTo(ref)
     }
+
+    const labels = [
+        HOME,
+        ABOUT,
+        SERVICE,
+        PORTFOLIO,
+        CONTACT,
+    ]
+
+    useEffect(() => {
+        let currentLoc = document.documentElement.scrollTop
+        switch (true) {
+            case currentLoc < 483:
+                setNavigation('Home')
+                break;
+            case currentLoc < 1200:
+                setNavigation('About')
+                break;
+            case currentLoc < 1859:
+                setNavigation('Service')
+                break;
+            case currentLoc < 2500:
+                setNavigation('Portfolio')
+                break;
+            case currentLoc >= 2500:
+                setNavigation('Contact')
+                break;
+        }
+    })
 
     return (
         <div 
@@ -24,27 +54,26 @@ const Navigation = () => {
             }}
         >
             <div className={`grid justify-items-${ !isMobile ? 'center' : 'start'} pl-6  content-end w-[50%]`} >
-                <Logo  label="Fegarido" onClick={() => {
-                    scrollTo(listRef.homeRef)
-                }}/>
+                <Logo  
+                    label={LOGO} 
+                    onClick={() => {
+                        setNavigation('Home')
+                        scrollTo(listRef.home)
+                    }}/>
             </div>
 
-            <div className={`gap-10 grid grid-flow-col content-end mx-4 ${ isMobile  ? 'hidden' : ''}`}>
-                <Anchor label="Home" onClick={() => {
-                    closeMenu(listRef.homeRef)
-                }}/>
-                <Anchor label="About" onClick={() => {
-                    closeMenu(listRef.aboutRef)
-                }}/>
-                <Anchor label="Service" onClick={() => {
-                    closeMenu(listRef.serviceRef)
-                }}/>
-                <Anchor label="Portfolio" onClick={() => {
-                    closeMenu(listRef.worksRef)
-                }}/>
-                <Anchor label="Contact" onClick={() => {
-                    closeMenu(listRef.contactRef)
-                }}/>
+            <div  className={`gap-10 grid grid-flow-col content-end mx-4 ${ isMobile  ? 'hidden' : ''}`}>
+                {
+                    labels.map( label => (
+                        <Anchor 
+                            key={label} 
+                            label={label}
+                            isActive={label === currentNavigation}
+                            onClick={() => {
+                                closeMenu(listRef[label.toLocaleLowerCase()])
+                            }} />
+                    ))
+                }
             </div>
 
             {    
@@ -57,36 +86,17 @@ const Navigation = () => {
                     <div 
                         style={styles.menuList} 
                         className={`fixed gap-6 -mr-6 w-full justify-items-end text-right pr-6 pt-1 grid grid-rows-6 transition-all ease-in-out duration-300 ${toggleMenu ? 'h-[20%] opacity-100 mt-12' : 'h-0 pt-10 opacity-0 -z-10'}`}>
-                        <Anchor 
-                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                            label="Home" 
-                            onClick={() => {
-                                closeMenu(listRef.homeRef)
-                            }}/>
-                        <Anchor 
-                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                            label="About" 
-                            onClick={() => {
-                                closeMenu(listRef.aboutRef)
-                            }}/>
-                        <Anchor 
-                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                            label="Service" 
-                            onClick={() => {
-                                closeMenu(listRef.serviceRef)
-                            }}/>
-                        <Anchor 
-                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                            label="Portfolio" 
-                            onClick={() => {
-                                closeMenu(listRef.worksRef)
-                            }}/>
-                        <Anchor 
-                            className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                            label="Contact" 
-                            onClick={() => {
-                                closeMenu(listRef.contactRef)
-                            }}/>
+                        {
+                            labels.map( label => (
+                                <Anchor 
+                                    key={label}
+                                    className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
+                                    label={label}
+                                    onClick={() => {
+                                        closeMenu(listRef[label.toLocaleLowerCase()])
+                                    }}/>
+                            ))
+                        }
                     </div>
                 </div>:null
             }
@@ -99,18 +109,17 @@ const styles = {
     navigation: {
         transition: 'height .5s',
         position: 'absolute',
-        // width: '1440px',
-        // height: '80px',
         left: '0px',
         top: '0px',
-        background: '#00000080'
+        background: '#00000080',
+        height: '50px',
     },
     hideNavigation: {
         height: '30px',
     },
     menuList: { 
         background: '#00000063', 
-    }
+    },
 }
 
 

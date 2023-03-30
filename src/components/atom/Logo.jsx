@@ -1,17 +1,23 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { PRIMARY, SECONDARY } from "../../helpers/constants";
 
 
 const Logo = ({ label, onClick }) => {
     const { scrollTop, windowWidth, isMobile } = useSelector(({ metadata }) => metadata )
+    const [ isHover, setHover ] = useState(false)
 
     return (
         <div 
             style={{
                 ...styles.logo,
+                color: isHover ? SECONDARY : PRIMARY,
                 ...( !isMobile && scrollTop > 500 ? styles.onScrollTop : null),
                 ...( isMobile ? styles.mobile : null)
             }}
             onClick={onClick}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
         >
             {label}
         </div>
@@ -21,14 +27,14 @@ const Logo = ({ label, onClick }) => {
 
 const styles = {
     logo: {
-        transition: 'font-size .9s',
+        transition: 'font-size .5s',
         width: '184px',
         height: '48px',
         fontWeight: '800',
-        fontSize: '2rem',
+        fontSize: '30px',
         lineHeight: '48px',
-        color: '#FFFFFF',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        letterSpacing: '5px'
     },
     onScrollTop: {
         fontSize: '25px',
