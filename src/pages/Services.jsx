@@ -6,7 +6,8 @@ import CardTitle from "../components/atom/CardTitle";
 import CardDescription from "../components/atom/CardDescription";
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
-import config from "../config";
+import config from "../helpers/config";
+import { FONT_FAMILY, GRAY, LIGHT_GRAY, SERVICE, SLATE } from "../helpers/constants";
 
 
 const Services = () => {
@@ -27,15 +28,15 @@ const Services = () => {
             className={`flex flex-col items-center pt-10 pb-10`}
             style={{...styles.container}}>
 
-            <Title label={"Services"}/>
+            <Title style={styles.title} label={SERVICE}/>
             
             <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
                 { 
                     services?.map(({ logo, title, description }, key) => (
-                        <Card className={'p-2 grid items-start place-items-center max-w-xs'} key={key}>
+                        <Card className={'p-2 pt-5 grid items-start place-items-center max-w-xs drop-shadow-lg'} key={key}>
                             <CircleLogo  name={logo} />
-                            <CardTitle label={title} className={`text-base`}/>
-                            <CardDescription className={'text-justify'} label={description}/>
+                            <CardTitle style={styles.cardTitle} label={title} className={`text-base`}/>
+                            <CardDescription style={styles.cardDescription} className={'text-justify'} label={description}/>
                         </Card>
                     )) 
                 }
@@ -47,6 +48,22 @@ const Services = () => {
 const styles = {
     container: {
         background: '#F9F9F9',
+    },
+    title: {
+        fontFamily: FONT_FAMILY,
+        letterSpacing: '3px',
+        fontWeight: '700',
+        color: SLATE,
+    },
+    cardTitle: {
+        fontFamily: FONT_FAMILY,
+        letterSpacing: '3px',
+        color: GRAY
+    },
+    cardDescription: {
+        fontFamily: FONT_FAMILY,
+        color: LIGHT_GRAY,
+        letterSpacing: '1px',
     }
 }
 

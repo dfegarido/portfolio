@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import Title from "./atom/Title";
 import SubTitle from "./atom/SubTitle";
 import Description from "./atom/Description";
@@ -13,17 +12,29 @@ import {
     TITLE
 } from "../helpers/constants";
 import { downloadPDF } from '../helpers/common'
+import { useState } from "react";
 
 
 
 const AboutMe = () => {
+    const [isHover, setHover] = useState(false)
+
     return (
-        <div className="flex flex-col items-center sm:items-end mt-10 mb-20 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-xl" >
+        <div className="flex flex-col items-center sm:items-end mt-10 mb-20 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-lg" >
             <Title label={ABOUT_ME} style={styles.aboutMe}/>
             <SubTitle label={TITLE} style={styles.subtitle} className="" />
             <Description label={DESCRIPTION} style={styles.description} className="font-thin text-justify mt-5 text-sm sm:text-base"/>
             <div className="grid grid-cols-1 gap-4 mt-10" >
-                <Button onClick={downloadPDF} label={<DownloadResume />} style={ styles.downloadBtn } className={` text-slate-100 font-semibold border-slate-600`} />
+                <Button 
+                    onClick={downloadPDF} 
+                    label={<DownloadResume />} 
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    style={{
+                        ...styles.downloadBtn,
+                        opacity: isHover ? 1 : 0.9,
+                    }} 
+                    className={` text-slate-100 font-semibold border-slate-600`}/>
             </div>
         </div>
     )
@@ -61,11 +72,13 @@ const styles = {
         fontWeight: '400',
     },
     downloadBtn: {
+        transition: 'opacity .1s',
         fontFamily: FONT_FAMILY,
         height: '40px',
         width: '130px',
         letterSpacing: '2px',
         backgroundColor: SLATE,
+        fontSize: '14px',
     },
 
 }

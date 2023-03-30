@@ -14,7 +14,7 @@ import {
     SECONDARY,
     FONT_FAMILY } from '../helpers/constants'
 import Button from '../components/atom/Button'
-import config from "../config"
+import { landingPage } from "../helpers/config"
 
 
 const Body = () => {
@@ -22,8 +22,7 @@ const Body = () => {
     const { windowHeight, scrollTop, listRef }  = useSelector(({ metadata }) => metadata)
     const homeRef = useRef(null)
     const dispatch = useDispatch()
-    const { landingPage } = config
-
+    const { greetings, fullname: name, description: nameToAnimate } = landingPage
     
 
     const closeMenu = (ref) => {
@@ -33,20 +32,6 @@ const Body = () => {
     useEffect(() => {
         dispatch(setReference({name: 'home', value: homeRef }))
     }, [])
-
-    const greetings = "Hi i'm"
-    const name = "Darwin Fegarido"
-
-    const nameToAnimate = [
-        "Javascript Developer",
-        "Python Developer",
-        "Frontend Developer",
-        "Backend Developer",
-        "Solution Architect",
-        "DevOps", 
-        "Shopify Developer",
-        "Fullstack Developer",
-    ]
 
     const onHover = () => {
         setBtnHover(true)
