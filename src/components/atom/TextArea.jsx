@@ -19,9 +19,9 @@ const TextArea = (props) => {
                 onBlur={() => setHover(false)}>
                     
             </textarea>
-            <div style={styles.label} className={`transition-all font-bold duration-300 absolute z-0 ml-3 text-neutral-400 ${hover || value.length > 0 ? 'text-xs mt-1' : 'text-sm mt-2'}`}>
+            <label htmlFor={"message"} style={styles.label} className={`transition-all font-bold duration-300 absolute z-0 ml-3 text-neutral-400 ${hover || value.length > 0 ? 'text-xs mt-1' : 'text-sm mt-2'}`}>
                 { props?.label }
-            </div>
+            </label>
         </div>
     )
 }

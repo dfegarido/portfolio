@@ -30,7 +30,7 @@ const Services = () => {
 
             <Title label={SERVICE}/>
             
-            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
+            <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-2 sm:mt-10 mx-8"} style={styles.card}>
                 { 
                     services?.map(({ logo, title, description }, key) => (
                         <Card className={'p-2 pt-5 grid items-start place-items-center max-w-xs drop-shadow-lg'} key={key}>

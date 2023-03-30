@@ -8,8 +8,8 @@ export const LIME = '#84cc16'
 export const LIGHT_LIME = '#a3e635'
 
 
-export const PRIMARY = LIME
-export const SECONDARY = LIGHT_LIME
+export const PRIMARY = LIGHT_GRAY
+export const SECONDARY = WHITE
 
 
 /* FONTS */

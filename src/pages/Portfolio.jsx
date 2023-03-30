@@ -1,5 +1,5 @@
 import { useState, Suspense, lazy, useEffect, useRef} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Title from "../components/atom/Title";
 import Anchor from '../components/atom/Anchor'
 import { setReference } from "../store/metadata";
@@ -11,6 +11,8 @@ const CardImage = lazy(() => import('../components/atom/CardImage'));
 
 
 const Portfolio = () => {
+    const { isMobile }  = useSelector(({ metadata }) => metadata)
+
     const portfolioRef = useRef(null)
     const dispatch = useDispatch()
     const [ brands, setBrands ] = useState('all')
@@ -20,12 +22,20 @@ const Portfolio = () => {
             dispatch(setReference({name: 'portfolio', value: portfolioRef }))
     }, [])
 
-    const labels = [
-        "All",
+    let labels = [
         "Website",
         "Mobile",
         "Ecommerce"
     ]
+
+    if(!isMobile){
+        labels = ['All', ...labels]
+    }
+
+    useEffect(() => {
+        if(isMobile) setBrands('website')
+    }, [isMobile])
+
     
 
     return (
@@ -36,7 +46,7 @@ const Portfolio = () => {
 
             <Title label={PORTFOLIO} />
             
-            <div className="gap-10 sm:gap-20 grid grid-flow-col mt-10">
+            <div className="gap-5 sm:gap-20 mt-5 grid grid-flow-col sm:mt-10">
                 {
                     labels.map( label => (
                         <Anchor 

@@ -111,14 +111,14 @@ const styles = {
         position: 'absolute',
         left: '0px',
         top: '0px',
-        background: '#00000080',
+        background: '#000000bf',
         height: '50px',
     },
     hideNavigation: {
         height: '30px',
     },
     menuList: { 
-        background: '#00000063', 
+        background: '#000000bf', 
     },
 }
 
