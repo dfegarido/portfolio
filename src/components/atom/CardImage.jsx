@@ -3,25 +3,23 @@ import Icon from "./Icon";
 import '../../assets/cardImage.css'
 import CardTitle from "./CardTitle";
 import CardDescription from "./CardDescription";
+import { FONT_FAMILY, LIGHT_GRAY, SLATE } from "../../helpers/constants";
 
 const CardImage = (props) => {
     const [flip, setFlip] = useState(false)
 
     return (
-        <div 
-            {...props} 
-            className="drop-shadow-xl relative grid place-items-center justify-items-center "
-        >
+        <div {...props} className=" relative grid place-items-center justify-items-center ">
 
-            <div className="vertical flip-container flex" >
-                <div className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72`}>
+            <div className=" vertical flip-container flex" >
+                <div className={` border border-solid rounded-xl flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72`}>
                     <div 
                         style={{ backgroundImage: `url(${props.url})`}}
-                        className="drop-shadow-md front rounded-md bg-cover bg-no-repeat bg-center bg-contain bg-black h-72 w-72">
+                        className=" front rounded-xl bg-cover bg-no-repeat bg-center bg-contain bg-black h-72 w-72">
                     </div>
-                    <div className="drop-shadow-md back rounded-md text-center h-72 w-72">
-                            <CardTitle label={props.name} className={`text-base`}/>
-                            <CardDescription className={'text-justify'} label={props.description}/>
+                    <div className=" back rounded-xl text-center h-72 w-72 pt-5">
+                            <CardTitle style={styles.cardTitle} label={props.name} className={`text-base`}/>
+                            <CardDescription style={styles.cardDescription} className={'text-justify'} label={props.description}/>
                     </div>
                 </div>
             </div>
@@ -56,21 +54,18 @@ const CardImage = (props) => {
 
 const styles = {
     flip: {
-        backgroundColor: 'green',
         transform: 'rotateX(-180deg)',
-        transition: 'all .6s',
         transformStyle: 'preserve-3d',
-        animation: 'toFront 0.3s linear normal forwards',
+        animation: 'toFront 0.5s linear normal forwards',
     },
     normal: {
-        backgroundColor: 'red',
         transition: 'all .6s',
         transformStyle: 'preserve-3d',
-        animation: 'toBack 0.3s linear normal  forwards',
+        animation: 'toBack 0.5s linear normal  forwards',
 
     },
     flipper: {
-        transition: 'all 0.6s',
+        transition: 'animation .5s',
         transformStyle: 'preserve-3d',
         position: 'relative',
     },
@@ -78,18 +73,28 @@ const styles = {
         zIndex: 1,
         backgroundColor:'red',
         animationDelay: '0.3s',
-        animation: 'toBack 0.3s linear normal  forwards',
+        animation: 'toBack 0.5s linear normal  forwards',
     },
     back: {
         transform: 'rotateX(-180deg)',
         backgroundColor:'green',
-        animation: 'toFront 0.3s linear normal forwards',
+        animation: 'toFront 0.5s linear normal forwards',
     },
     frontBack: {
         position: 'absolute',
         top: 0,
         left: 0,
         backfaceVisibility: 'hidden',
+    },
+    cardTitle: {
+        fontFamily: FONT_FAMILY,
+        color: SLATE,
+        letterSpacing: '1px',
+    },
+    cardDescription: {
+        fontFamily: FONT_FAMILY,
+        color: LIGHT_GRAY,
+        letterSpacing: '1px',
     }
 }
 

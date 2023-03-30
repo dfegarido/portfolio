@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { 
     FONT_FAMILY,
+    LIGHT_GRAY,
     PRIMARY,
-    SECONDARY
+    SECONDARY,
+    SLATE
 } from "../../helpers/constants";
 
 const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
@@ -17,6 +19,7 @@ const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
                 ...(hover && dark ? styles.darkHover : null ),
                 ...(hover && !dark? styles.hover : null ),
                 ...(isActive && !dark? styles.hover : null),
+                ...(isActive && dark? styles.darkHover : null),
             }} 
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -30,6 +33,7 @@ const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
                     ...(hover && dark? styles.lineHoverDark : null),
                     ...(hover && !dark? styles.lineHover : null),
                     ...(isActive && !dark? styles.lineHover : null),
+                    ...(isActive && dark? styles.lineHoverDark : null),
                 }}
             ></div>
             
@@ -49,16 +53,16 @@ const styles = {
         letterSpacing: '3px'
     },
     dark: {
-        color: '#9A9A9A'
+        color: LIGHT_GRAY
     },
     darkHover: {
-        color: '#000000'
+        color: SLATE
     },
     hover: {
         color: SECONDARY,
     },
     line: {
-        transition: 'width .3s',
+        transition: 'width .2s',
         width: '0px',
         height: '0px',
         paddingBottom: '1px',
@@ -70,7 +74,7 @@ const styles = {
     },
     lineHoverDark: {
         width: '100%',
-        borderBottom: '1px solid #000000',
+        borderBottom: `2px solid ${SLATE}`,
         paddingBottom: '0px',
     }
 }

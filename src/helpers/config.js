@@ -52,7 +52,6 @@ module.exports = {
             'description':"Search engines show this description in search results for your homepage if they don't find content more relevant to a visitor's search terms.",
         },
     ],
-
     portfolio: [
         {
             "brand":"mobile",
@@ -83,14 +82,14 @@ module.exports = {
             'link':'https://play.google.com/'
         },
         {
-            "brand":"desktop",
+            "brand":"website",
             'name':'Chillflix Web',
             'description':'Watch movies using your web browser',
             'url': require('../assets/chillflixweb.png'),
             'link':'https://batibot-web.herokuapp.com/'
         },
         {
-            "brand":"desktop",
+            "brand":"website",
             'name':'Trading Platform',
             'description':'Easy to trade and fast transaction on crypto world. ',
             'url': require('../assets/trading.png'),
