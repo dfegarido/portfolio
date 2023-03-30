@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Title from "../components/atom/Title";
 import Anchor from '../components/atom/Anchor'
 import { setReference } from "../store/metadata";
-import config from "../config";
+import config from "../helpers/config";
 const CardImage = lazy(() => import('../components/atom/CardImage'));
 
 

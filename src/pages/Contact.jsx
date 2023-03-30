@@ -8,7 +8,7 @@ import Button from "../components/atom/Button"
 import { useEffect, useRef, useState } from "react";
 import { setReference } from "../store/metadata";
 import { useForm } from '@formspree/react';
-import config from "../config";
+import config from "../helpers/config";
 
 const Contact = () => {
     const contactRef = useRef(null)

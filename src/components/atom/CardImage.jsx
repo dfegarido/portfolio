@@ -70,7 +70,7 @@ const styles = {
 
     },
     flipper: {
-        transition: '0.6s',
+        transition: 'all 0.6s',
         transformStyle: 'preserve-3d',
         position: 'relative',
     },
