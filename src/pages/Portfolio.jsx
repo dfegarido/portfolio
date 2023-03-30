@@ -9,12 +9,12 @@ import { setReference } from "../store/metadata";
 
 const Portfolio = () => {
     const { windowHeight } = useSelector(({ metadata }) => metadata)
-    const worksRef = useRef(null)
+    const portfolioRef = useRef(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setReference({name: 'worksRef', value: worksRef }))
-    })
+        dispatch(setReference({name: 'portfolio', value: portfolioRef }))
+    }, [])
     
     const portfolioData = [
         {
@@ -51,7 +51,7 @@ const Portfolio = () => {
 
     return (
         <div 
-            ref={worksRef}
+            ref={portfolioRef}
             className={"relative flex flex-col items-center pt-10 mt-10"} 
             style={{...styles.container}}>
 

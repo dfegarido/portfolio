@@ -9,28 +9,28 @@ import { useEffect, useRef } from "react"
 import { setReference } from "../store/metadata"
 import { scrollTo } from "../helpers/common";
 import { 
-    WHITE, 
-    LIME, 
+    WHITE,
+    PRIMARY,
+    SECONDARY,
     FONT_FAMILY } from '../helpers/constants'
 import Button from '../components/atom/Button'
 
 
 const Body = () => {
-
+    const [isBtnHover, setBtnHover] = useState(false)
     const { windowHeight, scrollTop, listRef }  = useSelector(({ metadata }) => metadata)
     const homeRef = useRef(null)
     const dispatch = useDispatch()
-    const [ toggleMenu, setToggleMenu ] = useState(false)
 
+    
 
     const closeMenu = (ref) => {
-        setToggleMenu(prevState => !prevState)
         scrollTo(ref)
     }
 
     useEffect(() => {
-        dispatch(setReference({name: 'homeRef', value: homeRef }))
-    })
+        dispatch(setReference({name: 'home', value: homeRef }))
+    }, [])
 
     const greetings = "Hi i'm"
     const name = "Darwin Fegarido"
@@ -45,6 +45,18 @@ const Body = () => {
         "Shopify Developer",
         "Fullstack Developer",
     ]
+
+    const onHover = () => {
+        setBtnHover(true)
+    }
+    const onLeaveHover = () => {
+        setBtnHover(false)
+    }
+
+    const onHovering = {
+        color: isBtnHover ? SECONDARY : PRIMARY,
+        borderColor: isBtnHover ? SECONDARY : PRIMARY,
+    }
 
     return (
         <div 
@@ -74,11 +86,12 @@ const Body = () => {
                     <div  style={styles.contactBtn} className={`flex-1`}>
                         <Button 
                             onClick={() => {
-                                closeMenu(listRef.contactRef)
+                                closeMenu(listRef.contact)
                             }}
+                            onMouseEnter={onHover}
+                            onMouseLeave={onLeaveHover}
                             label={"Contact"} 
-                            style={styles.contactLabel} 
-                            className={`h-10 border-lime-500 hover:border-lime-400 text-lime-500 hover:text-lime-400`}  />
+                            style={{...styles.contactLabel, ...onHovering}}/>
                     </div>
                 </div>
                 
@@ -149,12 +162,16 @@ const styles = {
         left: '100px',
         color: WHITE,
     },
+
     contactLabel: {
         fontSize: '21px',
         fontWeight: '600',
-        minHeight: '60px',
-        letterSpacing: '2px'
+        minHeight: '40px',
+        letterSpacing: '2px',
+        color: PRIMARY,
+        borderColor: PRIMARY,
     }
+
 }
 
 export default Body;

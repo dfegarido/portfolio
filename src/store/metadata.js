@@ -9,18 +9,21 @@ export const metadata = createSlice({
     windowWidth: '',
     scrollTop: '',
     isMobile: false,
+    refLocation: 'Home',
 
     listRef: {
-      homeRef: '',
-      aboutRef: '',
-      serviceRef: '',
-      worksRef: '',
-      blogRef: '',
-      contactRef: '',
+      home: '',
+      about: '',
+      service: '',
+      portfolio: '',
+      contact: '',
     },
     
   },
   reducers: {
+    setRefLocation: (state, { payload }) => {
+      state.refLocation = payload
+    },
     setIsMobile: (state, { payload }) => {
       state.isMobile = payload
     },
@@ -53,7 +56,8 @@ export const {
   setScrollTop, 
   setReference, 
   setWindowWidth, 
-  setIsMobile 
+  setIsMobile ,
+  setRefLocation
 } = metadata.actions
 
 export default metadata.reducer

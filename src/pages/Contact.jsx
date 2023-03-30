@@ -15,8 +15,8 @@ const Contact = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setReference({name: 'contactRef', value: contactRef }))
-    })
+        dispatch(setReference({name: 'contact', value: contactRef }))
+    }, [])
 
 
 

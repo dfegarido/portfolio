@@ -8,8 +8,8 @@ const About = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setReference({name: 'aboutRef', value: aboutRef }))
-    })
+        dispatch(setReference({name: 'about', value: aboutRef }))
+    }, [])
 
     const profile = require('../assets/profile-image.png')
     return (
