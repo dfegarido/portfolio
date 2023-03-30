@@ -28,7 +28,7 @@ const Services = () => {
             className={`flex flex-col items-center pt-10 pb-10`}
             style={{...styles.container}}>
 
-            <Title style={styles.title} label={SERVICE}/>
+            <Title label={SERVICE}/>
             
             <div className={"grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-8"} style={styles.card}>
                 { 
@@ -48,12 +48,6 @@ const Services = () => {
 const styles = {
     container: {
         background: '#F9F9F9',
-    },
-    title: {
-        fontFamily: FONT_FAMILY,
-        letterSpacing: '3px',
-        fontWeight: '700',
-        color: SLATE,
     },
     cardTitle: {
         fontFamily: FONT_FAMILY,
