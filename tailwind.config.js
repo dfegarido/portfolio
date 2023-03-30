@@ -10,7 +10,7 @@ module.exports = {
       backgroundImage: {
         'landing-page': 'url("/src/assets/landing-background.jpg")',
         'landing-one': 'url("/src/assets/landing-background1.jpg")',
-        'landing-two': 'url("/src/assets/landing-background2.jpg")',
+        'landing-two': 'url("/src/assets/landing-background2.webp")',
         'landing-three': 'url("/src/assets/landing-background3.jpg")',
       },
     },

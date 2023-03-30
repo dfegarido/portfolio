@@ -12,14 +12,16 @@ import {
     WHITE,
     PRIMARY,
     SECONDARY,
-    FONT_FAMILY } from '../helpers/constants'
+    FONT_FAMILY, 
+    SLATE,
+    LIGHT_GRAY} from '../helpers/constants'
 import Button from '../components/atom/Button'
 import { landingPage } from "../helpers/config"
 
 
 const Body = () => {
     const [isBtnHover, setBtnHover] = useState(false)
-    const { windowHeight, scrollTop, listRef }  = useSelector(({ metadata }) => metadata)
+    const { windowHeight, scrollTop, listRef, isMobile }  = useSelector(({ metadata }) => metadata)
     const homeRef = useRef(null)
     const dispatch = useDispatch()
     const { greetings, fullname: name, description: nameToAnimate } = landingPage
@@ -61,13 +63,13 @@ const Body = () => {
                         ...(scrollTop > 200 ? styles.hideContainer : null),
                     }}
                     className={`flex-1 grid justify-items-center backdrop-blur-sm`}>
-                    <div  style={styles.greetings} className={`flex-1`}>
+                    <div  style={isMobile ? styles.greetingsOnMobile : styles.greetings} className={`flex-1`}>
                         { greetings }
                     </div>
-                    <div  style={styles.name} className={`flex-1`}>
+                    <div  style={isMobile ? styles.nameOnMobile : styles.name} className={`flex-1`}>
                         { name }
                     </div>
-                    <div className="flex-1"  style={styles.iAm}>
+                    <div className="flex-1"  style={isMobile ? styles.iAmOnMobile : styles.iAm}>
                         <p> <CharacterAnimation label={nameToAnimate}/> </p>
                     </div>
                     <div  style={styles.contactBtn} className={`flex-1`}>
@@ -103,6 +105,18 @@ const styles = {
     hideContainer: {
         opacity: '0'
     },
+    greetingsOnMobile: {
+        position: 'absolute',
+        top: '11rem',
+        left: '50px',
+        fontFamily: FONT_FAMILY,
+        fontStyle: 'normal',
+        fontWeight: '600',
+        fontSize: '2rem',
+        lineHeight: '82px',
+        color: WHITE,
+        letterSpacing: '3px',
+    },
     greetings: {
         position: 'absolute',
         top: '15rem',
@@ -113,6 +127,19 @@ const styles = {
         fontSize: '4.5rem',
         lineHeight: '82px',
         color: WHITE,
+        letterSpacing: '3px',
+    },
+    nameOnMobile: {
+        position: 'absolute',
+        top: '14rem',
+        left: '50px',
+        fontFamily: FONT_FAMILY,
+        fontStyle: 'normal',
+        fontWeight: '600',
+        fontSize: '1.5rem',
+        lineHeight: '60px',
+        color: WHITE,
+        letterSpacing: '4px',
     },
     name: {
         position: 'absolute',
@@ -125,6 +152,19 @@ const styles = {
         lineHeight: '82px',
         color: WHITE,
         letterSpacing: '6px',
+    },
+    iAmOnMobile: {
+        position: 'absolute',
+        height: '68px',
+        top: '16rem',
+        left: '53px',
+        fontFamily: FONT_FAMILY,
+        fontStyle: 'normal',
+        fontWeight: '600',
+        fontSize: '15px',
+        lineHeight: '40px',
+        letterSpacing: '3px',
+        color: LIGHT_GRAY,
     },
     iAm: {
         position: 'absolute',

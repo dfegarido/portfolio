@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-const CharacterAnimation = ({ label }) => {
+const CharacterAnimation = ({ style, label }) => {
     const [description, setDescription] = useState('')
     let index = 0
     let developer = label[0]
@@ -31,14 +31,12 @@ const CharacterAnimation = ({ label }) => {
         }
     }
 
-    
-
     useEffect(() => {
         loop()
     }, [])
 
     return (
-        <span className="text-neutral-200 font-bold text-2xl sm:text-4xl">
+        <span style={style}>
             {description} 
         </span>
     )

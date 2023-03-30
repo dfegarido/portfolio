@@ -18,8 +18,16 @@ import description from '../../assets/description.svg'
 import facebook from '../../assets/facebook.svg'
 import instagram from '../../assets/instagram.svg'
 import linkedin from '../../assets/linkedin.svg'
+import { useSelector } from 'react-redux'
+
 
 const Icon = (props) => {
+    const { isMobile }  = useSelector(({ metadata }) => metadata)
+
+    const height = isMobile ? 32 : 40
+    const width = isMobile ? 32 : 40
+
+
     const name = props?.name;
     let icon;
     switch (name) {
@@ -91,8 +99,10 @@ const Icon = (props) => {
 
     return (
         <div {...props} >
-            <img src={icon} alt={name}  />
+            <img height={height} width={width} src={icon} alt={name}  />
         </div>
     )
 }
+
+
 export default Icon;

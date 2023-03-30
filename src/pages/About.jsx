@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
-import profile from '../assets/profile-image.png'
+import profile from '../assets/profile-image.webp'
 
 const About = () => {
     const aboutRef = useRef(null)

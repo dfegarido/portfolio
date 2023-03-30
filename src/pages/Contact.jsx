@@ -23,12 +23,10 @@ const Contact = () => {
     }, [])
 
     useEffect(() => {
-        if(state.submitting && !state.succeeded) setError(1);
-        if(state.submitting && state.succeeded) setError(0);
-        setTimeout(() => {
-            setError(undefined)
-        }, 10000);
-    }, [state])
+        if(state.result !== null && state.succeeded) setError(0)
+        if(state.errors.length > 0) setError(1)
+        if(!state.submitting) setError(undefined)
+    },[state])
 
     return (
         <div 
@@ -40,7 +38,7 @@ const Contact = () => {
             <div className="pt-10 grid justify-center">
                 <Title label={"Contact Us"}/>
             </div>
-            <div style={styles.logoContainer} className="pt-10 flex flex-row gap-1">
+            <div style={styles.logoContainer} className="pt-5 sm:pt-10 flex flex-row gap-1">
                 {
                     contactUs.map((item, key) => (
                         <div style={styles.logo} className="flex flex-col flex-1 text-center items-center " key={key}>
@@ -63,7 +61,7 @@ const Contact = () => {
             <div className={"mx-5 sm:mx-10 md:mx-24 lg:mx-80 pb-10 flex flex-col "}>
                 <form onSubmit={handleSubmit}>
                     <div className={`transition-all flex flex-col ${error === undefined ? 'opacity-0' : 'opacity-100'}`}>
-                        <div className={`flex-1 w-full ${error ? 'bg-red-300' : 'bg-green-300'} rounded-md h-48 text-center py-2 mb-4 font-bold text-slate-700`}>{error ? "Failed" : "Success" }</div>
+                        <div className={`flex-1 w-full ${error ? 'bg-red-300' : 'bg-green-300'} rounded-md h-48 text-center py-2 mb-4 font-bold text-slate-700`}>{error ? 'Failed' : "Success" }</div>
                     </div>
                     <div className="flex flex-col gap-12 sm:flex-row sm:gap-2 ">
                         <Input type="text" label="Name" className="flex-1" error={error}/>

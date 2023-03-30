@@ -13,17 +13,19 @@ import {
 } from "../helpers/constants";
 import { downloadPDF } from '../helpers/common'
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 
 
 const AboutMe = () => {
+    const { isMobile }  = useSelector(({ metadata }) => metadata)
     const [isHover, setHover] = useState(false)
 
     return (
-        <div className="flex flex-col items-center sm:items-end mt-10 mb-20 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-lg" >
+        <div className="flex flex-col items-center sm:items-end mt-10 mb-10 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-lg" >
             <Title label={ABOUT_ME} style={styles.aboutMe}/>
             <SubTitle label={TITLE} style={styles.subtitle} className="" />
-            <Description label={DESCRIPTION} style={styles.description} className="font-thin text-justify mt-5 text-sm sm:text-base"/>
+            <Description label={DESCRIPTION} style={isMobile ? styles.descriptionOnMobile : styles.description} className="font-thin text-justify mt-5 text-sm sm:text-base"/>
             <div className="grid grid-cols-1 gap-4 mt-10" >
                 <Button 
                     onClick={downloadPDF} 
@@ -63,6 +65,13 @@ const styles = {
         fontWeight: '600',
         fontSize: '20px',
         marginTop: '-7px',
+    },
+    descriptionOnMobile: {
+        fontFamily: FONT_FAMILY,
+        color: SLATE,
+        letterSpacing: '0.6px',
+        lineHeight: '21px',
+        fontWeight: '400',
     },
     description: {
         fontFamily: FONT_FAMILY,
