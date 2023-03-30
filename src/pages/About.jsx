@@ -2,12 +2,11 @@ import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
-import config from '../config'
+import profile from '../assets/profile-image.png'
 
 const About = () => {
     const aboutRef = useRef(null)
     const dispatch = useDispatch()
-    const { about } = config
 
     useEffect(() => {
         dispatch(setReference({name: 'about', value: aboutRef }))

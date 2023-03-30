@@ -14,6 +14,7 @@ import {
     SECONDARY,
     FONT_FAMILY } from '../helpers/constants'
 import Button from '../components/atom/Button'
+import config from "../config"
 
 
 const Body = () => {

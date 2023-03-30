@@ -1,7 +1,7 @@
 import PDFfile from '../assets/Resume-Darwin-Fegarido.pdf'
 
 export const scrollTo = (ref) => {
-    ref.current.scrollIntoView({ behavior: 'smooth' })
+    ref?.current?.scrollIntoView({ behavior: 'smooth' })
 }
 
 export const downloadPDF = () => {

@@ -1,21 +1,20 @@
-import React, { useState, Suspense, lazy} from "react";
+import { useState, Suspense, lazy, useEffect, useRef} from "react";
 import { useDispatch } from "react-redux";
 import Title from "../components/atom/Title";
 import Anchor from '../components/atom/Anchor'
-import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
 import config from "../config";
 const CardImage = lazy(() => import('../components/atom/CardImage'));
 
 
 const Portfolio = () => {
-    const { windowHeight } = useSelector(({ metadata }) => metadata)
     const portfolioRef = useRef(null)
     const dispatch = useDispatch()
+    const [ brands, setBrands ] = useState('all')
     const { portfolio } = config
 
     useEffect(() => {
-        dispatch(setReference({name: 'portfolio', value: portfolioRef }))
+            dispatch(setReference({name: 'portfolio', value: portfolioRef }))
     }, [])
     
 
