@@ -25,7 +25,7 @@ const AboutMe = () => {
         <div className="flex flex-col items-center sm:items-end mt-10 mb-10 pt-10 p-5 w-[90%] bg-neutral-100 rounded shrink-0 drop-shadow-lg" >
             <Title label={ABOUT_ME} style={styles.aboutMe}/>
             <SubTitle label={TITLE} style={styles.subtitle} className="" />
-            <Description label={DESCRIPTION} style={isMobile ? styles.descriptionOnMobile : styles.description} className="font-thin text-justify mt-5 text-sm sm:text-base"/>
+            <Description label={DESCRIPTION} style={isMobile ? styles.descriptionOnMobile : styles.description} />
             <div className="grid grid-cols-1 gap-4 mt-10" >
                 <Button 
                     onClick={downloadPDF} 
