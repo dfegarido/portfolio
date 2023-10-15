@@ -23,7 +23,21 @@ export const PORTFOLIO = 'Portfolio'
 
 
 /* CONTENTS */
-export const DESCRIPTION = 'I have worked as a full-stack developer since 2016, a period during which I have worked in different environments, from start-ups to international companies. I am a self-motivated and self-taught professional who likes to solve problems. I merge a passion for usability and user experience with technical knowledge to create cool digital experiences. My repertoire includes programming languages and tools such as ReactJS, Vue, NodeJS, Python, MySQL, PostgreSQL, Nginx, MongoDB, Redis, and Elasticsearch. I also deploy applications using cloud computing like AWS EC2, ECS, S3, Azure, Heroku, and Github, and configure CICD on Gitlab and Github.'
+export const DESCRIPTION = "I bring over seven years of experience as a dynamic full-stack developer, \
+with a diverse background spanning from innovative startups to global enterprises. \
+My career journey is marked by a relentless drive for self-improvement and a deep-rooted passion for problem-solving. \
+I thrive on the exciting intersection of user-centric design and cutting-edge technology, \
+crafting immersive digital experiences that leave a lasting impression. My versatile skill set encompasses a wide array of programming languages and tools, \
+including ReactJS, Vue, NodeJS, Python, and databases like MySQL, PostgreSQL, MongoDB, and Redis.\
+I'm adept at deploying applications in the cloud, leveraging the power of platforms such as AWS (EC2, ECS, S3), Azure, Heroku, and GitHub. \
+Additionally, I have a strong track record in configuring seamless CI/CD pipelines on Azure, Gitlab, and GitHub, ensuring rapid and reliable application delivery. \
+I have had the privilege of being part of a transformative project that spanned nearly two years, involved over 400 standups, and processed more than 45 billion data points. \
+This remarkable endeavor, in collaboration with esteemed partners such as VISEO APAC, SYSTRA Scott Lister, GHD, AECOM, Department of Transport, and Metro Trains Melbourne, \
+resulted in the creation of an innovative disruption planning tool aimed at enhancing the transport network for the citizens of Victoria.\
+ Our efforts were not only recognized but celebrated at the prestigious #iAwards2021, where the Level Crossing Removal Project garnered three significant awards: \
+ - The Business & Industry Solution of the Year \
+ - The Government & Public Sector Solution of the Year \
+ - A merit award in the Technology platform category"
 export const ABOUT_ME = 'About Me'
 export const CONTACT = 'Contact'
 export const TITLE = 'Fullstack Developer'
