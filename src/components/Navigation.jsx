@@ -5,28 +5,31 @@ import { scrollTo } from "../helpers/common";
 import Icon from "./atom/Icon";
 import { useEffect, useState } from "react";
 import { LOGO, HOME, ABOUT, SERVICE, PORTFOLIO, CONTACT } from "../helpers/constants";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Navigation = () => {
     const { scrollTop, listRef, isMobile, refLocation } = useSelector(({metadata}) => metadata)
     const [ toggleMenu, setToggleMenu ] = useState(false)
     const [ currentNavigation, setNavigation ] = useState(refLocation)
+    const { theme } = useTheme();
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     const closeMenu = (ref) => {
-        setToggleMenu(false)
-        scrollTo(ref)
+        setToggleMenu(false);
+        scrollTo(ref);
     }
 
-    const labels = [
-        HOME,
-        ABOUT,
-        SERVICE,
-        PORTFOLIO,
-        CONTACT,
-    ]
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsSmallScreen(window.innerWidth < 1024 && window.innerWidth > 768);
+        };
+        
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
 
     useEffect(() => {
-        // Use scrollTop instead of document.documentElement.scrollTop to ensure reactivity
-        // Add a small debounce to avoid flickering during rapid scrolling
         const updateNavigation = () => {
             switch (true) {
                 case scrollTop < 483:
@@ -50,105 +53,107 @@ const Navigation = () => {
             }
         };
         
-        // Small timeout to debounce frequent scroll events
         const timeoutId = setTimeout(updateNavigation, 50);
         return () => clearTimeout(timeoutId);
     }, [scrollTop])
 
+    const labels = [
+        HOME,
+        ABOUT,
+        SERVICE,
+        PORTFOLIO,
+        CONTACT,
+    ]
+
     return (
         <div 
-            className="flex flex-row min-w-full items-center" 
+            className="flex flex-row min-w-full items-center justify-between"
             style={{
-                ...styles.navigation,
-                ...( !isMobile && scrollTop > 500 ? styles.hideNavigation : null),
+                position: 'fixed',
+                left: '0px',
+                top: '0px',
+                background: 'rgba(var(--color-background-rgb), 0.75)',
+                backdropFilter: 'blur(12px)',
+                height: '60px',
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                zIndex: 1000,
+                transition: 'all .4s ease-in-out',
+                ...(scrollTop > 500 && !isMobile ? {
+                    height: '45px',
+                    background: 'rgba(var(--color-background-rgb), 0.85)',
+                    backdropFilter: 'blur(16px)',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+                } : {})
             }}
         >
-            <div className={`grid justify-items-${ !isMobile ? 'center' : 'start'} pl-6 content-center w-[50%]`} >
+            <div className={`${isSmallScreen ? 'pl-3' : 'pl-6'} content-center`}>
                 <Logo  
                     label={LOGO} 
                     onClick={() => {
                         setNavigation('Home')
                         scrollTo(listRef.home)
-                    }}/>
+                    }}
+                    className={isSmallScreen ? "scale-90" : ""}
+                />
             </div>
 
-            <div className={`gap-6 grid grid-flow-col content-center mx-4 ${ isMobile  ? 'hidden' : ''}`}>
+            <div className={`grid grid-flow-col content-center ${isMobile ? 'hidden' : isSmallScreen ? 'gap-3 mr-3' : 'gap-6 mr-6'}`}>
                 {
-                    labels.map( label => (
+                    labels.map(label => (
                         <Anchor 
                             key={label} 
                             label={label}
                             isActive={label === currentNavigation}
+                            className={isSmallScreen ? "text-sm px-1" : ""} 
                             onClick={() => {
-                                setNavigation(label) // Set active navigation directly on click
+                                setNavigation(label)
                                 scrollTo(listRef[label.toLocaleLowerCase()])
-                            }} />
+                            }} 
+                        />
                     ))
                 }
             </div>
 
-            {    
-                 isMobile ?
-                <div className="grid justify-items-end w-full pr-6">
+            {isMobile && (
+                <div className="grid justify-items-end pr-6">
                     <Icon 
                         height={24}
                         width={24}
                         onClick={() => setToggleMenu(prevState => !prevState)}
                         name={'menu'} 
-                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center transition-transform duration-300 ${toggleMenu ? 'rotate-90' : ''}`}/>
+                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center transition-transform duration-300 ${toggleMenu ? 'rotate-90' : ''}`}
+                    />
                     <div 
-                        style={styles.menuList} 
+                        style={{
+                            background: 'rgba(var(--color-background-rgb), 0.9)',
+                            backdropFilter: 'blur(16px)',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                            borderRadius: '0 0 10px 10px',
+                        }}
                         className={`fixed gap-4 -mr-6 w-full justify-items-end text-right pr-6 pt-3 pb-4 grid grid-rows-6 transition-all ease-in-out duration-300 
-                        ${toggleMenu ? 'h-auto opacity-100 mt-12 rounded-b-xl' : 'h-0 pt-10 opacity-0 -z-10'}`}>
+                        ${toggleMenu ? 'h-auto opacity-100 mt-12 rounded-b-xl' : 'h-0 pt-10 opacity-0 -z-10'}`}
+                    >
                         {
-                            labels.map( label => (
+                            labels.map(label => (
                                 <Anchor 
                                     key={label}
                                     className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                                    dark={true}
                                     isActive={label === currentNavigation}
                                     label={label}
                                     onClick={() => {
-                                        setNavigation(label) // Set active navigation directly on click
+                                        setNavigation(label)
                                         closeMenu(listRef[label.toLocaleLowerCase()])
-                                    }}/>
+                                    }}
+                                />
                             ))
                         }
                     </div>
-                </div>:null
-            }
+                </div>
+            )}
         </div>
     )
 }
-
-
-const styles = {
-    navigation: {
-        transition: 'all .4s ease-in-out',
-        position: 'absolute',
-        left: '0px',
-        top: '0px',
-        background: 'rgba(8, 8, 12, 0.75)',
-        backdropFilter: 'blur(12px)',
-        height: '60px',
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        zIndex: 1000,
-    },
-    hideNavigation: {
-        height: '45px',
-        background: 'rgba(0, 0, 0, 0.85)',
-        backdropFilter: 'blur(16px)',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-    },
-    menuList: { 
-        background: 'rgba(8, 8, 12, 0.9)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-        borderRadius: '0 0 10px 10px',
-    },
-}
-
 
 export default Navigation;

@@ -1,12 +1,17 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
 import profile from '../assets/profile-image.webp'
+import { useTheme } from '../contexts/ThemeContext'
+import { downloadPDF } from '../helpers/common'
+import Icon from '../components/atom/Icon'
 
 const About = () => {
     const aboutRef = useRef(null)
     const dispatch = useDispatch()
+    const { themeKey } = useTheme()
+    const [isHover, setHover] = useState(false)
 
     useEffect(() => {
         dispatch(setReference({name: 'about', value: aboutRef }))
@@ -15,10 +20,26 @@ const About = () => {
     return (
         <div 
             ref={aboutRef}
-            className={`grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 sm:px-8 relative`}
+            className={`grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 sm:px-8 relative py-10`}
+            style={{
+                background: 'var(--color-background)',
+                position: 'relative',
+                zIndex: 0,
+            }}
         >
+            {/* Semi-transparent overlay for better contrast */}
+            <div 
+                className="absolute inset-0 z-0" 
+                style={{
+                    background: themeKey === 'minimalist' ? 
+                        'linear-gradient(to bottom, rgba(245, 245, 247, 0.7), rgba(245, 245, 247, 0.9))' : 
+                        `linear-gradient(to bottom, rgba(var(--color-background-rgb), 0.8), rgba(var(--color-background-rgb), 0.95))`,
+                    backdropFilter: 'blur(5px)',
+                }}
+            ></div>
+            
             {/* Profile image section for mobile */}
-            <div className='flex justify-center sm:hidden my-6'>
+            <div className='flex justify-center sm:hidden my-6 z-10'>
                 <div className="relative profile-container">
                     <div className="accent-shape accent-shape-1"></div>
                     <div className="accent-shape accent-shape-2"></div>
@@ -39,12 +60,12 @@ const About = () => {
             </div>
             
             {/* About Me content */}
-            <div className="w-full grid justify-items-center" >
+            <div className="w-full grid justify-items-center relative z-10" >
                 <AboutMe />
             </div>
             
             {/* Profile image section for desktop */}
-            <div className='place-items-center hidden sm:flex items-center justify-center mt-10 relative' >
+            <div className='hidden sm:flex flex-col items-center justify-start mt-10 relative z-10' >
                 <div className="relative profile-container">
                     {/* Background accent shapes */}
                     <div className="accent-shape accent-shape-1"></div>
@@ -77,6 +98,60 @@ const About = () => {
                     <div className="role-badge">
                         Full Stack Engineer
                     </div>
+                    
+                    
+                </div>
+                <div className="flex justify-center mt-4">
+                    {/* Download resume button with elegant and futuristic design */}
+            <div className="w-full flex justify-center sm:justify-start mt-10">
+                <div className="relative group">
+                    {/* Light effects */}
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] opacity-70 blur-md rounded-lg group-hover:opacity-100 group-hover:blur-lg transition-all duration-300"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30 group-hover:opacity-50 animate-gradient-x rounded-lg"></div>
+                    
+                    {/* Button */}
+                    <button 
+                        onClick={downloadPDF} 
+                        onMouseEnter={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                        className="relative flex items-center justify-center gap-3 px-6 py-3 backdrop-blur-sm rounded-lg transition-all duration-300 overflow-hidden group-hover:shadow-lg"
+                        style={{
+                            background: "var(--color-background)",
+                            color: "var(--color-secondary)",
+                            transform: isHover ? "translateY(-2px)" : "translateY(0)",
+                            border: "1px solid rgba(var(--color-primary-rgb), 0.3)",
+                        }}
+                    >
+                        {/* Button content wrapper */}
+                        <div className="flex items-center gap-3 z-10">
+                            {/* Download icon */}
+                            <div className={`relative rounded-full p-2 transition-all duration-300`} 
+                                style={{
+                                    background: isHover 
+                                        ? `linear-gradient(135deg, var(--color-primary), var(--color-accent))` 
+                                        : `var(--color-primary)`
+                                }}
+                            >
+                                <Icon 
+                                    height={18} 
+                                    width={18} 
+                                    name="download" 
+                                    className={`text-white transition-transform duration-300 ${isHover ? 'animate-bounce-subtle' : ''}`}
+                                />
+                            </div>
+                            
+                            {/* Text content */}
+                            <div className="flex flex-col items-start">
+                                <span className="font-bold tracking-wider text-sm">RESUME</span>
+                                <span className="text-xs opacity-70 tracking-widest">DOWNLOAD CV</span>
+                            </div>
+                        </div>
+                        
+                        {/* Moving light effect */}
+                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-30 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    </button>
+                </div>
+            </div>
                 </div>
             </div>
         </div>

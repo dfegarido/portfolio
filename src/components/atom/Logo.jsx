@@ -4,7 +4,7 @@ import { PRIMARY, SECONDARY } from "../../helpers/constants";
 import { useTheme } from "../../contexts/ThemeContext";
 
 
-const Logo = ({ label, onClick }) => {
+const Logo = ({ label, onClick, className = "" }) => {
     const { scrollTop, isMobile } = useSelector(({ metadata }) => metadata )
     const [ isHover, setHover ] = useState(false)
     const { theme, themeKey } = useTheme();
@@ -30,7 +30,7 @@ const Logo = ({ label, onClick }) => {
     return (
         <h1 
             key={`logo-${themeKey}`} // Force re-render on theme change
-            className="animated-text" // Use our common animated text class
+            className={`animated-text ${className}`} // Added className prop
             style={{
                 ...styles.logo,
                 backgroundImage: getGradient(),

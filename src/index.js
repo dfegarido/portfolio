@@ -7,6 +7,7 @@ import Default from './layout/Default';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
+import './theme-transition';
 
 
 const container = document.getElementById('root')

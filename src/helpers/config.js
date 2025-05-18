@@ -58,14 +58,14 @@ module.exports = {
             "brand": "website",
             'name': 'RC Gem Web Portal',
             'description': 'Led the development of a comprehensive web portal for Rémy Cointreau using React and Node.js. Implemented responsive design and complex data visualization features.',
-            'url': require('../assets/development.svg'),
+            'url': require('../assets/chillflixweb.png'), // Changed from SVG to webp image
             'link': 'https://github.com/dfegarido'
         },
         {
             "brand": "website",
             'name': 'Analytics Dashboard',
             'description': 'Created a modern analytics dashboard using React, Redux, and D3.js. Features real-time data updates, interactive charts, and comprehensive reporting tools.',
-            'url': require('../assets/architecture.svg'),
+            'url': require('../assets/moneytracker.webp'), // Changed from SVG to webp image
             'link': 'https://github.com/dfegarido'
         },
         {
@@ -93,7 +93,7 @@ module.exports = {
             "brand": "website",
             'name': 'RESTful API Service',
             'description': 'Designed and implemented a comprehensive REST API service using Node.js and Express. Features include authentication, rate limiting, and extensive documentation.',
-            'url': require('../assets/description.svg'),
+            'url': require('../assets/pyrex.webp'), // Changed from SVG to webp image
             'link': 'https://github.com/dfegarido'
         }
     ],
