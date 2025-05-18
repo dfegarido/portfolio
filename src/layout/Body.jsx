@@ -12,9 +12,9 @@ import {
     WHITE,
     PRIMARY,
     SECONDARY,
-    FONT_FAMILY, 
-    SLATE,
-    LIGHT_GRAY} from '../helpers/constants'
+    FONT_FAMILY,
+    LIGHT_GRAY,
+    LIME } from '../helpers/constants'
 import Button from '../components/atom/Button'
 import { landingPage } from "../helpers/config"
 
@@ -25,6 +25,7 @@ const Body = () => {
     const homeRef = useRef(null)
     const dispatch = useDispatch()
     const { greetings, fullname: name, description: nameToAnimate } = landingPage
+    // Use CSS variables for theme-aware styling
     
 
     const closeMenu = (ref) => {
@@ -33,7 +34,7 @@ const Body = () => {
 
     useEffect(() => {
         dispatch(setReference({name: 'home', value: homeRef }))
-    }, [])
+    }, [dispatch])
 
     const onHover = () => {
         setBtnHover(true)
@@ -43,8 +44,11 @@ const Body = () => {
     }
 
     const onHovering = {
-        color: isBtnHover ? SECONDARY : PRIMARY,
-        borderColor: isBtnHover ? SECONDARY : PRIMARY,
+        color: '#fff',
+        borderColor: isBtnHover ? 'var(--color-primary)' : 'var(--color-primary)',
+        backgroundColor: isBtnHover ? 'rgba(var(--color-primary-rgb), 0.3)' : 'rgba(var(--color-primary-rgb), 0.2)',
+        transform: isBtnHover ? 'translateY(-2px)' : 'none',
+        boxShadow: isBtnHover ? '0 0 20px rgba(var(--color-primary-rgb), 0.5)' : '0 0 15px rgba(var(--color-primary-rgb), 0.3)',
     }
 
     return (
@@ -53,34 +57,52 @@ const Body = () => {
             className="flex-1 flex-row ">
             {/* Landing Page Background */}
             <div 
-                className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two flex min-w-full`} 
+                className={`bg-cover bg-no-repeat bg-center bg-fixed bg-landing-two flex min-w-full relative overflow-hidden`} 
                 style={{ 
-                    height: `${windowHeight}px` ,
+                    height: `${windowHeight}px`,
                 }}>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+                <div className="absolute inset-0 theme-accent-glow" style={{
+                    background: `radial-gradient(circle at 50% 50%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 50%)`,
+                    animation: 'pulse 4s ease-in-out infinite'
+                }}></div>
                 <div 
                     style={{
                         ...styles.container,
                         ...(scrollTop > 200 ? styles.hideContainer : null),
                     }}
-                    className={`flex-1 grid justify-items-center backdrop-blur-sm`}>
-                    <div  style={isMobile ? styles.greetingsOnMobile : styles.greetings} className={`flex-1`}>
-                        { greetings }
-                    </div>
-                    <div  style={isMobile ? styles.nameOnMobile : styles.name} className={`flex-1`}>
-                        { name }
-                    </div>
-                    <div className="flex-1"  style={isMobile ? styles.iAmOnMobile : styles.iAm}>
-                        <p> <CharacterAnimation label={nameToAnimate}/> </p>
-                    </div>
-                    <div  style={styles.contactBtn} className={`flex-1`}>
-                        <Button 
-                            onClick={() => {
-                                closeMenu(listRef.contact)
-                            }}
-                            onMouseEnter={onHover}
-                            onMouseLeave={onLeaveHover}
-                            label={"Contact"} 
-                            style={{...styles.contactLabel, ...onHovering}}/>
+                    className={`flex-1 backdrop-blur-sm relative z-10`}>
+                    <div className="max-w-4xl mx-auto px-4 text-center">
+                        <div style={isMobile ? styles.greetingsOnMobile : styles.greetings}>
+                            <span className="theme-bracket-color">{"<"}</span>
+                            {greetings}
+                            <span className="theme-bracket-color">{">/>"}</span>
+                        </div>
+                        <div style={isMobile ? styles.nameOnMobile : styles.name} 
+                             className="theme-gradient-text">
+                            {name}
+                        </div>
+                        <div style={isMobile ? styles.subTextOnMobile : styles.subText}>
+                            {landingPage.subText}
+                        </div>
+                        <div style={isMobile ? styles.iAmOnMobile : styles.iAm}>
+                            <div className="theme-bracket-color opacity-75 inline-block mr-4">{"{"}</div>
+                            <CharacterAnimation label={nameToAnimate}/>
+                            <div className="theme-bracket-color opacity-75 inline-block ml-4">{"}"}</div>
+                        </div>
+                        <div style={styles.contactBtn}>
+                            <Button 
+                                onClick={() => closeMenu(listRef.contact)}
+                                onMouseEnter={onHover}
+                                onMouseLeave={onLeaveHover}
+                                label={<span className="flex items-center">
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+                                  </svg>
+                                  Chat with me
+                                </span>}
+                                style={{...styles.contactLabel, ...onHovering}}/>
+                        </div>
                     </div>
                 </div>
                 
@@ -99,65 +121,97 @@ const Body = () => {
 
 const styles = {
     container: {
-        transition: 'opacity .3s',
+        transition: 'opacity .5s ease-in-out',
         opacity: '1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
     },
     hideContainer: {
         opacity: '0'
     },
     greetingsOnMobile: {
-        position: 'absolute',
-        top: '11rem',
-        left: '50px',
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: '2rem',
-        lineHeight: '82px',
+        lineHeight: '1.2',
         color: WHITE,
         letterSpacing: '3px',
+        textShadow: '0 0 15px rgba(var(--color-primary-rgb), 0.4)',
+        transform: 'translateZ(0)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1rem',
+        transition: 'text-shadow 0.5s ease',
     },
     greetings: {
-        position: 'absolute',
-        top: '15rem',
-        left: '100px',
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
-        fontWeight: '800',
-        fontSize: '4.5rem',
-        lineHeight: '82px',
+        fontWeight: '700',
+        fontSize: '3.5rem',
+        lineHeight: '1.2',
         color: WHITE,
         letterSpacing: '3px',
+        textShadow: '0 0 15px rgba(var(--color-primary-rgb), 0.4)',
+        transform: 'translateZ(0)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1.5rem',
+        transition: 'text-shadow 0.5s ease',
     },
     nameOnMobile: {
-        position: 'absolute',
-        top: '14rem',
-        left: '50px',
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
-        fontWeight: '600',
-        fontSize: '1.5rem',
-        lineHeight: '60px',
-        color: WHITE,
+        fontWeight: '900',
+        fontSize: '3rem',
+        lineHeight: '1.2',
         letterSpacing: '4px',
+        textShadow: '0 0 30px rgba(var(--color-primary-rgb), 0.6)',
+        transform: 'translateZ(0)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1rem',
+        transition: 'text-shadow 0.5s ease',
     },
     name: {
-        position: 'absolute',
-        top: '19rem',
-        left: '100px',
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
-        fontWeight: '800',
-        fontSize: '3.5rem',
-        lineHeight: '82px',
-        color: WHITE,
+        fontWeight: '900',
+        fontSize: '6rem',
+        lineHeight: '1.2',
         letterSpacing: '6px',
+        textShadow: '0 0 30px rgba(var(--color-primary-rgb), 0.6)',
+        transform: 'translateZ(0)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1.5rem',
+        transition: 'text-shadow 0.5s ease',
+    },
+    subTextOnMobile: {
+        fontFamily: FONT_FAMILY,
+        fontStyle: 'normal',
+        fontWeight: '700',
+        fontSize: '1.4rem',
+        letterSpacing: '4px',
+        opacity: 0.95,
+        color: WHITE,
+        textShadow: '0 0 10px rgba(var(--color-accent-rgb), 0.3)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1rem',
+        transition: 'text-shadow 0.5s ease, color 0.5s ease',
+    },
+    subText: {
+        fontFamily: FONT_FAMILY,
+        fontStyle: 'normal',
+        fontWeight: '700',
+        fontSize: '1.8rem',
+        letterSpacing: '4px',
+        opacity: 0.95,
+        color: WHITE,
+        textShadow: '0 0 10px rgba(var(--color-accent-rgb), 0.3)',
+        WebkitFontSmoothing: 'antialiased',
+        marginBottom: '1.5rem',
+        transition: 'text-shadow 0.5s ease, color 0.5s ease',
     },
     iAmOnMobile: {
-        position: 'absolute',
-        height: '68px',
-        top: '16rem',
-        left: '53px',
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
         fontWeight: '600',
@@ -165,13 +219,12 @@ const styles = {
         lineHeight: '40px',
         letterSpacing: '3px',
         color: LIGHT_GRAY,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '1rem',
     },
     iAm: {
-        position: 'absolute',
-        height: '68px',
-        top: '23rem',
-        left: '100px',
-
         fontFamily: FONT_FAMILY,
         fontStyle: 'normal',
         fontWeight: '300',
@@ -179,26 +232,31 @@ const styles = {
         lineHeight: '68px',
         letterSpacing: '2px',
         color: WHITE,
-
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '1.5rem',
     },
     contactBtn: {
-        position: 'absolute',
-        height: '68px',
-        width: '200px',
-        top: '29rem',
-        left: '100px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         color: WHITE,
+        marginTop: '1rem',
     },
-
     contactLabel: {
-        fontSize: '21px',
-        fontWeight: '600',
-        minHeight: '40px',
+        fontSize: '20px',
+        fontWeight: '700',
+        minHeight: '45px',
         letterSpacing: '2px',
-        color: PRIMARY,
-        borderColor: PRIMARY,
+        color: '#fff',
+        backgroundColor: 'rgba(132, 204, 22, 0.2)',
+        borderColor: LIME,
+        borderWidth: '2px',
+        padding: '0 22px',
+        boxShadow: '0 0 15px rgba(132, 204, 22, 0.3)',
+        transition: 'all 0.3s ease',
     }
-
 }
 
 export default Body;

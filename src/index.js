@@ -6,13 +6,16 @@ import { Provider } from 'react-redux'
 import Default from './layout/Default';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(
   <Provider store={store}>
-    <Default />
+    <ThemeProvider>
+      <Default />
+    </ThemeProvider>
   </Provider>
 );
 

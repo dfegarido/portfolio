@@ -20,7 +20,7 @@ const Portfolio = () => {
 
     useEffect(() => {
             dispatch(setReference({name: 'portfolio', value: portfolioRef }))
-    }, [])
+    }, [dispatch])
 
     let labels = [
         "Website",

@@ -1,4 +1,3 @@
-
 /* COLORS */
 export const WHITE = '#dfdfdf'
 export const SLATE = '#475569'
@@ -23,22 +22,17 @@ export const PORTFOLIO = 'Portfolio'
 
 
 /* CONTENTS */
-export const DESCRIPTION = "I bring over seven years of experience as a dynamic full-stack developer, \
-with a diverse background spanning from innovative startups to global enterprises. \
-My career journey is marked by a relentless drive for self-improvement and a deep-rooted passion for problem-solving. \
-I thrive on the exciting intersection of user-centric design and cutting-edge technology, \
-crafting immersive digital experiences that leave a lasting impression. My versatile skill set encompasses a wide array of programming languages and tools, \
-including ReactJS, Vue, NodeJS, Python, and databases like MySQL, PostgreSQL, MongoDB, and Redis.\
-I'm adept at deploying applications in the cloud, leveraging the power of platforms such as AWS (EC2, ECS, S3), Azure, Heroku, and GitHub. \
-Additionally, I have a strong track record in configuring seamless CI/CD pipelines on Azure, Gitlab, and GitHub, ensuring rapid and reliable application delivery. \
-I have had the privilege of being part of a transformative project that spanned nearly two years, involved over 400 standups, and processed more than 45 billion data points. \
-This remarkable endeavor, in collaboration with esteemed partners such as VISEO APAC, SYSTRA Scott Lister, GHD, AECOM, Department of Transport, and Metro Trains Melbourne, \
-resulted in the creation of an innovative disruption planning tool aimed at enhancing the transport network for the citizens of Victoria.\
- Our efforts were not only recognized but celebrated at the prestigious #iAwards2021, where the Level Crossing Removal Project garnered three significant awards: \
- - The Business & Industry Solution of the Year \
- - The Government & Public Sector Solution of the Year \
- - A merit award in the Technology platform category"
+export const DESCRIPTION = "Senior Full Stack Developer with 9+ years of expertise crafting exceptional digital experiences. " +
+"I transform complex ideas into elegant, high-performance applications using modern JavaScript frameworks and best practices. " +
+"I've architected scalable frontend systems with React/TypeScript and built robust backends with Node.js, Express, and GraphQL. " +
+"I'm passionate about code quality and user experience—writing clean, maintainable solutions that solve real business challenges. " +
+"My technical toolkit includes the entire React ecosystem, state management with Redux, RESTful and GraphQL APIs, " +
+"and database systems like PostgreSQL and MongoDB. Beyond coding, I excel at optimizing performance, implementing CI/CD workflows, " +
+"and mentoring development teams. Recently, I've been integrating AI solutions to enhance application intelligence and user workflows. " +
+"I approach each project with both technical precision and creative vision—building applications that not only function flawlessly but " +
+"provide compelling user experiences that drive business success."
+
 export const ABOUT_ME = 'About Me'
 export const CONTACT = 'Contact'
-export const TITLE = 'Fullstack Developer'
+export const TITLE = 'Full Stack Engineer'
 export const LOGO = "Fegarido"

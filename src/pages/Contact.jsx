@@ -4,10 +4,9 @@ import CircleLogo from '../components/atom/CircleLogo';
 import CardTitle from "../components/atom/CardTitle";
 import Input from "../components/atom/Input";
 import TextArea from "../components/atom/TextArea";
-import Button from "../components/atom/Button"
 import { useEffect, useRef, useState } from "react";
 import { setReference } from "../store/metadata";
-import { useForm, ValidationError } from '@formspree/react';
+import { useForm } from '@formspree/react';
 import config from "../helpers/config";
 import { FONT_FAMILY, SLATE } from "../helpers/constants";
 
@@ -20,7 +19,7 @@ const Contact = () => {
 
     useEffect(() => {
         dispatch(setReference({name: 'contact', value: contactRef }))
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if(state.result !== null && state.succeeded) setError(0)

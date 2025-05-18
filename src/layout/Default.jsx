@@ -3,35 +3,42 @@ import { setScrollTop, setWindowHeight, setWindowWidth, setIsMobile } from '../s
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 import { useEffect } from 'react';
-
 
 const Default = () => {
     const dispatch = useDispatch()
 
-    const scrollListener = () => {
-        dispatch(setScrollTop(document.documentElement.scrollTop))
-    }
-
-    const resizeListener = () => {
-        dispatch(setWindowWidth(document.body.offsetWidth))
-        dispatch(setIsMobile(document.body.offsetWidth < 640))
-    }
-
     useEffect(() => {
+        const scrollListener = () => {
+            dispatch(setScrollTop(document.documentElement.scrollTop))
+        }
+
+        const resizeListener = () => {
+            dispatch(setWindowWidth(document.body.offsetWidth))
+            dispatch(setIsMobile(document.body.offsetWidth < 640))
+        }
+
         dispatch(setWindowWidth(document.body.offsetWidth))
         dispatch(setIsMobile(document.body.offsetWidth < 600))
         window.addEventListener('scroll', scrollListener)
         window.addEventListener('resize', resizeListener)
         dispatch(setWindowHeight(window.innerHeight))
-    }, [])
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('scroll', scrollListener)
+            window.removeEventListener('resize', resizeListener)
+        }
+    }, [dispatch])
 
     return (
-      <div className={`h-fit overflow-hidden`}>
-          <Header />
-          <Body />
-          <Footer />
-      </div>  
+        <div className={`h-fit overflow-hidden`}>
+            <Header />
+            <Body />
+            <Footer />
+            <ThemeSwitcher />
+        </div>  
     );
 }
 

@@ -18,7 +18,7 @@ import description from '../../assets/description.svg'
 import facebook from '../../assets/facebook.svg'
 import instagram from '../../assets/instagram.svg'
 import linkedin from '../../assets/linkedin.svg'
-import { useSelector } from 'react-redux'
+
 
 
 const Icon = (props) => {    
