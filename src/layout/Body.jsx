@@ -33,7 +33,11 @@ const Body = () => {
     }
 
     useEffect(() => {
-        dispatch(setReference({name: 'home', value: homeRef }))
+        if (homeRef.current) {
+            // Use an ID-based approach instead of passing the ref directly
+            homeRef.current.id = 'home-section';
+            dispatch(setReference({name: 'home', value: 'home-section' }))
+        }
     }, [dispatch])
 
     const onHover = () => {

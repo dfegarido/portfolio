@@ -13,8 +13,13 @@ const About = () => {
     const { themeKey } = useTheme()
     const [isHover, setHover] = useState(false)
 
+    // Safe way to handle refs with Redux - store the element ID instead of the ref itself
     useEffect(() => {
-        dispatch(setReference({name: 'about', value: aboutRef }))
+        if (aboutRef.current) {
+            // Use an ID-based approach instead of passing the ref directly
+            aboutRef.current.id = 'about-section';
+            dispatch(setReference({name: 'about', value: 'about-section' }))
+        }
     }, [dispatch])
 
     return (

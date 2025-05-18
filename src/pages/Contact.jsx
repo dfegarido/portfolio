@@ -22,7 +22,11 @@ const Contact = () => {
     const [isSubmitHovered, setIsSubmitHovered] = useState(false)
 
     useEffect(() => {
-        dispatch(setReference({name: 'contact', value: contactRef }))
+        if (contactRef.current) {
+            // Use an ID-based approach instead of passing the ref directly
+            contactRef.current.id = 'contact-section';
+            dispatch(setReference({name: 'contact', value: 'contact-section' }))
+        }
     }, [dispatch])
 
     useEffect(() => {

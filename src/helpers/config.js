@@ -24,33 +24,33 @@ module.exports = {
     services: [
         {
             'logo':'computer',
-            'title':'Frontend Development',
-            'description': "Build modern, responsive web applications using React and related technologies. Create engaging user interfaces with clean, maintainable code and optimal performance.",
+            'title':'Modern Frontend Development',
+            'description': "Build cutting-edge web applications using React, Next.js and TypeScript. Create engaging, accessible user interfaces with component-driven architecture and optimal performance.",
         },
         {
             'logo':'developer',
-            'title':'Backend Development',
-            'description': "Develop robust backend systems using Node.js, Express, and modern databases. Design and implement scalable APIs and efficient data management solutions.",
+            'title':'API & Backend Systems',
+            'description': "Develop robust backend systems using Node.js, Express, and GraphQL. Design and implement scalable microservices and efficient data pipelines for modern applications.",
         },
         {
             'logo':'architecture',
-            'title':'Web Architecture',
-            'description': "Design and implement scalable web architectures. Focus on clean code, maintainability, and modern development practices for optimal application performance.",
+            'title':'AI Integration Services',
+            'description': "Seamlessly integrate AI capabilities into web applications. Implement machine learning models, natural language processing, and intelligent features that transform user experiences.",
         },
         {
             'logo':'cloud',
-            'title':'Database Design',
-            'description': "Create efficient database schemas and implement robust data management solutions using PostgreSQL, MongoDB, and other modern databases.",
+            'title':'Cloud Architecture',
+            'description': "Design and deploy cloud-native applications using AWS, Azure, or GCP. Implement serverless architectures, containerization, and CI/CD pipelines for scalable solutions.",
         },
         {
             'logo':'monetization',
-            'title':'Performance Optimization',
-            'description': "Optimize web applications for speed and efficiency. Implement best practices for loading times, resource management, and overall application performance.",
+            'title':'Performance & Analytics',
+            'description': "Optimize applications for speed and user engagement. Implement sophisticated analytics systems to track KPIs, user behavior, and business metrics for data-driven decisions.",
         },
         {
             'logo':'mobile',
-            'title':'Responsive Web Design',
-            'description': "Create responsive, mobile-first web applications that provide excellent user experience across all devices and screen sizes.",
+            'title':'Full Stack Solutions',
+            'description': "Deliver end-to-end development solutions from concept to deployment. Create cohesive experiences across frontend, backend, and infrastructure with modern tech stacks.",
         },
     ],
     portfolio: [

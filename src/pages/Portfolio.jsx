@@ -19,7 +19,11 @@ const Portfolio = () => {
 
 
     useEffect(() => {
-            dispatch(setReference({name: 'portfolio', value: portfolioRef }))
+        if (portfolioRef.current) {
+            // Use an ID-based approach instead of passing the ref directly
+            portfolioRef.current.id = 'portfolio-section';
+            dispatch(setReference({name: 'portfolio', value: 'portfolio-section' }))
+        }
     }, [dispatch])
 
     let labels = [
