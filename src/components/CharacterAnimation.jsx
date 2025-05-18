@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react"
+import { useTheme } from "../contexts/ThemeContext"
 
 const CharacterAnimation = ({ style, label }) => {
     const [description, setDescription] = useState('')
@@ -8,6 +9,7 @@ const CharacterAnimation = ({ style, label }) => {
     const [showCursor, setShowCursor] = useState(true)
     const timeoutRef = useRef(null)
     const cursorRef = useRef(null)
+    const { theme, themeKey } = useTheme() // Get both theme and themeKey
 
     // Cursor blink effect
     useEffect(() => {
@@ -54,27 +56,34 @@ const CharacterAnimation = ({ style, label }) => {
         }
     }, [loop])
 
+    // Force re-render on theme change by using key with themeKey
     return (
-        <span style={{
-            ...style,
-            display: 'inline-block',
-            position: 'relative',
-            whiteSpace: 'nowrap',
-        }}>
-            <span style={{
-                background: 'linear-gradient(to right, #fff, #84cc16)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                textShadow: '0 0 15px rgba(132, 204, 22, 0.3)',
-            }}>
+        <span 
+            key={`char-animation-${themeKey}`}
+            className="inline-block relative whitespace-nowrap"
+            style={style}
+        >
+            <span 
+                className="animated-text"
+                style={{
+                    color: theme.secondary, // Fallback color if gradient doesn't work
+                    background: `linear-gradient(to right, ${theme.secondary}, ${theme.primary})`,
+                    textShadow: `0 0 15px rgba(${theme.primaryRGB}, 0.3)`,
+                }}
+            >
                 {description}
             </span>
-            <span style={{
-                opacity: showCursor ? 1 : 0,
-                transition: 'opacity 0.1s ease',
-                color: '#84cc16',
-                textShadow: '0 0 10px rgba(132, 204, 22, 0.5)',
-            }}>|</span>
+            <span 
+                className="cursor-blink"
+                style={{
+                    opacity: showCursor ? 1 : 0,
+                    transition: 'opacity 0.1s ease',
+                    color: theme.primary,
+                    textShadow: `0 0 10px rgba(${theme.primaryRGB}, 0.5)`,
+                }}
+            >
+                |
+            </span>
         </span>
     )
 }

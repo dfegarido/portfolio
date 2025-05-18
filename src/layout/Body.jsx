@@ -76,7 +76,7 @@ const Body = () => {
                         <div style={isMobile ? styles.greetingsOnMobile : styles.greetings}>
                             <span className="theme-bracket-color">{"<"}</span>
                             {greetings}
-                            <span className="theme-bracket-color">{">/>"}</span>
+                            <span className="theme-bracket-color">{"/>"}</span>
                         </div>
                         <div style={isMobile ? styles.nameOnMobile : styles.name} 
                              className="theme-gradient-text">

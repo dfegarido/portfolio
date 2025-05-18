@@ -1,32 +1,36 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { PRIMARY, SECONDARY } from "../../helpers/constants";
+import { useTheme } from "../../contexts/ThemeContext";
 
 
 const Logo = ({ label, onClick }) => {
     const { scrollTop, isMobile } = useSelector(({ metadata }) => metadata )
     const [ isHover, setHover ] = useState(false)
+    const { theme, themeKey } = useTheme();
 
     const getGradient = () => {
         if (isHover) {
-            return 'linear-gradient(45deg, #fff, #a3e635)'
+            return `linear-gradient(45deg, ${theme.secondary}, ${theme.primary})`
         }
         if (!isMobile && scrollTop > 500) {
-            return 'linear-gradient(45deg, #84cc16, #fff)'
+            return `linear-gradient(45deg, ${theme.primary}, ${theme.secondary})`
         }
         if (isMobile) {
-            return 'linear-gradient(45deg, #fff, #84cc16)'
+            return `linear-gradient(45deg, ${theme.secondary}, ${theme.primary})`
         }
-        return 'linear-gradient(45deg, #fff, #a3e635)'
+        return `linear-gradient(45deg, ${theme.secondary}, ${theme.primary})`
     }
 
     const hoverStyle = isHover ? {
         transform: 'perspective(500px) translateZ(10px) scale(1.03)',
-        textShadow: '0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(163,230,53,0.6)',
+        textShadow: `0 0 20px rgba(${theme.secondaryRGB},0.8), 0 0 30px rgba(${theme.primaryRGB},0.6)`,
     } : {};
 
     return (
         <h1 
+            key={`logo-${themeKey}`} // Force re-render on theme change
+            className="animated-text" // Use our common animated text class
             style={{
                 ...styles.logo,
                 backgroundImage: getGradient(),
@@ -55,28 +59,20 @@ const styles = {
         lineHeight: '48px',
         cursor: 'pointer',
         letterSpacing: '5px',
-        textShadow: '0 0 15px rgba(255,255,255,0.5)',
         position: 'relative',
-        backgroundImage: 'linear-gradient(45deg, #fff, #a3e635)',
+        // Background image will be set dynamically through getGradient()
         backgroundSize: '100%',
         backgroundRepeat: 'repeat',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        MozBackgroundClip: 'text',
-        MozTextFillColor: 'transparent',
-        display: 'inline-block',
         padding: '0 5px',
         transform: 'perspective(500px) translateZ(0px)',
     },
     onScrollTop: {
         fontSize: '25px',
         lineHeight: '45px',
-        textShadow: '0 0 20px rgba(255,255,255,0.6)',
     },
     mobile: {
         lineHeight: '3rem',
         fontSize: '1.5rem',
-        textShadow: '0 0 15px rgba(255,255,255,0.5)',
     }
 }
 

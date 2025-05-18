@@ -157,7 +157,7 @@ const AboutMe = () => {
                         <br/>
                         <span className="pl-8 text-blue-400">self</span>.<span className="text-emerald-300">role</span> <span className="text-slate-200">=</span> <span className="text-amber-300">"Senior Full Stack Engineer"</span>
                         <br/>
-                        <span className="pl-8 text-blue-400">self</span>.<span className="text-emerald-300">experience</span> <span className="text-slate-200">=</span> <span className="text-amber-300">9</span> <span className="text-slate-200">+</span> <span className="text-slate-400"># years</span>
+                        <span className="pl-8 text-blue-400">self</span>.<span className="text-emerald-300">experience</span> <span className="text-slate-200">=</span> <span className="text-amber-300">{new Date().getFullYear() - 2018}</span> <span className="text-slate-200">+</span> <span className="text-slate-400"># years and counting</span>
                         <br/><br/>
                         <span className="pl-4 text-blue-400">def</span> <span className="text-yellow-300">get_skills</span><span className="text-slate-200">(self):</span>
                         <br/>

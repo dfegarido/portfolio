@@ -31,6 +31,17 @@
   transition: color 0.3s ease;
 }
 
+/* Character Animation Styles */
+.animated-text {
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -moz-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  -moz-text-fill-color: transparent !important;
+  display: inline-block;
+  transition: all 0.5s ease;
+}
+
 .theme-gradient-text {
   background: linear-gradient(to right, var(--color-accent), var(--gradient-from), var(--gradient-to), var(--color-accent));
   background-size: 200% auto;
