@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FONT_FAMILY, GRAY, LIGHT_GRAY, SLATE } from "../../helpers/constants";
+import { FONT_FAMILY, LIGHT_GRAY, SLATE } from "../../helpers/constants";
 
 
 const Input = (props) => {

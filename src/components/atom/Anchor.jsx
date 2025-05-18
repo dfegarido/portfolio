@@ -9,10 +9,13 @@ import {
 
 const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
     const [hover, setHover] = useState(false)
+    
+    // Add brackets around navigation labels for code-style aesthetic
+    const formattedLabel = `{ ${label} }`;
 
     return (
         <div 
-            className={className}
+            className={`${className} theme-nav-item transition-all duration-300`}
             style={{
                 ...styles.normal, 
                 ...(dark ? styles.dark : null ),
@@ -25,7 +28,24 @@ const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
             onMouseLeave={() => setHover(false)}
             onClick={onClick}
          >
-            { label }
+            <span className="relative">
+                {formattedLabel}
+                {(isActive || hover) && (
+                    <span 
+                        className="nav-dot-pulse"
+                        style={{
+                            position: 'absolute',
+                            right: '-8px',
+                            top: '-8px',
+                            fontSize: '10px',
+                            opacity: 0.7,
+                            color: dark ? '#fff' : SECONDARY,
+                        }}
+                    >
+                        ●
+                    </span>
+                )}
+            </span>
 
             <div 
                 style={{ 
@@ -37,6 +57,7 @@ const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
                 }}
             ></div>
             
+            {/* Animation handled via CSS class */}
         </div>
     )
 }
@@ -44,38 +65,68 @@ const Anchor = ({ label, dark=false, onClick, className, isActive=false }) => {
 const styles = {
     normal: {
         fontFamily: FONT_FAMILY,
-        fontWeight: '800',
-        fontSize: '0.9rem',
+        fontWeight: '600',
+        fontSize: '0.95rem',
         lineHeight: '25px',
         cursor: 'pointer',
-        color: PRIMARY,
-        paddingBottom: '1px',
-        letterSpacing: '3px'
+        color: 'var(--color-primary)',
+        paddingBottom: '2px',
+        letterSpacing: '3px',
+        transition: 'all 0.25s ease-in-out',
+        textShadow: '0 0 8px rgba(255,255,255,0.15)',
+        position: 'relative',
+        padding: '6px 12px',
+        borderRadius: '6px',
+        margin: '0 2px',
+        backdropFilter: 'blur(5px)',
     },
     dark: {
-        color: LIGHT_GRAY
+        color: 'var(--color-secondary)',
+        opacity: 0.95
     },
     darkHover: {
-        color: SLATE
+        color: '#fff',
+        textShadow: '0 0 12px rgba(var(--color-primary-rgb), 0.6)',
+        transform: 'translateY(-2px) scale(1.05)',
+        backgroundColor: 'rgba(var(--color-primary-rgb), 0.1)',
+        boxShadow: '0 4px 15px rgba(var(--color-primary-rgb), 0.1)',
+        borderTop: '1px solid rgba(var(--color-primary-rgb), 0.15)',
+        borderLeft: '1px solid rgba(var(--color-primary-rgb), 0.15)',
     },
     hover: {
-        color: SECONDARY,
+        color: 'var(--color-secondary)',
+        textShadow: '0 0 15px rgba(var(--color-primary-rgb), 0.5)',
+        transform: 'translateY(-2px) scale(1.05)',
+        backgroundColor: 'rgba(var(--color-primary-rgb), 0.1)',
+        boxShadow: '0 4px 15px rgba(var(--color-primary-rgb), 0.15)',
+        borderTop: '1px solid rgba(var(--color-primary-rgb), 0.15)',
+        borderLeft: '1px solid rgba(var(--color-primary-rgb), 0.15)',
     },
     line: {
-        transition: 'width .2s',
+        transition: 'all 0.25s ease-in-out',
         width: '0px',
         height: '0px',
         paddingBottom: '1px',
+        opacity: 0,
+        position: 'absolute',
+        bottom: '2px',
+        left: '0',
+        right: '0',
+        margin: '0 auto',
     },
     lineHover: {
-        width: '100%',
-        borderBottom: `2px solid ${SECONDARY}`,
+        width: '80%',
+        borderBottom: `2px solid var(--color-primary)`,
         paddingBottom: '0px',
+        boxShadow: '0 0 10px rgba(var(--color-primary-rgb), 0.5)',
+        opacity: 1,
     },
     lineHoverDark: {
-        width: '100%',
-        borderBottom: `2px solid ${SLATE}`,
+        width: '80%',
+        borderBottom: `2px solid var(--color-primary)`,
         paddingBottom: '0px',
+        boxShadow: '0 0 10px rgba(var(--color-primary-rgb), 0.5)',
+        opacity: 1,
     }
 }
 

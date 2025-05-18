@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CircleLogo from "../components/atom/CircleLogo";
 import Title from "../components/atom/Title";
 import Card from "../components/Card";
@@ -7,7 +7,7 @@ import CardDescription from "../components/atom/CardDescription";
 import { useEffect, useRef } from "react";
 import { setReference } from "../store/metadata";
 import config from "../helpers/config";
-import { FONT_FAMILY, GRAY, LIGHT_GRAY, SERVICE, SLATE } from "../helpers/constants";
+import { FONT_FAMILY, LIGHT_GRAY, SERVICE, GRAY } from "../helpers/constants";
 
 
 const Services = () => {
@@ -17,7 +17,7 @@ const Services = () => {
 
     useEffect(() => {
         dispatch(setReference({name: 'service', value: serviceRef }))
-    }, [])
+    }, [dispatch])
     
 
     
