@@ -34,5 +34,6 @@ export const DESCRIPTION = "Senior Full Stack Developer with 9+ years of experti
 
 export const ABOUT_ME = 'About Me'
 export const CONTACT = 'Contact'
+export const CONTACT_ME = 'Contact Me'
 export const TITLE = 'Full Stack Engineer'
 export const LOGO = "Fegarido"

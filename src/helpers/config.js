@@ -113,6 +113,34 @@ module.exports = {
             name: 'LinkedIn',
             link: 'https://ph.linkedin.com/in/darwinfegarido'
         },
+        // Additional social platforms - uncomment and customize as needed
+        /*
+        {
+            logo: 'github',
+            name: 'GitHub',
+            link: 'https://github.com/yourusername'
+        },
+        {
+            logo: 'twitter',
+            name: 'Twitter',
+            link: 'https://twitter.com/yourusername'
+        },
+        {
+            logo: 'dribbble',
+            name: 'Dribbble',
+            link: 'https://dribbble.com/yourusername'
+        },
+        {
+            logo: 'behance',
+            name: 'Behance',
+            link: 'https://www.behance.net/yourusername'
+        },
+        {
+            logo: 'medium',
+            name: 'Medium',
+            link: 'https://medium.com/@yourusername'
+        }
+        */
     ],
 
 }

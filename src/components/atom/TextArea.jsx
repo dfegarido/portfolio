@@ -7,6 +7,7 @@ const TextArea = (props) => {
     const [value, setValue] = useState("")
     const [focus, setFocus] = useState(false)
     const { theme, themeKey } = useTheme();
+    const { onFocus, onBlur } = props;
     
     return (
         <div {...props} className={`relative h-32 ${props?.className}`}>
@@ -30,8 +31,14 @@ const TextArea = (props) => {
                 rows="6" 
                 value={value} 
                 onChange={e => setValue(e.target.value)}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
+                onFocus={() => {
+                    setFocus(true);
+                    if (onFocus) onFocus();
+                }}
+                onBlur={() => {
+                    setFocus(false);
+                    if (onBlur) onBlur();
+                }}
                 required={props?.required || false}
             >
             </textarea>

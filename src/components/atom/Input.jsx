@@ -7,7 +7,7 @@ const Input = (props) => {
     const [focus, setFocus] = useState(false)
     const { theme, themeKey } = useTheme();
     // Destructure labelStyle so it doesn't get passed to the root div
-    const { labelStyle, className, style, error, ...domProps } = props;
+    const { labelStyle, className, style, error, onFocus, onBlur, ...domProps } = props;
 
     return (
         <div {...domProps} className={`relative ${className || ''}`}>
@@ -29,8 +29,14 @@ const Input = (props) => {
                 type={props?.type} 
                 value={value}
                 onChange={ e => setValue(e.target.value)}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
+                onFocus={() => {
+                    setFocus(true);
+                    if (onFocus) onFocus();
+                }}
+                onBlur={() => {
+                    setFocus(false);
+                    if (onBlur) onBlur();
+                }}
                 required={props?.required || false}
                 autoFocus={false}
             />
