@@ -1,7 +1,6 @@
 import { useState, Suspense, lazy, useEffect, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "../components/atom/Title";
-import Anchor from '../components/atom/Anchor'
 import { setReference } from "../store/metadata";
 import { portfolio } from "../helpers/config";
 import { PORTFOLIO, FONT_FAMILY } from "../helpers/constants";
@@ -110,6 +109,13 @@ const portfolioAnimations = `
     animation: fadeIn 0.6s ease-out forwards;
 }
 
+.portfolio-card-delay-0 { animation-delay: 0s; }
+.portfolio-card-delay-1 { animation-delay: 0.1s; }
+.portfolio-card-delay-2 { animation-delay: 0.2s; }
+.portfolio-card-delay-3 { animation-delay: 0.3s; }
+.portfolio-card-delay-4 { animation-delay: 0.4s; }
+.portfolio-card-delay-5 { animation-delay: 0.5s; }
+
 .grid-container {
     position: relative;
 }
@@ -193,6 +199,18 @@ const portfolioAnimations = `
     z-index: -1;
 }
 
+.portfolio-star-delay-0 { animation-delay: 0s; }
+.portfolio-star-delay-1 { animation-delay: 0.1s; }
+.portfolio-star-delay-2 { animation-delay: 0.2s; }
+.portfolio-star-delay-3 { animation-delay: 0.3s; }
+.portfolio-star-delay-4 { animation-delay: 0.4s; }
+.portfolio-star-delay-5 { animation-delay: 0.5s; }
+.portfolio-star-delay-6 { animation-delay: 0.6s; }
+.portfolio-star-delay-7 { animation-delay: 0.7s; }
+.portfolio-star-delay-8 { animation-delay: 0.8s; }
+.portfolio-star-delay-9 { animation-delay: 0.9s; }
+.portfolio-star-delay-10 { animation-delay: 1s; }
+
 .portfolio-grid-highlight {
     position: absolute;
     width: 100%;
@@ -226,7 +244,7 @@ const Portfolio = () => {
     const portfolioRef = useRef(null)
     const dispatch = useDispatch()
     const [ brands, setBrands ] = useState('all')
-    const { themeKey, theme } = useTheme()
+    const { themeKey } = useTheme()
     const [hoveredTab, setHoveredTab] = useState(null)
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null)
     const [isTransitioning, setIsTransitioning] = useState(false)
@@ -263,10 +281,11 @@ const Portfolio = () => {
     const generateStars = (count) => {
         const stars = [];
         for (let i = 0; i < count; i++) {
+            const delay = Math.random() * 3;
             stars.push({
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
+                delayClass: `portfolio-star-delay-${Math.floor(delay * 10)}`,
                 opacity: 0.3 + Math.random() * 0.5,
                 size: 1 + Math.random() * 2
             });
@@ -349,11 +368,10 @@ const Portfolio = () => {
             {stars.map((star, i) => (
                 <div 
                     key={i} 
-                    className="star" 
+                    className={`star ${star.delayClass}`}
                     style={{
                         top: star.top,
                         left: star.left,
-                        animationDelay: star.animationDelay,
                         opacity: star.opacity,
                         width: `${star.size}px`,
                         height: `${star.size}px`
@@ -514,11 +532,10 @@ const Portfolio = () => {
                                 </div>
                             }>
                                 <div 
-                                    className="portfolio-card filtered-in"
+                                    className={`portfolio-card filtered-in portfolio-card-delay-${key}`}
                                     onMouseEnter={() => handleCardHover(key)}
                                     onMouseLeave={handleCardLeave} 
                                     style={{ 
-                                        animationDelay: `${key * 0.1}s`,
                                         transform: 'translateZ(0)',
                                         position: 'relative',
                                     }}

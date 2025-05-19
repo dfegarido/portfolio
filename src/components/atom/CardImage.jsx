@@ -3,7 +3,7 @@ import Icon from "./Icon";
 import '../../assets/cardImage.css'
 import CardTitle from "./CardTitle";
 import CardDescription from "./CardDescription";
-import { FONT_FAMILY, LIGHT_GRAY, SLATE } from "../../helpers/constants";
+import { FONT_FAMILY } from "../../helpers/constants";
 
 // Add additional animations for the card
 const cardAnimations = `
@@ -86,9 +86,10 @@ const cardAnimations = `
     pointer-events: none;
 }
 
-.card-floating {
-    animation: floatCard 6s ease-in-out infinite;
-}
+.card-floating-1 { animation: floatCard 6s ease-in-out infinite; }
+.card-floating-2 { animation: floatCard 6s ease-in-out infinite 0.5s; }
+.card-floating-3 { animation: floatCard 6s ease-in-out infinite 1s; }
+.card-floating-4 { animation: floatCard 6s ease-in-out infinite 1.5s; }
 
 .card-button-appear {
     animation: scaleButtons 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -109,10 +110,9 @@ const cardAnimations = `
 }
 `;
 
-const CardImage = (props) => {
+const CardImage = ({ themeKey = 'tech', ...domProps }) => {
     const [flip, setFlip] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const themeKey = props.themeKey || 'tech'; // Default to tech if not provided
     
     // Inject card animations
     useEffect(() => {
@@ -141,12 +141,9 @@ const CardImage = (props) => {
         setIsHovered(false);
     };
 
-    // Generate random animation delays for floating effect
-    const animationDelay = `${Math.random() * 2}s`;
-
     return (
         <div 
-            {...props} 
+            {...domProps} 
             className="relative grid place-items-center justify-items-center"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -191,7 +188,7 @@ const CardImage = (props) => {
 
             <div className="card-flip-container vertical flip-container flex z-10"> 
                 <div 
-                    className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72 overflow-hidden rounded-xl card-img-container card-floating`}
+                    className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72 overflow-hidden rounded-xl card-img-container card-floating-${Math.floor(Math.random() * 4) + 1}`}
                     style={{
                         position: 'relative',
                         boxShadow: isHovered ? 
@@ -199,7 +196,6 @@ const CardImage = (props) => {
                             '0 5px 15px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(var(--color-primary-rgb), 0.05)',
                         transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
                         transform: isHovered && !flip ? 'scale(1.03)' : 'scale(1)',
-                        animationDelay: animationDelay,
                     }}
                 >
                     {/* Animated border effect */}
@@ -209,7 +205,7 @@ const CardImage = (props) => {
                     {isHovered && <div className="card-shimmer-effect"></div>}
                     
                     <div 
-                        style={{ backgroundImage: `url(${props.url})`}}
+                        style={{ backgroundImage: `url(${domProps.url})`}}
                         className="front rounded-xl bg-cover bg-no-repeat bg-center bg-contain h-72 w-72 relative"
                     >
                         {/* Overlay gradient for better text visibility */}
@@ -234,7 +230,7 @@ const CardImage = (props) => {
                                 textShadow: '0 2px 4px rgba(0,0,0,0.5)',
                                 fontFamily: FONT_FAMILY,
                                 letterSpacing: '1px',
-                            }}>{props.name}</h3>
+                            }}>{domProps.name}</h3>
                             
                             <div 
                                 className="w-12 h-0.5 my-2 rounded-full"
@@ -245,9 +241,9 @@ const CardImage = (props) => {
                             ></div>
                             
                             {/* Tech tags - About Me styled */}
-                            {props.tags && props.tags.length > 0 && (
+                            {domProps.tags && domProps.tags.length > 0 && (
                                 <div className="flex flex-wrap gap-1 mt-2">
-                                    {props.tags.map((tag, index) => (
+                                    {domProps.tags.map((tag, index) => (
                                         <span 
                                             key={index} 
                                             className="text-xs px-2 py-0.5 rounded-full" 
@@ -288,7 +284,7 @@ const CardImage = (props) => {
                     >
                         <div>
                             <CardTitle 
-                                label={props.name} 
+                                label={domProps.name} 
                                 className="text-lg font-bold mb-3"
                                 style={{
                                     color: 'var(--color-primary)',
@@ -311,7 +307,7 @@ const CardImage = (props) => {
                             
                             <CardDescription 
                                 className="text-sm leading-relaxed" 
-                                label={props.description}
+                                label={domProps.description}
                                 style={{
                                     color: 'var(--color-primary)',
                                     opacity: 0.85,
@@ -368,7 +364,7 @@ const CardImage = (props) => {
                         name={'link'}
                         onClick={() => {
                             window.open(
-                                props?.link,
+                                domProps?.link,
                                 '_blank'
                             )
                         }}
@@ -396,8 +392,5 @@ const CardImage = (props) => {
         </div>
     )
 }
-
-// Styles moved inline with theme variables above
-const styles = {};
 
 export default CardImage;

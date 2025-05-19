@@ -53,6 +53,10 @@ const fadeAnimations = `
     from { transform: translateX(15px); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
+.skill-section-slide-in-1 { animation: slideIn 0.5s ease-out forwards 0.1s; }
+.skill-section-slide-in-2 { animation: slideIn 0.5s ease-out forwards 0.2s; }
+.skill-section-slide-in-3 { animation: slideIn 0.5s ease-out forwards 0.3s; }
 `;
 
 // Skill Card Component for displaying individual skills with enhanced visual effects
@@ -732,13 +736,11 @@ const AboutMe = () => {
                         transform: activeFilter === 'all' ? 'translateY(0)' : 'translateY(-20px)',
                     }}>
                     {/* Frontend Breakdown */}
-                    <div className="p-4 rounded-lg transform transition-all duration-500" 
+                    <div className={`p-4 rounded-lg transform transition-all duration-500 ${activeFilter === 'all' ? 'skill-section-slide-in-1' : ''}`}
                         style={{ 
                             background: 'rgba(var(--color-background-rgb), 0.6)', 
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                             border: '1px solid rgba(var(--color-accent-rgb), 0.1)',
-                            animation: activeFilter === 'all' ? 'slideIn 0.5s ease-out forwards' : 'none',
-                            animationDelay: '0.1s',
                             opacity: activeFilter === 'all' ? 1 : 0,
                             transform: activeFilter === 'all' ? 'translateY(0)' : 'translateY(20px)'
                         }}>
@@ -761,13 +763,11 @@ const AboutMe = () => {
                     </div>
                     
                     {/* Backend Breakdown */}
-                    <div className="p-4 rounded-lg transform transition-all duration-500" 
+                    <div className={`p-4 rounded-lg transform transition-all duration-500 ${activeFilter === 'all' ? 'skill-section-slide-in-2' : ''}`}
                         style={{ 
                             background: 'rgba(var(--color-background-rgb), 0.6)', 
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                             border: '1px solid rgba(var(--color-accent-rgb), 0.1)',
-                            animation: activeFilter === 'all' ? 'slideIn 0.5s ease-out forwards' : 'none',
-                            animationDelay: '0.2s',
                             opacity: activeFilter === 'all' ? 1 : 0,
                             transform: activeFilter === 'all' ? 'translateY(0)' : 'translateY(20px)'
                         }}>
@@ -790,13 +790,11 @@ const AboutMe = () => {
                     </div>
 
                     {/* AI & Tools Breakdown */}
-                    <div className="p-4 rounded-lg transform transition-all duration-500" 
+                    <div className={`p-4 rounded-lg transform transition-all duration-500 ${activeFilter === 'all' ? 'skill-section-slide-in-3' : ''}`}
                         style={{ 
                             background: 'rgba(var(--color-background-rgb), 0.6)', 
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                             border: '1px solid rgba(var(--color-accent-rgb), 0.1)',
-                            animation: activeFilter === 'all' ? 'slideIn 0.5s ease-out forwards' : 'none',
-                            animationDelay: '0.3s',
                             opacity: activeFilter === 'all' ? 1 : 0,
                             transform: activeFilter === 'all' ? 'translateY(0)' : 'translateY(20px)'
                         }}>

@@ -23,9 +23,9 @@ const TypingIndicator = () => {
         }}
       >
         <div className="flex space-x-2">
-          <div className="typing-dot" style={{ animationDelay: "0s" }}></div>
-          <div className="typing-dot" style={{ animationDelay: "0.2s" }}></div>
-          <div className="typing-dot" style={{ animationDelay: "0.4s" }}></div>
+          <div className="typing-dot typing-dot-delay-0"></div>
+          <div className="typing-dot typing-dot-delay-1"></div>
+          <div className="typing-dot typing-dot-delay-2"></div>
         </div>
       </div>
       
@@ -42,7 +42,7 @@ const TypingIndicator = () => {
   );
 };
 
-// Add this CSS to your Contact.jsx animations or create a new file
+// Updated CSS with class-based animation delays
 export const typingIndicatorCSS = `
   .typing-dot {
     width: 8px;
@@ -51,7 +51,22 @@ export const typingIndicatorCSS = `
     border-radius: 50%;
     opacity: 0.7;
     display: inline-block;
-    animation: typingAnimation 1.4s infinite ease-in-out;
+    animation-name: typingAnimation;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  .typing-dot-delay-0 {
+    animation-delay: 0s;
+  }
+  
+  .typing-dot-delay-1 {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-dot-delay-2 {
+    animation-delay: 0.4s;
   }
   
   @keyframes typingAnimation {

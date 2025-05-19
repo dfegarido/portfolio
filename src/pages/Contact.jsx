@@ -1,17 +1,12 @@
 import { useDispatch } from "react-redux";
 import Title from '../components/atom/Title';
-import CircleLogo from '../components/atom/CircleLogo';
-import CardTitle from "../components/atom/CardTitle";
-import { useEffect, useRef, useState } from "react";
-import { setReference } from "../store/metadata";
-import config from "../helpers/config";
-import { CONTACT_ME, FONT_FAMILY, SLATE } from "../helpers/constants";
-import { useTheme } from "../contexts/ThemeContext";
-import SocialIcon from "../components/atom/SocialIcon";
 import ChatMessage from "../components/atom/ChatMessage";
 import ChatInput from "../components/atom/ChatInput";
-import TypingIndicator, { typingIndicatorCSS } from "../components/atom/TypingIndicator";
-import { getGroqResponse } from "../helpers/groqHelper";
+import TypingIndicator from "../components/atom/TypingIndicator";
+import { useEffect, useRef, useState } from "react";
+import { setReference } from "../store/metadata";
+import { CONTACT_ME, FONT_FAMILY } from "../helpers/constants";
+import { useTheme } from "../contexts/ThemeContext";
 import "../assets/socialIcons.css";
 
 // CSS animations for Contact page with similar styling to Portfolio and About Me
@@ -53,6 +48,21 @@ const contactAnimations = `
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGreen {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); /* Equivalent to green-400 */
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
 }
 
 @keyframes fadeInBackground {
@@ -223,6 +233,46 @@ const contactAnimations = `
 .particles-contact .particle-6 { top: 50%; right: 8%; animation-delay: 5s; }
 .particles-contact .particle-7 { bottom: 40%; left: 25%; animation-delay: 6s; }
 .particles-contact .particle-8 { bottom: 60%; right: 15%; animation-delay: 7s; }
+
+.animated-element {
+  animation: someAnimation 1s ease;
+}
+
+.delay-05s {
+  animation-delay: 0.5s;
+}
+
+.star-delay-0 { animation-delay: 0s; }
+.star-delay-1 { animation-delay: 0.1s; }
+.star-delay-2 { animation-delay: 0.2s; }
+.star-delay-3 { animation-delay: 0.3s; }
+.star-delay-4 { animation-delay: 0.4s; }
+.star-delay-5 { animation-delay: 0.5s; }
+.star-delay-6 { animation-delay: 0.6s; }
+.star-delay-7 { animation-delay: 0.7s; }
+.star-delay-8 { animation-delay: 0.8s; }
+.star-delay-9 { animation-delay: 0.9s; }
+.star-delay-10 { animation-delay: 1s; }
+.star-delay-11 { animation-delay: 1.1s; }
+.star-delay-12 { animation-delay: 1.2s; }
+.star-delay-13 { animation-delay: 1.3s; }
+.star-delay-14 { animation-delay: 1.4s; }
+.star-delay-15 { animation-delay: 1.5s; }
+.star-delay-16 { animation-delay: 1.6s; }
+.star-delay-17 { animation-delay: 1.7s; }
+.star-delay-18 { animation-delay: 1.8s; }
+.star-delay-19 { animation-delay: 1.9s; }
+.star-delay-20 { animation-delay: 2s; }
+.star-delay-21 { animation-delay: 2.1s; }
+.star-delay-22 { animation-delay: 2.2s; }
+.star-delay-23 { animation-delay: 2.3s; }
+.star-delay-24 { animation-delay: 2.4s; }
+.star-delay-25 { animation-delay: 2.5s; }
+.star-delay-26 { animation-delay: 2.6s; }
+.star-delay-27 { animation-delay: 2.7s; }
+.star-delay-28 { animation-delay: 2.8s; }
+.star-delay-29 { animation-delay: 2.9s; }
+.star-delay-30 { animation-delay: 3s; }
 `;
 
 // Helper function to format time
@@ -238,11 +288,7 @@ const Contact = () => {
     const contactRef = useRef(null)
     const chatContainerRef = useRef(null)
     const dispatch = useDispatch()
-    const { contact:contactUs } = config
-    const { theme, themeKey } = useTheme()
-    const [hoveredSocial, setHoveredSocial] = useState(null)
-    const [isChatVisible, setIsChatVisible] = useState(true)
-    const [isFormVisible, setIsFormVisible] = useState(false)
+    const { themeKey } = useTheme()
     const [messages, setMessages] = useState([
         { 
             id: 1, 
@@ -270,7 +316,7 @@ const Contact = () => {
         // Add staggered animation effect for social icons
         const socialItems = document.querySelectorAll('.contact-social-item');
         socialItems.forEach((item, index) => {
-            item.style.animationDelay = `${0.3 + (index * 0.15)}s`;
+            item.classList.add('animated-element', `delay-${index * 15}ms`);
             item.style.opacity = '0'; // Start with opacity 0
         });
     }, [dispatch])
@@ -385,7 +431,7 @@ const Contact = () => {
         
         // Show form after a slight delay for better visual effect
         const timer = setTimeout(() => {
-            setIsFormVisible(true);
+            // Placeholder for form visibility logic
         }, 300);
         
         return () => {
@@ -401,10 +447,11 @@ const Contact = () => {
     const generateStars = (count) => {
         const stars = [];
         for (let i = 0; i < count; i++) {
+            const delay = Math.random() * 3;
             stars.push({
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
+                delayClass: `star-delay-${Math.floor(delay * 10)}`, // Create class name based on delay
                 opacity: 0.3 + Math.random() * 0.5,
                 size: 1 + Math.random() * 2
             });
@@ -477,11 +524,10 @@ const Contact = () => {
             {stars.map((star, i) => (
                 <div 
                     key={i} 
-                    className="absolute w-1 h-1 bg-primary rounded-full" 
+                    className={`absolute w-1 h-1 bg-primary rounded-full ${star.delayClass}`}
                     style={{
                         top: star.top,
                         left: star.left,
-                        animationDelay: star.animationDelay,
                         opacity: star.opacity,
                         width: `${star.size}px`,
                         height: `${star.size}px`,
@@ -511,88 +557,8 @@ const Contact = () => {
                 <div className="h-[3px] flex-grow bg-gradient-to-r from-[var(--color-accent)] to-transparent ml-4 rounded-full"></div>
             </div>
             
-            <div className="pt-5 sm:pt-10 flex flex-row flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-4 relative z-10 social-icons-wrapper mx-auto max-w-3xl">
-                {/* Decorative glow effects behind social icons */}
-                <div 
-                    className="absolute -top-10 -left-10 w-40 h-40 rounded-full opacity-20 blur-3xl"
-                    style={{
-                        background: 'radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)',
-                        animation: 'pulse 8s infinite alternate'
-                    }}
-                ></div>
-                <div 
-                    className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full opacity-20 blur-3xl"
-                    style={{
-                        background: 'radial-gradient(circle at center, var(--color-accent) 0%, transparent 70%)',
-                        animation: 'pulse 10s infinite alternate-reverse'
-                    }}
-                ></div>
-                
-                {
-                    contactUs.map((item, key) => (
-                        <div 
-                            className="contact-social-item flex flex-col text-center items-center relative"
-                            key={key}
-                            onMouseEnter={() => setHoveredSocial(key)}
-                            onMouseLeave={() => setHoveredSocial(null)}
-                            style={{
-                                animationDelay: `${key * 0.15}s`,
-                                width: "100px", // Fixed width to ensure consistent spacing
-                                marginBottom: "15px" // Add spacing between items
-                            }}
-                        >
-                            {/* Icon and ring container */}
-                            <div className="relative flex justify-center items-center mb-3" style={{ height: "70px" }}>
-                                {/* Ring effect animation for hovered social icon */}
-                                {hoveredSocial === key && (
-                                    <div 
-                                        className="social-icon-ring"
-                                        style={{
-                                            position: "absolute",
-                                            top: "50%",
-                                            left: "50%",
-                                            transform: "translate(-50%, -50%)"
-                                        }}
-                                    ></div>
-                                )}
-                                
-                                <SocialIcon 
-                                    name={item.logo} 
-                                    isHovered={hoveredSocial === key}
-                                    onClick={() => {
-                                        window.open(
-                                            item.link,
-                                            '_blank'
-                                        )
-                                    }}
-                                    style={{ position: "relative", zIndex: 2 }}
-                                />
-                            </div>
-                            
-                            {/* Title container */}
-                            <div className="relative z-10 mt-3">
-                                <CardTitle 
-                                    label={item.name}
-                                    style={{
-                                        fontFamily: FONT_FAMILY,
-                                        color: 'var(--color-primary)',
-                                        transition: 'all 0.3s ease',
-                                        opacity: hoveredSocial === key ? 1 : 0.7,
-                                        fontWeight: hoveredSocial === key ? '600' : '500',
-                                        transform: hoveredSocial === key ? 'scale(1.05)' : 'scale(1)',
-                                        textShadow: hoveredSocial === key ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                                        textAlign: 'center',
-                                        width: '100%'
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-            
             <div 
-                className={`mx-5 sm:mx-10 md:mx-24 lg:mx-80 mt-16 pb-10 relative z-10 transition-all duration-500 ${isChatVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}
+                className={`mx-5 sm:mx-10 md:mx-24 lg:mx-80 mt-12 pb-10 relative z-10 transition-all duration-500`}
             >
                 {/* Chat interface with glassmorphism effect */}
                 <div 
@@ -663,7 +629,14 @@ const Contact = () => {
                                 border: '1px solid rgba(var(--color-primary-rgb), 0.2)'
                             }}
                         >
-                            <span className="h-2 w-2 rounded-full mr-2 animate-pulse" style={{ background: 'var(--color-primary)' }}></span>
+                            <span style={{
+                                width: '10px',
+                                height: '10px',
+                                backgroundColor: '#4ADE80', // green-400
+                                borderRadius: '50%',
+                                marginRight: '6px',
+                                animation: 'pulseGreen 1.5s infinite cubic-bezier(0.66, 0, 0, 1)'
+                            }}></span>
                             Online
                         </div>
                     </div>
