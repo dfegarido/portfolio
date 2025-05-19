@@ -1,0 +1,481 @@
+/* Enhanced card image styling with GPU-accelerated animations */
+
+/* Perspective container for 3D flipping - using will-change for GPU acceleration */
+.flip-container {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+}
+
+/* Flipper container with GPU-accelerated transitions */
+.flipper {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+}
+
+/* Hide backface of elements during flip with GPU acceleration */
+.front, .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    will-change: transform;
+}
+
+/* Front card styling with hardware acceleration */
+.front {
+    z-index: 2;
+    transform: translate3d(0, 0, 0) rotateY(0deg);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glass effect overlay for front card on hover */
+.front::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.flipper:hover .front::after {
+    opacity: 0.4;
+}
+
+/* Back card styling with GPU-accelerated initial rotation */
+.back {
+    transform: translate3d(0, 0, 0) rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Simplified animation for flipping - using opacity instead of z-index */
+@keyframes toBack {  
+    0% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+
+@keyframes toFront {
+    0% {opacity: 1;}
+    100% {opacity: 0.5;}
+}
+
+/* GPU-accelerated shine effect */
+@keyframes shine {
+    0% {
+        transform: translate3d(-100%, -100%, 0) rotate(30deg);
+    }
+    100% {
+        transform: translate3d(100%, 100%, 0) rotate(30deg);
+    }
+}
+
+/* Container positioning */
+.vertical.flip-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Back animation on hover - no animation-delay to reduce composited elements */
+.vertical.flip-container:hover .back {
+    animation: toBack 0.4s ease-in-out forwards;
+}
+
+/* Flip animation on hover - no animation-delay to reduce composited elements */
+.vertical.flip-container .flipper.flip {
+    transform: translate3d(0, 0, 0) rotateY(180deg);
+}
+
+/* Set transform origin for vertical flip */
+.vertical.flip-container .flipper {
+    transform-origin: center center;
+}
+
+/* The actual flip class that triggers rotation */
+.flip {
+    transform: translate3d(0, 0, 0) rotateY(180deg);
+}
+
+/* Enhanced hover effects with GPU acceleration */
+.flipper:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 
+                0 0 20px rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Enhanced shine effect on hover - using translate3d for GPU acceleration */
+.flipper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    z-index: 10;
+    background-size: 200% 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    will-change: opacity, transform;
+}
+
+.flipper:hover::before {
+    opacity: 1;
+    animation: shine 1.5s infinite;
+}
+
+/* Scrollbar styling for description text */
+.back::-webkit-scrollbar {
+    width: 4px;
+}
+
+.back::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.back::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+/* GPU-accelerated animations for card elements */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 10px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* GPU-accelerated ripple effect */
+@keyframes ripple {
+    0% {
+        transform: translate3d(-50%, -50%, 0) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(-50%, -50%, 0) scale(2);
+        opacity: 0;
+    }
+}
+
+/* Simplified border glow effect */
+@keyframes borderGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.6),
+                    0 0 30px rgba(var(--color-accent-rgb), 0.3);
+    }
+}
+
+/* Floating effect for card containers with GPU acceleration */
+.portfolio-card {
+    animation: fadeSlideUp 0.6s ease-out forwards, shadowPulse 4s infinite ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0), opacity 0.4s ease;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Add staggered animation classes (without delays) for cards when filtered */
+.portfolio-card.filtered-in {
+    animation-name: fadeSlideUp;
+    animation-duration: 0.6s;
+    animation-fill-mode: both;
+}
+
+/* Add shadow pulse effect for cards */
+@keyframes shadowPulse {
+    0% {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* GPU-accelerated ripple effect */
+.portfolio-card:hover .flipper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    transform: translate3d(-50%, -50%, 0) scale(0);
+    background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 70%);
+    animation: ripple 1.5s ease-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Optimize back side styling */
+.back {
+    background-size: 200% 200% !important;
+    transition: transform 0.5s ease !important;
+    will-change: transform;
+}
+
+.flipper.flip .back {
+    transform: translate3d(0, 0, 0) rotateY(180deg) !important;
+}
+
+/* GPU-accelerated card shine effect on hover */
+.card-img-container::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: translate3d(0, 0, 0) rotate(30deg);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.card-img-container:hover::after {
+    animation: shine 1.5s forwards;
+    opacity: 1;
+}
+
+/* Animated box shadow for cards */
+.card-img-container {
+    transition: box-shadow 0.5s ease, transform 0.5s ease;
+    will-change: transform, box-shadow;
+}
+
+/* Simplified front card title & description transitions */
+.portfolio-card .front h3 {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.portfolio-card:hover .front h3 {
+    transform: translate3d(0, 0, 0);
+    letter-spacing: 1.2px;
+}
+
+/* Optimize divider animation */
+.portfolio-card .front .w-12 {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width, transform;
+}
+
+.portfolio-card:hover .front .w-12 {
+    width: 50px;
+    box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.7);
+}
+
+/* GPU-accelerated loading indicator */
+.card-loading-indicator {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+    animation: pulse 1.5s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+}
+
+.card-loading-indicator::before,
+.card-loading-indicator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.card-loading-indicator::before {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(var(--color-primary-rgb), 0.3);
+    animation: borderGlow 2s infinite;
+}
+
+.card-loading-indicator::after {
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+    animation: borderGlow 3s infinite;
+}
+
+/* Simplified card element transitions with GPU acceleration */
+.card-title, .card-desc {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+/* Define separate animation delay classes */
+.portfolio-card-delay-0 { animation-delay: 0s; }
+.portfolio-card-delay-1 { animation-delay: 0.1s; }
+.portfolio-card-delay-2 { animation-delay: 0.2s; }
+.portfolio-card-delay-3 { animation-delay: 0.3s; }
+.portfolio-card-delay-4 { animation-delay: 0.4s; }
+.portfolio-card-delay-5 { animation-delay: 0.5s; }
+
+/* Define prefetched placeholder for image loading */
+.img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* Custom floating animation - optimized for performance with translate3d */
+.card-floating-1 {
+    animation: floating1 3s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes floating1 {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
+}
+
+/* Button appearing animation */
+.card-button-appear {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.7);
+    animation: buttonAppear 0.5s forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes buttonAppear {
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+/* Animated border */
+.card-img-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent)) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+}
+
+.flipper:hover .card-img-border {
+    opacity: 1;
+}
+
+/* Shimmer effect */
+.card-shimmer-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    transform: translate3d(-100%, -100%, 0) rotate(30deg);
+    animation: shine 3s infinite;
+    will-change: transform;
+}
+
+/* Accent circles */
+.card-accent-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+    filter: blur(10px);
+    transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+    will-change: transform;
+}
+
+/* Button hover effect */
+.card-action-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+}
+
+.card-action-btn:hover {
+    transform: translate3d(0, -2px, 0) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 20px rgba(var(--color-primary-rgb), 0.7);
+}
+
+/* Reduce the number of variations for better performance */
+.portfolio-item-delay-0 {
+    animation-delay: 0.1s;
+}
+
+.portfolio-item-delay-1 {
+    animation-delay: 0.3s;
+}
+
+.portfolio-item-delay-2 {
+    animation-delay: 0.5s;
+}
+
+/* Card item appearing animation */
+@keyframes itemAppear {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.portfolio-item-appear {
+    animation: itemAppear 0.7s ease forwards;
+    will-change: transform, opacity;
+}

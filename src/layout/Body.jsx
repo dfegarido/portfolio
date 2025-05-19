@@ -10,8 +10,6 @@ import { setReference } from "../store/metadata"
 import { scrollTo } from "../helpers/common";
 import { 
     WHITE,
-    PRIMARY,
-    SECONDARY,
     FONT_FAMILY,
     LIGHT_GRAY,
     LIME } from '../helpers/constants'
@@ -37,6 +35,12 @@ const Body = () => {
             // Use an ID-based approach instead of passing the ref directly
             homeRef.current.id = 'home-section';
             dispatch(setReference({name: 'home', value: 'home-section' }))
+            
+            // If there's no hash in the URL, ensure we show the home section
+            if (!window.location.hash) {
+                // Reset scroll position to top on initial load
+                window.scrollTo(0, 0);
+            }
         }
     }, [dispatch])
 

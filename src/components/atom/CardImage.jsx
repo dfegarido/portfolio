@@ -1,137 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Icon from "./Icon";
-import '../../assets/cardImage.css'
+import '../../assets/optimized-cardImage.css'
 import CardTitle from "./CardTitle";
 import CardDescription from "./CardDescription";
 import { FONT_FAMILY } from "../../helpers/constants";
+import OptimizedBackground from "./OptimizedBackground";
 
-// Add additional animations for the card
-const cardAnimations = `
-@keyframes glow {
-    0% { box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3); }
-    50% { box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5), 0 0 30px rgba(var(--color-accent-rgb), 0.3); }
-    100% { box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3); }
-}
-
-@keyframes borderFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes floatCard {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-5px) rotate(0.3deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-}
-
-@keyframes shimmerHighlight {
-    0% { opacity: 0.2; left: -100%; }
-    50% { opacity: 0.5; }
-    100% { opacity: 0.2; left: 100%; }
-}
-
-@keyframes scaleButtons {
-    0% { transform: scale(0); opacity: 0; }
-    60% { transform: scale(1.2); }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.card-flip-container {
-    perspective: 1500px;
-}
-
-.card-action-btn {
-    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
-    transform: translateY(0);
-}
-
-.card-action-btn:hover {
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.3);
-}
-
-.card-img-border {
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-    -webkit-mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-}
-
-.card-img-container:hover .card-img-border {
-    opacity: 1;
-    animation: borderFlow 3s linear infinite;
-    background-size: 200% 200%;
-}
-
-.card-shimmer-effect {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.2), 
-        transparent);
-    animation: shimmerHighlight 3s infinite;
-    pointer-events: none;
-}
-
-.card-floating-1 { animation: floatCard 6s ease-in-out infinite; }
-.card-floating-2 { animation: floatCard 6s ease-in-out infinite 0.5s; }
-.card-floating-3 { animation: floatCard 6s ease-in-out infinite 1s; }
-.card-floating-4 { animation: floatCard 6s ease-in-out infinite 1.5s; }
-
-.card-button-appear {
-    animation: scaleButtons 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.card-accent-circle {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(20px);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
-    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
-}
-
-.card-img-container:hover .card-accent-circle {
-    opacity: 0.4;
-}
-`;
+// Card animations moved to optimized-cardImage.css for better performance
 
 const CardImage = ({ themeKey = 'tech', ...domProps }) => {
     const [flip, setFlip] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    
-    // Inject card animations
-    useEffect(() => {
-        const styleEl = document.createElement('style');
-        styleEl.type = 'text/css';
-        styleEl.id = 'card-image-animations';
-        styleEl.appendChild(document.createTextNode(cardAnimations));
-        
-        if (!document.getElementById('card-image-animations')) {
-            document.head.appendChild(styleEl);
-        }
-        
-        return () => {
-            const existingStyle = document.getElementById('card-image-animations');
-            if (existingStyle) {
-                document.head.removeChild(existingStyle);
-            }
-        };
-    }, []);
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -188,7 +67,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
 
             <div className="card-flip-container vertical flip-container flex z-10"> 
                 <div 
-                    className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72 overflow-hidden rounded-xl card-img-container card-floating-${Math.floor(Math.random() * 4) + 1}`}
+                    className={`flipper ${flip ? 'flip' : ''} flex-1 h-72 w-72 overflow-hidden rounded-xl card-img-container card-floating-1`}
                     style={{
                         position: 'relative',
                         boxShadow: isHovered ? 
@@ -204,9 +83,16 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                     {/* Shimmer effect */}
                     {isHovered && <div className="card-shimmer-effect"></div>}
                     
-                    <div 
-                        style={{ backgroundImage: `url(${domProps.url})`}}
-                        className="front rounded-xl bg-cover bg-no-repeat bg-center bg-contain h-72 w-72 relative"
+                    <OptimizedBackground
+                        className="front rounded-xl relative"
+                        src={domProps.url}
+                        webpSrc={domProps.webp || domProps.url.replace(/\.(png|jpg|jpeg)$/, '.webp')}
+                        width={288}
+                        height={288}
+                        aria-label={domProps.name}
+                        role="img"
+                        bgSize="cover"
+                        bgPosition="center"
                     >
                         {/* Overlay gradient for better text visibility */}
                         <div 
@@ -215,6 +101,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                                 background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.8) 100%)',
                                 opacity: isHovered ? 0.9 : 0,
                                 backdropFilter: isHovered ? 'blur(2px)' : 'none',
+                                transform: 'translate3d(0, 0, 0)', // Force GPU acceleration
                             }}
                         ></div>
 
@@ -223,7 +110,8 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                             className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-8 opacity-0 transition-all duration-300"
                             style={{
                                 opacity: isHovered ? 1 : 0,
-                                transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
+                                transform: isHovered ? 'translateY(0) translate3d(0, 0, 0)' : 'translateY(8px) translate3d(0, 0, 0)', // Force GPU acceleration
+                                willChange: 'transform, opacity',
                             }}
                         >
                             <h3 className="text-white font-medium text-lg" style={{
@@ -243,7 +131,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                             {/* Tech tags - About Me styled */}
                             {domProps.tags && domProps.tags.length > 0 && (
                                 <div className="flex flex-wrap gap-1 mt-2">
-                                    {domProps.tags.map((tag, index) => (
+                                    {domProps.tags.slice(0, 3).map((tag, index) => (
                                         <span 
                                             key={index} 
                                             className="text-xs px-2 py-0.5 rounded-full" 
@@ -262,7 +150,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </OptimizedBackground>
                     <div 
                         className="back rounded-xl h-72 w-72"
                         style={{
@@ -280,6 +168,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                                 ? '1px solid rgba(0, 0, 0, 0.08)'
                                 : '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: 'inset 0 0 20px rgba(var(--color-primary-rgb), 0.1)',
+                            transform: 'translate3d(0, 0, 0) rotateY(180deg)', // Force GPU acceleration
                         }}
                     >
                         <div>

@@ -1,21 +1,9 @@
 import Title from "./atom/Title";
-import SubTitle from "./atom/SubTitle";
-import Description from "./atom/Description";
-import Button from "./atom/Button";
-import Icon from "./atom/Icon";
 import { 
-    DESCRIPTION, 
     ABOUT_ME,
     FONT_FAMILY,
-    SLATE,
-    LIGHT_GRAY,
-    TITLE,
-    LIME,
-    WHITE
 } from "../helpers/constants";
-import { downloadPDF } from '../helpers/common'
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useTheme } from "../contexts/ThemeContext";
 
 
@@ -61,7 +49,7 @@ const fadeAnimations = `
 
 // Skill Card Component for displaying individual skills with enhanced visual effects
 const SkillCard = ({ skill, activeSkill, setActiveSkill }) => {
-    const { theme } = useTheme();
+    // No need for theme context here
     
     return (
         <div 
@@ -216,14 +204,10 @@ const SkillCard = ({ skill, activeSkill, setActiveSkill }) => {
 
 
 const AboutMe = () => {
-    const { isMobile }  = useSelector(({ metadata }) => metadata)
-    const [isHover, setHover] = useState(false)
     const [activeSkill, setActiveSkill] = useState(null)
     const [activeFilter, setActiveFilter] = useState('all')
-    const [prevFilter, setPrevFilter] = useState('all')
     const [isFilterTransitioning, setIsFilterTransitioning] = useState(false)
-    const [skillBreakdown, setSkillBreakdown] = useState({})
-    const { theme, themeKey } = useTheme();
+    const { themeKey } = useTheme();
     
     // Inject CSS animations into document head
     useEffect(() => {
@@ -247,28 +231,7 @@ const AboutMe = () => {
         };
     }, []);
 
-    // Calculate skill statistics for visualization
-    useEffect(() => {
-        const allSkills = [...frontendSkills, ...backendSkills, ...aiSkills];
-        const breakdown = {
-            frontend: {
-                count: frontendSkills.length,
-                avgLevel: frontendSkills.reduce((acc, skill) => acc + skill.level, 0) / frontendSkills.length,
-                topSkill: frontendSkills.sort((a, b) => b.level - a.level)[0]
-            },
-            backend: {
-                count: backendSkills.length,
-                avgLevel: backendSkills.reduce((acc, skill) => acc + skill.level, 0) / backendSkills.length,
-                topSkill: backendSkills.sort((a, b) => b.level - a.level)[0]
-            },
-            ai: {
-                count: aiSkills.length,
-                avgLevel: aiSkills.reduce((acc, skill) => acc + skill.level, 0) / aiSkills.length,
-                topSkill: aiSkills.sort((a, b) => b.level - a.level)[0]
-            }
-        };
-        setSkillBreakdown(breakdown);
-    }, []);
+    // This useEffect for skill breakdown has been removed as it was not being used
     
     // Define skills with CDN icons, experience years and descriptions
     const frontendSkills = [
@@ -341,7 +304,6 @@ const AboutMe = () => {
         
         // Start transition with fade-out effect
         setIsFilterTransitioning(true);
-        setPrevFilter(activeFilter);
         
         // Slight delay before changing the filter to allow fade-out to start
         setTimeout(() => {
@@ -823,45 +785,7 @@ const AboutMe = () => {
     )
 }
 
-// Styles are now mostly inline with theme variables
-const styles = {
-    aboutMe: {
-        fontFamily: FONT_FAMILY,
-        fontWeight: '700',
-        letterSpacing: '4px',
-        position: 'relative',
-        display: 'inline-block',
-    },
-    subtitle: {
-        fontFamily: FONT_FAMILY,
-        letterSpacing: '2px',
-        fontWeight: '500',
-        fontSize: '18px',
-        marginTop: '0px',
-        position: 'relative',
-        textShadow: '0 2px 5px rgba(0,0,0,0.05)',
-        display: 'inline-block',
-        paddingBottom: '6px',
-        transform: 'translateX(15px)',
-    },
-    descriptionOnMobile: {
-        fontFamily: FONT_FAMILY,
-        letterSpacing: '0.6px',
-        lineHeight: '22px',
-        fontWeight: '400',
-        fontSize: '0.95rem',
-        marginTop: '10px',
-    },
-    description: {
-        fontFamily: FONT_FAMILY,
-        letterSpacing: '1px',
-        lineHeight: '30px',
-        fontWeight: '400',
-        textShadow: '0 1px 2px rgba(0,0,0,0.03)',
-        position: 'relative',
-        padding: '0 12px',
-    },
-}
+// Removed unused styles object that was replaced by inline styles
 
 export default AboutMe;
 

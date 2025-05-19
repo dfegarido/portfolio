@@ -8,471 +8,123 @@ import { setReference } from "../store/metadata";
 import { CONTACT_ME, FONT_FAMILY } from "../helpers/constants";
 import { useTheme } from "../contexts/ThemeContext";
 import "../assets/socialIcons.css";
-
-// CSS animations for Contact page with similar styling to Portfolio and About Me
-const contactAnimations = `
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes pulse {
-    0% { opacity: 0.7; transform: scale(1); }
-    50% { opacity: 0.9; transform: scale(1.05); }
-    100% { opacity: 0.7; transform: scale(1); }
-}
-
-@keyframes shimmer {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideInRight {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes pulseGreen {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); /* Equivalent to green-400 */
-    }
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
-    }
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
-    }
-}
-
-@keyframes fadeInBackground {
-    0% { opacity: 0; }
-    100% { opacity: 0.6; }
-}
-
-@keyframes rotateSlow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes formFieldFocus {
-    0% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0); }
-    50% { box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.2); }
-    100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0); }
-}
-
-@keyframes socialIconPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-@keyframes contactFormAppear {
-    0% { transform: translateY(30px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes messageSuccess {
-    0% { transform: translateX(-10px); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes socialIconEntrance {
-    0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-    60% { transform: translateY(-10px) scale(1.1); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.typing-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-primary);
-  border-radius: 50%;
-  opacity: 0.7;
-  display: inline-block;
-  animation: typingAnimation 1.4s infinite ease-in-out;
-}
-
-@keyframes typingAnimation {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-    opacity: 0.5;
-  }
-}
-
-/* Custom scrollbar for chat container */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: rgba(var(--color-primary-rgb), 0.3);
-  border-radius: 20px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(var(--color-primary-rgb), 0.5);
-}
-
-/* Chat message animations */
-@keyframes messagePop {
-  0% { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.chat-message-enter {
-  animation: messagePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-/* Chat container animations */
-.chat-container {
-  animation: contactFormAppear 0.8s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
-  position: relative;
-}
-
-.chat-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(var(--color-primary-rgb), 0.1), transparent 70%),
-              radial-gradient(circle at bottom left, rgba(var(--color-accent-rgb), 0.1), transparent 70%);
-  z-index: 0;
-  opacity: 0.6;
-}
-
-.form-input-focused {
-    animation: formFieldFocus 1s ease-out;
-}
-
-.contact-social-item {
-    animation: socialIconEntrance 0.8s cubic-bezier(0.25, 0.1, 0.25, 1.4) forwards;
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Apply transform directly instead of using animation on hover */
-.contact-social-item:hover {
-    transform: translateY(-5px);
-}
-
-.user-message {
-    animation: slideInRight 0.3s ease-out forwards;
-}
-
-.bot-message {
-    animation: slideInLeft 0.3s ease-out forwards;
-}
-
-.accent-shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.6;
-    filter: blur(50px);
-    z-index: 0;
-}
-
-.accent-shape-contact-1 {
-    width: 250px;
-    height: 250px;
-    top: -50px;
-    right: 10%;
-    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
-    animation: pulse 8s infinite;
-}
-
-.accent-shape-contact-2 {
-    width: 300px;
-    height: 300px;
-    bottom: 100px;
-    left: 5%;
-    background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
-    animation: pulse 10s infinite reverse;
-}
-
-.particles-contact .particle {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    opacity: 0.6;
-    animation: float 10s infinite ease-in-out;
-}
-
-.particles-contact .particle-1 { top: 15%; left: 10%; animation-delay: 0s; }
-.particles-contact .particle-2 { top: 25%; right: 15%; animation-delay: 1s; }
-.particles-contact .particle-3 { bottom: 30%; left: 20%; animation-delay: 2s; }
-.particles-contact .particle-4 { bottom: 10%; right: 30%; animation-delay: 3s; }
-.particles-contact .particle-5 { top: 45%; left: 5%; animation-delay: 4s; }
-.particles-contact .particle-6 { top: 50%; right: 8%; animation-delay: 5s; }
-.particles-contact .particle-7 { bottom: 40%; left: 25%; animation-delay: 6s; }
-.particles-contact .particle-8 { bottom: 60%; right: 15%; animation-delay: 7s; }
-
-.animated-element {
-  animation: someAnimation 1s ease;
-}
-
-.delay-05s {
-  animation-delay: 0.5s;
-}
-
-.star-delay-0 { animation-delay: 0s; }
-.star-delay-1 { animation-delay: 0.1s; }
-.star-delay-2 { animation-delay: 0.2s; }
-.star-delay-3 { animation-delay: 0.3s; }
-.star-delay-4 { animation-delay: 0.4s; }
-.star-delay-5 { animation-delay: 0.5s; }
-.star-delay-6 { animation-delay: 0.6s; }
-.star-delay-7 { animation-delay: 0.7s; }
-.star-delay-8 { animation-delay: 0.8s; }
-.star-delay-9 { animation-delay: 0.9s; }
-.star-delay-10 { animation-delay: 1s; }
-.star-delay-11 { animation-delay: 1.1s; }
-.star-delay-12 { animation-delay: 1.2s; }
-.star-delay-13 { animation-delay: 1.3s; }
-.star-delay-14 { animation-delay: 1.4s; }
-.star-delay-15 { animation-delay: 1.5s; }
-.star-delay-16 { animation-delay: 1.6s; }
-.star-delay-17 { animation-delay: 1.7s; }
-.star-delay-18 { animation-delay: 1.8s; }
-.star-delay-19 { animation-delay: 1.9s; }
-.star-delay-20 { animation-delay: 2s; }
-.star-delay-21 { animation-delay: 2.1s; }
-.star-delay-22 { animation-delay: 2.2s; }
-.star-delay-23 { animation-delay: 2.3s; }
-.star-delay-24 { animation-delay: 2.4s; }
-.star-delay-25 { animation-delay: 2.5s; }
-.star-delay-26 { animation-delay: 2.6s; }
-.star-delay-27 { animation-delay: 2.7s; }
-.star-delay-28 { animation-delay: 2.8s; }
-.star-delay-29 { animation-delay: 2.9s; }
-.star-delay-30 { animation-delay: 3s; }
-`;
-
-// Helper function to format time
-const formatTime = (date) => {
-    return new Intl.DateTimeFormat('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    }).format(date);
-};
+import "../assets/optimized-contact.css";
 
 const Contact = () => {
-    const contactRef = useRef(null)
-    const chatContainerRef = useRef(null)
-    const dispatch = useDispatch()
-    const { themeKey } = useTheme()
+    const chatEndRef = useRef(null);
+    const contactRef = useRef(null);
+    const dispatch = useDispatch();
+    const { themeKey } = useTheme();
+    // Removed unused botHasResponded state
+    const [inputVisible, setInputVisible] = useState(false);
+    const [typingIndicator, setTypingIndicator] = useState(false);
     const [messages, setMessages] = useState([
-        { 
-            id: 1, 
-            content: "Hi there! I'm Darwin, a Full Stack Engineer. How can I help you today?", 
-            isUser: false, 
-            timestamp: formatTime(new Date())
-        },
         {
-            id: 2,
-            content: "You can ask me about my projects, skills, or experience. Or simply say hello! 👋",
-            isUser: false,
-            timestamp: formatTime(new Date())
+            id: 0,
+            type: "BOT",
+            message: "Hi! I'm Darwin, thanks for checking out my Portfolio. How can I help you today?"
         }
-    ])
-    const [isTyping, setIsTyping] = useState(false)
-    const [waitingForResponse, setWaitingForResponse] = useState(false)
+    ]);
 
     useEffect(() => {
         if (contactRef.current) {
-            // Use an ID-based approach instead of passing the ref directly
             contactRef.current.id = 'contact-section';
             dispatch(setReference({name: 'contact', value: 'contact-section' }))
         }
-        
-        // Add staggered animation effect for social icons
-        const socialItems = document.querySelectorAll('.contact-social-item');
-        socialItems.forEach((item, index) => {
-            item.classList.add('animated-element', `delay-${index * 15}ms`);
-            item.style.opacity = '0'; // Start with opacity 0
-        });
     }, [dispatch])
-    
-    // Placeholder function for future Groq API integration
-    // This will be implemented later
-    const getGroqResponse = async (message) => {
-        // This is just a placeholder for now
-        // The actual implementation will call the Groq API
-        
-        // Example usage (commented out until implementation):
-        /*
-        try {
-            const response = await fetch('https://api.groq.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${GROQ_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    messages: [{ role: "user", content: message }],
-                    model: "llama3-70b-8192" // or another model
-                })
-            });
-            
-            const data = await response.json();
-            return data.choices[0].message.content;
-        } catch (error) {
-            console.error('Error calling Groq API:', error);
-            return "I'm sorry, I couldn't process that request. Please try again later.";
-        }
-        */
-        
-        // For now, return a simulated response
-        return "This is a placeholder response. Groq API integration coming soon!";
-    };
-    
-    // Function to handle sending messages
-    const handleSendMessage = (message) => {
-        const newMessage = {
-            id: messages.length + 1,
-            content: message,
-            isUser: true,
-            timestamp: formatTime(new Date())
-        };
-        
-        setMessages(prevMessages => [...prevMessages, newMessage]);
-        setWaitingForResponse(true);
-        
-        // Simulate typing indicator
-        setTimeout(() => {
-            setIsTyping(true);
-            
-            // Simulate response (will be replaced with actual Groq API call)
-            setTimeout(async () => {
-                try {
-                    // Get response from helper (will later use Groq API)
-                    const response = await getGroqResponse(message);
-                    
-                    // Create response message
-                    const botMessage = {
-                        id: messages.length + 2,
-                        content: response,
-                        isUser: false,
-                        timestamp: formatTime(new Date())
-                    };
-                    
-                    setIsTyping(false);
-                    setMessages(prevMessages => [...prevMessages, botMessage]);
-                    setWaitingForResponse(false);
-                } catch (error) {
-                    console.error('Error getting response:', error);
-                    
-                    // Handle error with graceful message
-                    const errorMessage = {
-                        id: messages.length + 2,
-                        content: "I'm sorry, I couldn't process that request. Please try again later.",
-                        isUser: false,
-                        timestamp: formatTime(new Date())
-                    };
-                    
-                    setIsTyping(false);
-                    setMessages(prevMessages => [...prevMessages, errorMessage]);
-                    setWaitingForResponse(false);
-                }
-                
-                // Scroll to bottom when new messages arrive
-                if (chatContainerRef.current) {
-                    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-                }
-            }, 1500 + Math.random() * 1000); // Random delay between 1.5-2.5 seconds for typing
-        }, 500); // Delay before typing indicator appears
-    };
-    
-    // Scroll to bottom when new messages arrive
-    useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    }, [messages]);
 
-    // Inject animations into the document
-    useEffect(() => {
-        const styleEl = document.createElement('style');
-        styleEl.type = 'text/css';
-        styleEl.id = 'contact-animations';
-        styleEl.appendChild(document.createTextNode(contactAnimations));
-        
-        if (!document.getElementById('contact-animations')) {
-            document.head.appendChild(styleEl);
+    const scrollToBottom = () => {
+        if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
-        
-        // Show form after a slight delay for better visual effect
-        const timer = setTimeout(() => {
-            // Placeholder for form visibility logic
-        }, 300);
-        
-        return () => {
-            clearTimeout(timer);
-            const existingStyle = document.getElementById('contact-animations');
-            if (existingStyle) {
-                document.head.removeChild(existingStyle);
-            }
-        };
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            setInputVisible(true);
+        }, 200)
     }, [])
 
-    // Generate random positions for stars
-    const generateStars = (count) => {
-        const stars = [];
-        for (let i = 0; i < count; i++) {
-            const delay = Math.random() * 3;
-            stars.push({
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                delayClass: `star-delay-${Math.floor(delay * 10)}`, // Create class name based on delay
-                opacity: 0.3 + Math.random() * 0.5,
-                size: 1 + Math.random() * 2
-            });
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const handleInputSubmit = (userMessage) => {
+        // Guard against empty or null messages
+        if (!userMessage || userMessage.trim() === '') {
+            return;
         }
-        return stars;
+        
+        const newMessages = [
+            ...messages,
+            {
+                id: messages.length,
+                type: "USER",
+                message: userMessage
+            }
+        ];
+
+        setMessages(newMessages);
+        setTypingIndicator(true);
+
+        setTimeout(() => {
+            setTypingIndicator(false);
+            const botResponseIndex = messages.length + 1;
+            
+            let botResponse = "";
+            
+            const userMessageLower = userMessage.toLowerCase();
+            
+            if (userMessageLower.includes("hire") || userMessageLower.includes("job") || 
+                (userMessageLower.includes("work") && 
+                 (userMessageLower.includes("opportunity") || userMessageLower.includes("position") || 
+                  userMessageLower.includes("opening") || userMessageLower.includes("with you")))) {
+                botResponse = "I'm always open to discussing new opportunities! Feel free to reach out through my email: darwinfegarido@gmail.com";
+            } 
+            else if (userMessageLower.includes("email") || userMessageLower.includes("contact") || userMessageLower.includes("reach")) {
+                botResponse = "You can reach me at darwinfegarido@gmail.com or through my social media profiles listed below.";
+            }
+            else if (userMessageLower.includes("experience") || userMessageLower.includes("background")) {
+                botResponse = "I have 9+ years of experience as a Full Stack Developer, specializing in React, Node.js, and modern web technologies. I've worked on enterprise applications, e-commerce platforms, and various web development projects.";
+            }
+            else if (userMessageLower.includes("skill") || userMessageLower.includes("tech") || userMessageLower.includes("stack")) {
+                botResponse = "My tech stack includes: React, TypeScript, Node.js, Express, MongoDB, PostgreSQL, AWS, Docker, and more. I'm also experienced with testing frameworks and CI/CD pipelines.";
+            }
+            else if (userMessageLower.includes("project") || userMessageLower.includes("portfolio") || 
+                     (userMessageLower.includes("work") && 
+                      (userMessageLower.includes("example") || userMessageLower.includes("project") || 
+                       userMessageLower.includes("portfolio") || userMessageLower.includes("showcase")))) {
+                botResponse = "You can check out my portfolio section to see some of my recent projects. Each project includes details about the technologies used and my role in development.";
+            }
+            else if (userMessageLower.includes("hello") || userMessageLower.includes("hi") || userMessageLower.includes("hey")) {
+                botResponse = "Hello! How can I help you today?";
+            }
+            else {
+                botResponse = "Thanks for your message! If you'd like to discuss anything specific about my work or potential collaborations, feel free to email me at darwinfegarido@gmail.com";
+            }
+            
+            setMessages([
+                ...newMessages,
+                {
+                    id: botResponseIndex,
+                    type: "BOT",
+                    message: botResponse
+                }
+            ]);
+            
+            // Removed setBotHasResponded call as it's no longer needed
+        }, 1500);
     };
 
-    const stars = generateStars(20);
-
     return (
-        <div 
+        <div
             ref={contactRef}
-            className="py-10 relative overflow-hidden"
+            className="relative min-h-screen py-10 px-4 sm:px-8 overflow-hidden"
             style={{
                 background: 'var(--color-background)',
-                transition: 'var(--theme-transition)',
-                minHeight: '100vh',
-                position: 'relative',
+                zIndex: 0,
             }}
         >
-            {/* Semi-transparent overlay for better contrast */}
             <div 
                 className="absolute inset-0 z-0" 
                 style={{
@@ -480,76 +132,27 @@ const Contact = () => {
                         'linear-gradient(to bottom, rgba(245, 245, 247, 0.7), rgba(245, 245, 247, 0.9))' : 
                         `linear-gradient(to bottom, rgba(var(--color-background-rgb), 0.8), rgba(var(--color-background-rgb), 0.95))`,
                     backdropFilter: 'blur(5px)',
-                    zIndex: 0,
                 }}
             ></div>
             
-            {/* Decorative accent shapes */}
-            <div className="accent-shape accent-shape-contact-1"></div>
-            <div className="accent-shape accent-shape-contact-2"></div>
-            <div className="accent-shape" style={{
-                width: '180px',
-                height: '180px',
-                top: '40%',
-                right: '25%',
-                background: 'radial-gradient(circle, rgba(var(--color-primary-rgb), 0.5) 0%, transparent 70%)',
-                animation: 'pulse 12s infinite ease-in-out 1s',
-            }}></div>
+            <div className="contact-accent-shape contact-accent-shape-1"></div>
+            <div className="contact-accent-shape contact-accent-shape-2"></div>
             
-            {/* Rotating circle decorative elements */}
-            <div 
-                className="absolute w-200 h-200 border border-dashed rounded-full opacity-20 z-0"
-                style={{
-                    top: '15%', 
-                    left: '8%',
-                    width: '200px',
-                    height: '200px',
-                    borderColor: 'rgba(var(--color-primary-rgb), 0.2)',
-                    animation: 'rotateSlow 60s linear infinite'
-                }}
-            ></div>
-            <div 
-                className="absolute w-150 h-150 border border-dashed rounded-full opacity-20 z-0"
-                style={{
-                    bottom: '10%', 
-                    right: '5%',
-                    width: '150px',
-                    height: '150px',
-                    borderColor: 'rgba(var(--color-accent-rgb), 0.2)',
-                    animation: 'rotateSlow 60s linear infinite reverse'
-                }}
-            ></div>
-            
-            {/* Star elements */}
-            {stars.map((star, i) => (
-                <div 
-                    key={i} 
-                    className={`absolute w-1 h-1 bg-primary rounded-full ${star.delayClass}`}
-                    style={{
-                        top: star.top,
-                        left: star.left,
-                        opacity: star.opacity,
-                        width: `${star.size}px`,
-                        height: `${star.size}px`,
-                        background: 'var(--color-primary)',
-                        animation: 'shimmer 3s infinite'
-                    }}
-                ></div>
-            ))}
-            
-            {/* Particle effects */}
-            <div className="particles-contact">
-                {[...Array(8)].map((_, i) => (
-                    <div key={i} className={`particle particle-${i+1}`}></div>
-                ))}
+            <div className="contact-particles">
+                <div className="contact-particle contact-particle-1"></div>
+                <div className="contact-particle contact-particle-2"></div>
+                <div className="contact-particle contact-particle-3"></div>
             </div>
             
-            <div className="w-full flex items-center mb-8 px-8 relative z-10">
+            <div className="rotating-circle-contact" style={{ top: '15%', left: '8%' }}></div>
+            <div className="rotating-circle-contact" style={{ bottom: '10%', right: '5%', animationDirection: 'reverse' }}></div>
+            
+            <div className="w-full flex items-center mb-8 px-2 sm:px-8 relative z-10">
                 <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
                 <Title 
-                    label={CONTACT_ME || "Contact Me"} 
+                    label={CONTACT_ME} 
                     style={{
-                        color: 'var(--color-primary)',
+                        color: 'var(--color-primary)', 
                         textShadow: '0 2px 4px rgba(0,0,0,0.1)',
                         fontFamily: FONT_FAMILY,
                     }}
@@ -557,192 +160,164 @@ const Contact = () => {
                 <div className="h-[3px] flex-grow bg-gradient-to-r from-[var(--color-accent)] to-transparent ml-4 rounded-full"></div>
             </div>
             
-            <div 
-                className={`mx-5 sm:mx-10 md:mx-24 lg:mx-80 mt-12 pb-10 relative z-10 transition-all duration-500`}
-            >
-                {/* Chat interface with glassmorphism effect */}
+            <div className="max-w-4xl mx-auto relative z-10">
                 <div 
-                    className="backdrop-blur-sm rounded-xl p-4 relative overflow-hidden chat-container"
+                    className="w-full rounded-lg overflow-hidden relative contact-floating-1"
                     style={{
-                        background: 'rgba(var(--color-background-rgb), 0.3)',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(var(--color-primary-rgb), 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '500px', // Fixed height for chat container
-                        transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
+                        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+                        border: themeKey === 'minimalist' 
+                            ? '1px solid rgba(0, 0, 0, 0.05)'
+                            : '1px solid rgba(255, 255, 255, 0.1)',
+                        transform: 'translate3d(0, 0, 0)', 
+                        willChange: 'transform'
                     }}
                 >
-                    {/* Chat accent lighting */}
-                    <div 
-                        className="absolute -inset-1 opacity-30"
+                    <div
+                        className="absolute inset-0 -z-1"
                         style={{
-                            background: `radial-gradient(circle at 50% 0%, var(--color-primary) 0%, transparent 70%)`,
-                            filter: 'blur(40px)'
+                            background: themeKey === 'minimalist' 
+                                ? 'rgba(255, 255, 255, 0.7)'
+                                : themeKey === 'tech'
+                                    ? 'rgba(13, 27, 42, 0.7)'
+                                    : 'rgba(26, 26, 26, 0.7)',
+                            backdropFilter: 'blur(10px)',
                         }}
                     ></div>
                     
-                    {/* Chat header */}
                     <div 
-                        className="flex items-center px-4 py-3 border-b relative z-10"
+                        className="w-full px-6 py-4 flex items-center"
                         style={{
-                            borderBottomColor: 'rgba(var(--color-primary-rgb), 0.1)',
-                            background: 'rgba(var(--color-background-rgb), 0.5)',
-                            backdropFilter: 'blur(5px)'
+                            borderBottom: themeKey === 'minimalist' 
+                                ? '1px solid rgba(0, 0, 0, 0.05)'
+                                : '1px solid rgba(255, 255, 255, 0.1)',
+                            background: themeKey === 'minimalist'
+                                ? 'rgba(245, 245, 247, 0.8)'
+                                : themeKey === 'tech'
+                                    ? 'rgba(7, 18, 30, 0.8)'
+                                    : 'rgba(22, 22, 22, 0.8)',
                         }}
                     >
-                        <div className="flex-shrink-0 h-10 w-10 rounded-full overflow-hidden flex items-center justify-center mr-3"
+                        <div 
+                            className="w-10 h-10 rounded-full mr-3 grid place-items-center"
                             style={{
                                 background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
                             }}
                         >
-                            <span className="text-white text-sm font-bold">DF</span>
-                        </div>
-                        <div>
-                            <h3 
-                                className="font-semibold"
+                            <span className="text-white font-bold">DF</span>
+                            
+                            <div 
+                                className="absolute w-3 h-3 bg-green-500 rounded-full border-2 right-0 bottom-0 contact-pulse"
                                 style={{
+                                    borderColor: themeKey === 'minimalist' 
+                                        ? 'rgba(255, 255, 255, 0.7)'
+                                        : 'rgba(13, 27, 42, 0.7)',
+                                    boxShadow: '0 0 5px rgba(16, 185, 129, 0.7)'
+                                }}
+                            ></div>
+                        </div>
+                        
+                        <div>
+                            <p 
+                                className="font-medium text-base"
+                                style={{ 
                                     color: 'var(--color-primary)',
                                     fontFamily: FONT_FAMILY
                                 }}
                             >
                                 Darwin Fegarido
-                            </h3>
+                            </p>
                             <p 
-                                className="text-sm"
-                                style={{
+                                className="text-xs"
+                                style={{ 
                                     color: 'rgba(var(--color-primary-rgb), 0.7)',
                                     fontFamily: FONT_FAMILY
                                 }}
                             >
-                                Full Stack Engineer
+                                Online
                             </p>
-                        </div>
-                        <div 
-                            className="ml-auto flex items-center px-3 py-1 rounded-full text-xs"
-                            style={{
-                                background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                color: 'var(--color-primary)',
-                                border: '1px solid rgba(var(--color-primary-rgb), 0.2)'
-                            }}
-                        >
-                            <span style={{
-                                width: '10px',
-                                height: '10px',
-                                backgroundColor: '#4ADE80', // green-400
-                                borderRadius: '50%',
-                                marginRight: '6px',
-                                animation: 'pulseGreen 1.5s infinite cubic-bezier(0.66, 0, 0, 1)'
-                            }}></span>
-                            Online
                         </div>
                     </div>
                     
-                    {/* Messages container with scroll */}
                     <div 
-                        ref={chatContainerRef}
-                        className="flex-grow overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-primary scrollbar-track-transparent"
+                        className="px-6 py-4"
                         style={{
-                            scrollBehavior: 'smooth',
-                            background: 'rgba(var(--color-background-rgb), 0.1)',
-                            backdropFilter: 'blur(4px)',
-                            boxShadow: 'inset 0 5px 10px rgba(0, 0, 0, 0.03), inset 0 -5px 10px rgba(0, 0, 0, 0.03)'
+                            minHeight: '350px',
+                            maxHeight: '400px',
+                            overflowY: 'auto'
                         }}
                     >
-                        {messages.map((msg) => (
-                            <ChatMessage 
-                                key={msg.id}
-                                message={msg.content}
-                                isUser={msg.isUser}
-                                timestamp={msg.timestamp}
-                            />
+                        {messages.map((message, index) => (
+                            <div 
+                                key={message.id} 
+                                className={`message-appear message-appear-delay-${index % 3 + 1}`}
+                            >
+                                <ChatMessage 
+                                    message={message.message} 
+                                    type={message.type} 
+                                />
+                            </div>
                         ))}
                         
-                        {/* Suggested messages - only show if no user messages yet */}
-                        {messages.length <= 2 && (
-                            <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                                <button
-                                    onClick={() => handleSendMessage("Tell me about your experience")}
-                                    className="px-3 py-2 rounded-full text-sm transition-all duration-300"
-                                    style={{
-                                        background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                        color: 'var(--color-primary)',
-                                        border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                        fontFamily: FONT_FAMILY,
-                                        transform: 'scale(1)',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.03)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.15)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.1)';
-                                    }}
-                                >
-                                    Tell me about your experience
-                                </button>
-                                <button
-                                    onClick={() => handleSendMessage("What projects have you worked on?")}
-                                    className="px-3 py-2 rounded-full text-sm transition-all duration-300"
-                                    style={{
-                                        background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                        color: 'var(--color-primary)',
-                                        border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                        fontFamily: FONT_FAMILY,
-                                        transform: 'scale(1)',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.03)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.15)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.1)';
-                                    }}
-                                >
-                                    What projects have you worked on?
-                                </button>
-                                <button
-                                    onClick={() => handleSendMessage("What skills do you have?")}
-                                    className="px-3 py-2 rounded-full text-sm transition-all duration-300"
-                                    style={{
-                                        background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                        color: 'var(--color-primary)',
-                                        border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                        fontFamily: FONT_FAMILY,
-                                        transform: 'scale(1)',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.03)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.15)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.background = 'rgba(var(--color-primary-rgb), 0.1)';
-                                    }}
-                                >
-                                    What skills do you have?
-                                </button>
+                        {typingIndicator && (
+                            <div className="message-appear">
+                                <TypingIndicator />
                             </div>
                         )}
                         
-                        {/* Typing indicator */}
-                        {isTyping && <TypingIndicator />}
+                        <div ref={chatEndRef} />
                     </div>
                     
-                    {/* Chat input area */}
-                    <ChatInput 
-                        onSendMessage={handleSendMessage}
-                        isDisabled={waitingForResponse}
-                    />
+                    <div 
+                        className="w-full px-6 py-4 chat-input-container"
+                        style={{
+                            borderTop: themeKey === 'minimalist' 
+                                ? '1px solid rgba(0, 0, 0, 0.05)'
+                                : '1px solid rgba(255, 255, 255, 0.1)',
+                            background: themeKey === 'minimalist'
+                                ? 'rgba(245, 245, 247, 0.8)'
+                                : themeKey === 'tech'
+                                    ? 'rgba(7, 18, 30, 0.8)'
+                                    : 'rgba(22, 22, 22, 0.8)',
+                        }}
+                    >
+                        {inputVisible && (
+                            <ChatInput 
+                                onSendMessage={handleInputSubmit} 
+                            />
+                        )}
+                    </div>
+                </div>
+                
+                <div className="mt-8 text-center">
+                    <p 
+                        className="text-sm mb-2"
+                        style={{ 
+                            color: 'rgba(var(--color-primary-rgb), 0.8)',
+                            fontFamily: FONT_FAMILY
+                        }}
+                    >
+                        Or reach me directly at
+                    </p>
+                    <a 
+                        href="mailto:darwinfegarido@gmail.com"
+                        className="inline-block px-4 py-2 rounded-full contact-slide-right"
+                        style={{ 
+                            color: 'var(--color-primary)',
+                            background: 'rgba(var(--color-primary-rgb), 0.1)',
+                            fontFamily: FONT_FAMILY,
+                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.05)',
+                            backdropFilter: 'blur(5px)',
+                            border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
+                            animationDelay: '0.3s'
+                        }}
+                    >
+                        darwinfegarido@gmail.com
+                    </a>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Contact;

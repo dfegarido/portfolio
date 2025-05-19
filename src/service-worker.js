@@ -11,7 +11,8 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { StaleWhileRevalidate, CacheFirst, NetworkFirst } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 clientsClaim();
 
@@ -46,17 +47,104 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-// An example runtime caching route for requests that aren't handled by the
-// precache, in this case same-origin .png requests like those from in public/
+// Cache images with a Cache First strategy
 registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
-    cacheName: 'images',
+  // Match image requests (including WebP)
+  ({ request }) => 
+    request.destination === 'image' || 
+    request.url.includes('.webp') ||
+    request.url.includes('.png') ||
+    request.url.includes('.jpg') ||
+    request.url.includes('.jpeg') ||
+    request.url.includes('.svg'),
+  new CacheFirst({
+    cacheName: 'images-cache',
     plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        // Keep at most 100 entries
+        maxEntries: 100,
+        // Don't keep any entries for more than 30 days
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+        // Automatically cleanup if quota is exceeded
+        purgeOnQuotaError: true,
+      }),
+    ],
+  })
+);
+
+// Cache CSS and JavaScript with a Stale While Revalidate strategy
+registerRoute(
+  ({ request }) => 
+    request.destination === 'script' || 
+    request.destination === 'style',
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+      }),
+    ],
+  })
+);
+
+// Cache font files with a Cache First strategy for longer periods
+registerRoute(
+  ({ request }) => request.destination === 'font',
+  new CacheFirst({
+    cacheName: 'fonts-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+      }),
+    ],
+  })
+);
+
+// Handle API requests with Network First strategy
+registerRoute(
+  ({ url }) => url.pathname.startsWith('/api/'),
+  new NetworkFirst({
+    cacheName: 'api-responses',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 30,
+        maxAgeSeconds: 1 * 60 * 60, // 1 hour
+      }),
+    ],
+  })
+);
+
+// Cache other static assets like PDFs and documents
+registerRoute(
+  ({ request }) => 
+    request.destination === 'document' || 
+    request.url.includes('.pdf') ||
+    request.url.includes('.doc') ||
+    request.url.includes('.docx'),
+  new CacheFirst({
+    cacheName: 'document-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 14 * 24 * 60 * 60, // 14 days
+      }),
     ],
   })
 );
@@ -67,6 +155,18 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+});
+
+// Pre-cache common images for faster loading
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open('common-images').then((cache) => {
+      return cache.addAll([
+        '/assets/profile-image.webp', 
+        '/assets/landing-background2.webp'
+      ]);
+    })
+  );
 });
 
 // Any other custom service worker logic can go here.

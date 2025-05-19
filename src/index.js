@@ -8,7 +8,39 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './theme-transition';
+import { initImageOptimizations } from './helpers/imageOptimizationInit';
 
+// Add WebP support detection
+(function detectWebP() {
+  const webP = new Image();
+  webP.src = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+  webP.onload = webP.onerror = function() {
+    window.supports = function(feature) {
+      return feature === 'webp' ? webP.height === 1 : false;
+    };
+    
+    // Initialize all image optimizations after WebP detection
+    initImageOptimizations();
+  };
+})();
+
+// Initialize event listeners for monitoring layout shifts
+if ('PerformanceObserver' in window) {
+  // Create a performance observer to monitor CLS
+  const observer = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      if (entry.entryType === 'layout-shift' && !entry.hadRecentInput) {
+        // Log significant layout shifts for debugging
+        if (entry.value > 0.05) {
+          console.debug('Significant layout shift detected:', entry);
+        }
+      }
+    }
+  });
+  
+  // Start observing layout shift entries
+  observer.observe({ type: 'layout-shift', buffered: true });
+}
 
 const container = document.getElementById('root')
 const root = createRoot(container)

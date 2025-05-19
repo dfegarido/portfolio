@@ -3,7 +3,7 @@ import Anchor from "./atom/Anchor";
 import { useSelector } from "react-redux";
 import { scrollTo } from "../helpers/common";
 import Icon from "./atom/Icon";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LOGO, HOME, ABOUT, SERVICE, PORTFOLIO, CONTACT } from "../helpers/constants";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -11,11 +11,14 @@ const Navigation = () => {
     const { scrollTop, listRef, isMobile, refLocation } = useSelector(({metadata}) => metadata)
     const [ toggleMenu, setToggleMenu ] = useState(false)
     const [ currentNavigation, setNavigation ] = useState(refLocation)
-    const { theme } = useTheme();
     const [isSmallScreen, setIsSmallScreen] = useState(false);
+    // Add a ref to track if this is the initial load
+    const isInitialLoad = useRef(true);
 
     const closeMenu = (ref) => {
         setToggleMenu(false);
+        // Navigation is now purposeful, not automatic
+        isInitialLoad.current = false;
         scrollTo(ref);
     }
 
@@ -29,7 +32,41 @@ const Navigation = () => {
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
+    // Add a specific effect to handle URL hash on initial load
     useEffect(() => {
+        // Check if there's a hash in the URL on initial load
+        const hash = window.location.hash;
+        if (hash && isInitialLoad.current) {
+            // Strip the # symbol
+            const sectionId = hash.substring(1);
+            
+            // Only scroll if it's a valid section
+            if (['home-section', 'about-section', 'service-section', 'portfolio-section', 'contact-section'].includes(sectionId)) {
+                // Delay the scroll a bit to ensure the page has properly loaded
+                setTimeout(() => {
+                    const element = document.getElementById(sectionId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 500);
+            } else {
+                // If hash doesn't match any section, ensure we stay at the top
+                window.scrollTo(0, 0);
+            }
+        } else if (isInitialLoad.current) {
+            // If no hash and initial load, ensure we're at the top
+            window.scrollTo(0, 0);
+            setNavigation('Home');
+        }
+        
+        // Mark initial load as complete
+        isInitialLoad.current = false;
+    }, []);
+
+    useEffect(() => {
+        // Skip navigation updates during initial load
+        if (isInitialLoad.current) return;
+        
         const updateNavigation = () => {
             switch (true) {
                 case scrollTop < 483:
