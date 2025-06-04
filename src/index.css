@@ -25,6 +25,9 @@
     }
   }
 
+/* Import shared animations */
+@import './assets/shared-animations.css';
+
 /* Theme-specific utility classes */
 .theme-bracket-color {
   color: var(--color-primary);
@@ -500,12 +503,6 @@
 }
 
 /* Custom animations */
-@keyframes pulse {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.8; }
-  100% { opacity: 0.3; }
-}
-
 @keyframes float-slow {
   0% {
     transform: translateY(0px);

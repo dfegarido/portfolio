@@ -4,36 +4,17 @@ import Title from "../components/atom/Title";
 import Card from "../components/Card";
 import CardTitle from "../components/atom/CardTitle";
 import CardDescription from "../components/atom/CardDescription";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo, useCallback } from "react";
 import { setReference } from "../store/metadata";
 import config from "../helpers/config";
-import { FONT_FAMILY, LIGHT_GRAY, SERVICE, GRAY } from "../helpers/constants";
+import { FONT_FAMILY, SERVICE } from "../helpers/constants";
 import { useTheme } from "../contexts/ThemeContext";
 
-// Add a style block with animations
-const animationStyles = `
-@keyframes pulse-slow {
-    0% { opacity: 0.7; transform: scale(1); }
-    50% { opacity: 0.9; transform: scale(1.05); }
-    100% { opacity: 0.7; transform: scale(1); }
-}
-
-@keyframes fadeInBackground {
-    0% { opacity: 0; }
-    100% { opacity: 0.6; }
-}
-
-.animate-pulse-slow {
-    animation: pulse-slow 3s infinite;
-}
-`;
-
-
-const Services = () => {
+const Services = memo(() => {
     const serviceRef = useRef(null)
     const dispatch = useDispatch()
     const { services } = config
-    const { theme, themeKey } = useTheme()
+    const { themeKey } = useTheme()
     const [hoveredCard, setHoveredCard] = useState(null)
     
     // Safe way to handle refs with Redux - store the element ID instead of the ref itself
@@ -44,25 +25,14 @@ const Services = () => {
             dispatch(setReference({name: 'service', value: 'service-section' }))
         }
     }, [dispatch])
-    
-    // Inject animations into the document
-    useEffect(() => {
-        const styleEl = document.createElement('style');
-        styleEl.type = 'text/css';
-        styleEl.id = 'service-animations';
-        styleEl.appendChild(document.createTextNode(animationStyles));
-        
-        if (!document.getElementById('service-animations')) {
-            document.head.appendChild(styleEl);
-        }
-        
-        return () => {
-            const existingStyle = document.getElementById('service-animations');
-            if (existingStyle) {
-                document.head.removeChild(existingStyle);
-            }
-        };
-    }, [])
+
+    const handleCardHover = useCallback((cardKey) => {
+        setHoveredCard(cardKey);
+    }, []);
+
+    const handleCardLeave = useCallback(() => {
+        setHoveredCard(null);
+    }, []);
 
     return (
         <div 
@@ -119,8 +89,8 @@ const Services = () => {
                         <div 
                             key={key}
                             className="relative transition-all duration-500 transform hover:scale-105 hover:z-10"
-                            onMouseEnter={() => setHoveredCard(key)}
-                            onMouseLeave={() => setHoveredCard(null)}
+                            onMouseEnter={() => handleCardHover(key)}
+                            onMouseLeave={handleCardLeave}
                             style={{
                                 transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)'
                             }}
@@ -274,8 +244,6 @@ const Services = () => {
             </div>
         </div>
     )
-}
-
-// Styles now incorporated inline with theme variables
+});
 
 export default Services;

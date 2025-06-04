@@ -3,14 +3,14 @@ import Title from '../components/atom/Title';
 import ChatMessage from "../components/atom/ChatMessage";
 import ChatInput from "../components/atom/ChatInput";
 import TypingIndicator from "../components/atom/TypingIndicator";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import { setReference } from "../store/metadata";
 import { CONTACT_ME, FONT_FAMILY } from "../helpers/constants";
 import { useTheme } from "../contexts/ThemeContext";
 import "../assets/socialIcons.css";
 import "../assets/optimized-contact.css";
 
-const Contact = () => {
+const Contact = memo(() => {
     const chatEndRef = useRef(null);
     const contactRef = useRef(null);
     const dispatch = useDispatch();
@@ -318,6 +318,6 @@ const Contact = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Contact;

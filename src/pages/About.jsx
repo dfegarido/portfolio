@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, memo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import AboutMe from '../components/AboutMe'
 import { setReference } from '../store/metadata'
@@ -9,11 +9,19 @@ import { downloadPDF } from '../helpers/common'
 import Icon from '../components/atom/Icon'
 import OptimizedImage from '../components/atom/OptimizedImage'
 
-const About = () => {
+const About = memo(() => {
     const aboutRef = useRef(null)
     const dispatch = useDispatch()
     const { themeKey } = useTheme()
     const [isHover, setHover] = useState(false)
+
+    const handleHover = useCallback(() => {
+        setHover(true);
+    }, []);
+
+    const handleHoverLeave = useCallback(() => {
+        setHover(false);
+    }, []);
 
     // Safe way to handle refs with Redux - store the element ID instead of the ref itself
     useEffect(() => {
@@ -134,8 +142,8 @@ const About = () => {
                             {/* Button */}
                             <button 
                                 onClick={downloadPDF} 
-                                onMouseEnter={() => setHover(true)}
-                                onMouseLeave={() => setHover(false)}
+                                onMouseEnter={handleHover}
+                                onMouseLeave={handleHoverLeave}
                                 className="relative flex items-center justify-center gap-3 px-6 py-3 backdrop-blur-sm rounded-lg transition-all duration-300 overflow-hidden group-hover:shadow-lg"
                                 style={{
                                     background: "var(--color-background)",
@@ -185,6 +193,6 @@ const About = () => {
             </div>
         </div>
     )
-}
+});
 
 export default About

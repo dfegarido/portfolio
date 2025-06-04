@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy, useEffect, useRef, useMemo } from "react";
+import { useState, Suspense, useEffect, useRef, useMemo, memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "../components/atom/Title";
 import { setReference } from "../store/metadata";
@@ -7,10 +7,10 @@ import { PORTFOLIO, FONT_FAMILY } from "../helpers/constants";
 import { useTheme } from "../contexts/ThemeContext";
 import '../assets/optimized-portfolio.css';
 
-// Lazy load the CardImage component to improve initial load time
-const CardImage = lazy(() => import('../components/atom/CardImage'));
+// Use centralized lazy loading
+import { CardImage } from '../components/lazy/LazyComponents';
 
-const Portfolio = () => {
+const Portfolio = memo(() => {
     const { isMobile } = useSelector(({ metadata }) => metadata)
     const portfolioRef = useRef(null)
     const dispatch = useDispatch()
@@ -63,21 +63,21 @@ const Portfolio = () => {
         if(isMobile) setBrands('website')
     }, [isMobile])
 
-    const handleTabHover = (index) => {
+    const handleTabHover = useCallback((index) => {
         setHoveredTab(index);
-    }
+    }, []);
 
-    const handleTabLeave = () => {
+    const handleTabLeave = useCallback(() => {
         setHoveredTab(null);
-    }
+    }, []);
 
-    const handleCardHover = (index) => {
+    const handleCardHover = useCallback((index) => {
         setHoveredCardIndex(index);
-    }
+    }, []);
 
-    const handleCardLeave = () => {
+    const handleCardLeave = useCallback(() => {
         setHoveredCardIndex(null);
-    }
+    }, []);
     
     // Filter portfolio items only once when brands changes
     const filteredPortfolio = useMemo(() => {
@@ -260,6 +260,6 @@ const Portfolio = () => {
             </div>
         </div>
     )
-}
+});
 
 export default Portfolio;

@@ -1,13 +1,10 @@
 
 /* GPU-accelerated animations for footer elements */
 
-/* Animation keyframes with GPU acceleration */
-@keyframes pulseLight {
-    0% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-    100% { opacity: 0.3; }
-}
+/* Import shared animations */
+@import './shared-animations.css';
 
+/* Footer-specific keyframes not in shared animations */
 @keyframes pulseRing {
     0% {
         transform: translate3d(0, 0, 0) scale(0.8);
@@ -31,15 +28,6 @@
     100% {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes rotateSlow {
-    0% { 
-        transform: translate3d(0, 0, 0) rotate(0deg); 
-    }
-    100% { 
-        transform: translate3d(0, 0, 0) rotate(360deg); 
     }
 }
 

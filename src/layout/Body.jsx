@@ -1,10 +1,6 @@
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import CharacterAnimation from "../components/CharacterAnimation"
-import About from "../pages/About"
-import Services from "../pages/Services"
-import Portfolio from "../pages/Portfolio"
-import Contact from "../pages/Contact"
 import { useEffect, useRef } from "react"
 import { setReference } from "../store/metadata"
 import { scrollTo } from "../helpers/common";
@@ -15,6 +11,9 @@ import {
     LIME } from '../helpers/constants'
 import Button from '../components/atom/Button'
 import { landingPage } from "../helpers/config"
+
+// Import from centralized lazy loading
+import { About, Services, Portfolio, Contact } from '../components/lazy/LazyComponents'
 
 
 const Body = () => {
@@ -116,11 +115,15 @@ const Body = () => {
                 
             </div>
             <div>
-                {/* Pages */}
-                <About />
-                <Services />
-                <Portfolio />
-                <Contact />
+                {/* Pages with Suspense for lazy loading */}
+                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+                </div>}>
+                    <About />
+                    <Services />
+                    <Portfolio />
+                    <Contact />
+                </Suspense>
             </div>
         </div>
         

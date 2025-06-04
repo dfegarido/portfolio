@@ -1,0 +1,149 @@
+/* Shared animations for better performance and reduced duplication */
+/* GPU-accelerated keyframes used across multiple components */
+
+/* Core animation keyframes with hardware acceleration */
+@keyframes float {
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1); }
+    50% { opacity: 0.9; transform: translate3d(0, 0, 0) scale(1.05); }
+    100% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes pulseLight {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes shimmer {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translate3d(20px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translate3d(-20px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: translate3d(0, 0, 0) scale(1); }
+    50% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1.1); }
+}
+
+@keyframes rotateSlow {
+    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    100% { transform: translate3d(0, 0, 0) rotate(360deg); }
+}
+
+@keyframes shine {
+    0% { transform: translate3d(-100%, -100%, 0) rotate(30deg); }
+    100% { transform: translate3d(100%, 100%, 0) rotate(30deg); }
+}
+
+@keyframes ripple {
+    0% { transform: translate3d(-50%, -50%, 0) scale(0.8); opacity: 1; }
+    100% { transform: translate3d(-50%, -50%, 0) scale(2); opacity: 0; }
+}
+
+@keyframes borderGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3); }
+    50% { box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.6), 0 0 30px rgba(var(--color-accent-rgb), 0.3); }
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translate3d(0, 10px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Optimized social icon animations */
+@keyframes socialIconAppear {
+    0% { opacity: 0; transform: translate3d(0, 20px, 0) scale(0.6); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes socialIconEntrance {
+    0% { opacity: 0; transform: translate3d(0, 20px, 0); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes socialIconShimmer {
+    0% { transform: translateX(-100%) rotate(45deg); opacity: 0; }
+    25% { opacity: 0.5; }
+    50% { opacity: 0.7; }
+    75% { opacity: 0.5; }
+    100% { transform: translateX(100%) rotate(45deg); opacity: 0; }
+}
+
+@keyframes ringEffect {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+@keyframes pulseRing {
+    0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.3; }
+    50% { transform: translate3d(0, 0, 0) scale(1.2); opacity: 0; }
+    100% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.3; }
+}
+
+/* Animation utility classes with will-change for performance */
+.animate-float { 
+    animation: float 20s infinite ease-in-out; 
+    will-change: transform; 
+}
+
+.animate-pulse { 
+    animation: pulse 15s infinite ease-in-out; 
+    will-change: transform, opacity; 
+}
+
+.animate-twinkle { 
+    animation: twinkle 4s infinite ease-in-out; 
+    will-change: opacity, transform; 
+}
+
+.animate-shimmer { 
+    animation: shimmer 2s infinite ease-in-out; 
+    will-change: opacity; 
+}
+
+.animate-fade-in { 
+    animation: fadeIn 0.6s ease-out forwards; 
+    will-change: transform, opacity; 
+}
+
+/* GPU acceleration utility classes */
+.gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+.gpu-accelerated-opacity {
+    will-change: opacity, transform;
+}
+
+/* Reduced animation delay classes (limit to 3 for better performance) */
+.animation-delay-0 { animation-delay: 0s; }
+.animation-delay-1 { animation-delay: 0.3s; }
+.animation-delay-2 { animation-delay: 0.6s; }

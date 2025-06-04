@@ -1,43 +1,13 @@
 /* Optimized animations for the portfolio section */
 
-/* Core animations with GPU acceleration */
-@keyframes float {
-    0% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(0, -10px, 0); }
-    100% { transform: translate3d(0, 0, 0); }
-}
+/* Import shared animations */
+@import './shared-animations.css';
 
-@keyframes pulse {
-    0% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1); }
-    50% { opacity: 0.9; transform: translate3d(0, 0, 0) scale(1.05); }
-    100% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1); }
-}
-
-@keyframes shimmer {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translate3d(0, 20px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
+/* Portfolio-specific keyframes not in shared animations */
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-@keyframes rotateSlow {
-    0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    100% { transform: translate3d(0, 0, 0) rotate(360deg); }
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: translate3d(0, 0, 0) scale(1); }
-    50% { opacity: 0.7; transform: translate3d(0, 0, 0) scale(1.1); }
 }
 
 /* Animation application classes */

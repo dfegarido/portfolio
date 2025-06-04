@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import Icon from "./Icon";
 import '../../assets/optimized-cardImage.css'
 import CardTitle from "./CardTitle";
@@ -8,17 +8,31 @@ import OptimizedBackground from "./OptimizedBackground";
 
 // Card animations moved to optimized-cardImage.css for better performance
 
-const CardImage = ({ themeKey = 'tech', ...domProps }) => {
+const CardImage = memo(({ themeKey = 'tech', ...domProps }) => {
     const [flip, setFlip] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = useCallback(() => {
         setIsHovered(true);
-    };
+    }, []);
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = useCallback(() => {
         setIsHovered(false);
-    };
+    }, []);
+
+    const handleFlipToggle = useCallback(() => {
+        setFlip(prevState => !prevState);
+    }, []);
+
+    const handleFlipToFront = useCallback(() => {
+        setFlip(false);
+    }, []);
+
+    const handleLinkClick = useCallback(() => {
+        if (domProps?.link) {
+            window.open(domProps.link, '_blank');
+        }
+    }, [domProps?.link]);
 
     return (
         <div 
@@ -213,7 +227,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                         <div className="flex justify-end mt-3">
                             <button 
                                 className="text-xs uppercase tracking-wider flex items-center gap-1 card-action-btn"
-                                onClick={() => setFlip(false)}
+                                onClick={handleFlipToFront}
                                 style={{
                                     color: 'var(--color-primary)',
                                     fontFamily: FONT_FAMILY,
@@ -251,12 +265,7 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                             border: '1px solid rgba(255, 255, 255, 0.3)',
                         }}
                         name={'link'}
-                        onClick={() => {
-                            window.open(
-                                domProps?.link,
-                                '_blank'
-                            )
-                        }}
+                        onClick={handleLinkClick}
                     />  
                     <Icon 
                         height={24}
@@ -271,15 +280,13 @@ const CardImage = ({ themeKey = 'tech', ...domProps }) => {
                             border: '1px solid rgba(255, 255, 255, 0.3)',
                         }}
                         name={'description'}
-                        onClick={() => {
-                            setFlip(prevState => !prevState)
-                        }}
+                        onClick={handleFlipToggle}
                     /> 
                 </div>
             </div>
                    
         </div>
     )
-}
+});
 
 export default CardImage;
