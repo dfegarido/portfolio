@@ -25,6 +25,8 @@ const Contact = memo(() => {
             message: "Hi! I'm Darwin, thanks for checking out my Portfolio. How can I help you today?"
         }
     ]);
+    const [hasInteracted, setHasInteracted] = useState(false);
+    const initialMessageCount = useRef(1); // Track initial message count
 
     useEffect(() => {
         if (contactRef.current) {
@@ -46,14 +48,20 @@ const Contact = memo(() => {
     }, [])
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+        // Only scroll to bottom if user has interacted (sent a message) or if new messages were added
+        if (hasInteracted && messages.length > initialMessageCount.current) {
+            scrollToBottom();
+        }
+    }, [messages, hasInteracted]);
 
     const handleInputSubmit = (userMessage) => {
         // Guard against empty or null messages
         if (!userMessage || userMessage.trim() === '') {
             return;
         }
+        
+        // Mark that user has interacted
+        setHasInteracted(true);
         
         const newMessages = [
             ...messages,

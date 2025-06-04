@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './theme-transition';
 
-// Simplified WebP detection - run once globally
+// Optimized WebP detection - run once globally with better performance
 if (!window.supports) {
   const webP = new Image();
   webP.src = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
@@ -20,34 +20,69 @@ if (!window.supports) {
   };
 }
 
-// Simplified performance monitoring
-if ('PerformanceObserver' in window) {
-  const observer = new PerformanceObserver((list) => {
-    for (const entry of list.getEntries()) {
-      if (entry.entryType === 'layout-shift' && !entry.hadRecentInput && entry.value > 0.1) {
-        console.warn('Major layout shift detected:', entry.value);
+// Use requestIdleCallback for performance monitoring to reduce main thread blocking
+if ('PerformanceObserver' in window && 'requestIdleCallback' in window) {
+  requestIdleCallback(() => {
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'layout-shift' && !entry.hadRecentInput && entry.value > 0.1) {
+          console.warn('Major layout shift detected:', entry.value);
+        }
       }
+    });
+    
+    try {
+      observer.observe({ type: 'layout-shift', buffered: true });
+    } catch (e) {
+      // Gracefully handle if layout-shift is not supported
+      console.warn('Layout shift monitoring not supported');
     }
   });
-  observer.observe({ type: 'layout-shift', buffered: true });
 }
 
 const container = document.getElementById('root')
 const root = createRoot(container)
-root.render(
-  <Provider store={store}>
-    <ThemeProvider>
-      <Default />
-    </ThemeProvider>
-  </Provider>
-);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
+// Ensure we start at the top of the page
+if (window.history.scrollRestoration) {
+  window.history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+// Use startTransition for better performance on initial render
+if (React.startTransition) {
+  React.startTransition(() => {
+    root.render(
+      <Provider store={store}>
+        <ThemeProvider>
+          <Default />
+        </ThemeProvider>
+      </Provider>
+    );
+  });
+} else {
+  root.render(
+    <Provider store={store}>
+      <ThemeProvider>
+        <Default />
+      </ThemeProvider>
+    </Provider>
+  );
+}
+
+// Register service worker for better caching
 serviceWorkerRegistration.register();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Optimize web vitals reporting with throttling
+let reportTimeout;
+const optimizedReportWebVitals = (metric) => {
+  clearTimeout(reportTimeout);
+  reportTimeout = setTimeout(() => {
+    // Only report in production or when explicitly enabled
+    if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_REPORT_VITALS === 'true') {
+      console.log('Web Vital:', metric);
+    }
+  }, 100);
+};
+
+reportWebVitals(optimizedReportWebVitals);

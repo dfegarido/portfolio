@@ -94,9 +94,9 @@ const About = memo(() => {
                     <div className="accent-shape accent-shape-1"></div>
                     <div className="accent-shape accent-shape-2"></div>
                     
-                    {/* Added animated particles - reduced count for better performance */}
+                    {/* Reduced animated particles for better performance */}
                     <div className="particles">
-                        {[...Array(4)].map((_, i) => (
+                        {[...Array(2)].map((_, i) => (
                             <div key={i} className={`particle particle-${i+1}`}></div>
                         ))}
                     </div>

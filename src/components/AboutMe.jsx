@@ -3,12 +3,17 @@ import {
     ABOUT_ME,
     FONT_FAMILY,
 } from "../helpers/constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useMemo, useCallback, Suspense, lazy } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import { usePerformanceOptimization } from "../hooks/usePerformanceOptimization";
+import { OptimizedSkillIcon } from "../helpers/skillIcons";
+
+// Lazy load the virtualized skill grid
+const VirtualizedSkillGrid = lazy(() => import('./atom/VirtualizedSkillGrid'));
 
 
 
-// Helper function for theme-specific skill category colors
+// Helper function for theme-specific skill category colors (moved to top for better performance)
 const getSkillCategoryColor = (category) => {
     const baseColors = {
         frontend: "52, 211, 153",     // Green-ish
@@ -19,6 +24,59 @@ const getSkillCategoryColor = (category) => {
     
     return baseColors[category] || "var(--color-primary-rgb)";
 };
+
+// Memoized skill summary component to reduce re-renders
+const SkillSummary = memo(({ frontendSkills, backendSkills, aiSkills, activeFilter }) => {
+    const totalSkills = frontendSkills.length + backendSkills.length + aiSkills.length;
+    const avgProficiency = Math.round(
+        [...frontendSkills, ...backendSkills, ...aiSkills]
+            .reduce((acc, skill) => acc + skill.level, 0) / totalSkills
+    );
+
+    if (activeFilter !== 'all') return null;
+
+    return (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+            <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20" 
+                style={{ borderColor: `rgba(${getSkillCategoryColor('frontend')}, 0.3)` }}>
+                <div className="flex justify-between items-center">
+                    <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Frontend</span>
+                    <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: `rgba(${getSkillCategoryColor('frontend')}, 0.8)` }}></div>
+                </div>
+                <div className="mt-1 flex items-baseline">
+                    <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{frontendSkills.length}</span>
+                    <span className="text-xs ml-1 opacity-70" style={{ color: 'var(--color-accent)' }}>technologies</span>
+                </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20"
+                style={{ borderColor: `rgba(${getSkillCategoryColor('backend')}, 0.3)` }}>
+                <div className="flex justify-between items-center">
+                    <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Backend</span>
+                    <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: `rgba(${getSkillCategoryColor('backend')}, 0.8)` }}></div>
+                </div>
+                <div className="mt-1 flex items-baseline">
+                    <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{backendSkills.length}</span>
+                    <span className="text-xs ml-1 opacity-70" style={{ color: 'var(--color-accent)' }}>technologies</span>
+                </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20"
+                style={{ borderColor: 'rgba(var(--color-accent-rgb), 0.3)' }}>
+                <div className="flex justify-between items-center">
+                    <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Total Mastery</span>
+                    <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: 'var(--color-accent)' }}></div>
+                </div>
+                <div className="mt-1 flex items-baseline">
+                    <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{avgProficiency}%</span>
+                    <span className="text-xs ml-1 opacity-70" style={{ color: 'var(--color-accent)' }}>avg. proficiency</span>
+                </div>
+            </div>
+        </div>
+    );
+});
+
+SkillSummary.displayName = 'SkillSummary';
 
 // CSS keyframes for fade animations
 const fadeAnimations = `
@@ -47,159 +105,7 @@ const fadeAnimations = `
 .skill-section-slide-in-3 { animation: slideIn 0.5s ease-out forwards 0.3s; }
 `;
 
-// Skill Card Component for displaying individual skills with enhanced visual effects
-const SkillCard = ({ skill, activeSkill, setActiveSkill }) => {
-    // No need for theme context here
-    
-    return (
-        <div 
-            className="flex flex-row items-center p-3 sm:p-4 rounded-lg transition-all duration-500 hover:scale-105 hover:shadow-lg group relative"
-            style={{
-                background: activeSkill === skill.name 
-                    ? `linear-gradient(135deg, rgba(var(--color-background-rgb), 0.94), rgba(var(--color-background-rgb), 0.8))` 
-                    : `rgba(var(--color-background-rgb), 0.8)`,
-                boxShadow: activeSkill === skill.name
-                    ? `0 8px 20px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(var(--color-primary-rgb), 0.2)`
-                    : `0 4px 15px rgba(0, 0, 0, 0.05)`,
-                border: activeSkill === skill.name
-                    ? `1px solid rgba(var(--color-primary-rgb), 0.3)`
-                    : `1px solid rgba(var(--color-secondary-rgb), 0.6)`,
-                cursor: "pointer",
-                backdropFilter: "blur(8px)",
-                transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
-                transform: activeSkill === skill.name ? 'translateY(-2px)' : 'translateY(0)',
-            }}
-            onMouseEnter={() => setActiveSkill(skill.name)}
-            onMouseLeave={() => setActiveSkill(null)}
-        >
-            {/* Subtle glow effect when active */}
-            {activeSkill === skill.name && (
-                <div 
-                    className="absolute inset-0 -z-10 rounded-lg opacity-40"
-                    style={{ 
-                        background: skill.category 
-                            ? `radial-gradient(circle at center, rgba(${getSkillCategoryColor(skill.category)}, 0.3) 0%, transparent 70%)`
-                            : `radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.3) 0%, transparent 70%)`,
-                        filter: 'blur(10px)'
-                    }}
-                ></div>
-            )}
-
-            <div className="min-w-[40px] h-10 sm:min-w-[48px] sm:h-12 rounded-full flex items-center justify-center mr-3 p-1.5 transition-all duration-500 group-hover:shadow-lg relative shrink-0" 
-                style={{
-                    background: activeSkill === skill.name
-                        ? `linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.25) 0%, rgba(var(--color-accent-rgb), 0.35) 100%)`
-                        : `linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1) 0%, rgba(var(--color-accent-rgb), 0.2) 100%)`,
-                    boxShadow: activeSkill === skill.name 
-                        ? "0 5px 15px rgba(0,0,0,0.12)" 
-                        : "0 3px 10px rgba(0,0,0,0.08)",
-                    border: `1px solid rgba(var(--color-secondary-rgb), ${activeSkill === skill.name ? '0.8' : '0.6'})`,
-                    transform: activeSkill === skill.name ? 'scale(1.08) rotate(5deg)' : 'scale(1)',
-                    overflow: 'hidden',
-                }}>
-                {/* Animated ring when active */}
-                {activeSkill === skill.name && (
-                    <div 
-                        className="absolute inset-0 rounded-full animate-pulse"
-                        style={{ 
-                            border: `2px solid rgba(var(--color-primary-rgb), 0.6)`,
-                            boxShadow: `0 0 10px rgba(var(--color-primary-rgb), 0.4)`,
-                        }}
-                    ></div>
-                )}
-                <img 
-                    src={skill.icon} 
-                    alt={skill.name}
-                    className="w-full h-full object-contain transition-all duration-500"
-                    style={{
-                        filter: skill.customIcon ? "" : (activeSkill === skill.name ? `drop-shadow(0 0 4px rgba(var(--color-primary-rgb), 0.8))` : "none"),
-                        transform: activeSkill === skill.name ? "scale(1.15)" : "scale(1)",
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        background: (skill.name === "OpenAI") ? "white" : "transparent",
-                        borderRadius: (skill.name === "OpenAI") ? "50%" : "0",
-                        padding: (skill.name === "Tailwind CSS" || skill.name === "AWS" || skill.name === "OpenAI") ? "2px" : "0",
-                        objectFit: "contain"
-                    }}
-                />
-            </div>
-            <div className="flex-grow min-w-0">
-                <div className="flex justify-between items-center flex-wrap">
-                    <p className="font-semibold text-sm sm:text-base truncate mr-2" 
-                        style={{ 
-                            color: "var(--color-primary)", 
-                            textShadow: "0px 0px 1px rgba(0,0,0,0.2)",
-                            transition: "all 0.4s ease",
-                            transform: activeSkill === skill.name ? 'translateY(-1px)' : 'translateY(0)',
-                            letterSpacing: '0.5px'
-                        }}>
-                        {skill.name}
-                    </p>
-                    <span 
-                        className="text-xs font-medium transition-all duration-500 whitespace-nowrap"
-                        style={{
-                            opacity: activeSkill === skill.name ? 1 : 0,
-                            transform: activeSkill === skill.name ? 'translateX(0)' : 'translateX(10px)',
-                            color: "var(--color-primary)",
-                            background: `rgba(var(--color-primary-rgb), 0.15)`,
-                            padding: "2px 6px",
-                            borderRadius: "10px",
-                        }}
-                    >
-                        {skill.level}%
-                    </span>
-                </div>
-                <div className="w-full rounded-full h-2 mt-2 overflow-hidden" 
-                    style={{ 
-                        backgroundColor: "rgba(0,0,0,0.2)",
-                        boxShadow: "inset 0 1px 3px rgba(0,0,0,0.12)"
-                    }}>
-                    <div 
-                        className="h-2 rounded-full transition-all duration-700"
-                        style={{ 
-                            width: `${activeSkill === skill.name ? skill.level : 0}%`,
-                            minWidth: activeSkill === skill.name ? "4px" : "0",
-                            background: skill.category 
-                                ? `linear-gradient(to right, rgba(${getSkillCategoryColor(skill.category)}, 0.8), rgba(${getSkillCategoryColor(skill.category)}, 0.6))`
-                                : `linear-gradient(to right, var(--color-primary), var(--color-accent))`,
-                            boxShadow: activeSkill === skill.name 
-                                ? skill.category 
-                                    ? `0 0 10px rgba(${getSkillCategoryColor(skill.category)}, 0.5)` 
-                                    : `0 0 8px rgba(var(--color-primary-rgb), 0.6)` 
-                                : "none",
-                            transition: "width 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67), box-shadow 0.4s ease"
-                        }}
-                    >
-                        {/* Animated particles effect */}
-                        {activeSkill === skill.name && (
-                            <div className="h-full w-full relative overflow-hidden">
-                                <div className="absolute top-0 right-0 h-full w-1/4 animate-pulse opacity-80"
-                                    style={{
-                                        background: `linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent)`,
-                                        animation: `pulse 1.5s infinite`
-                                    }}></div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {skill.years && (
-                    <div 
-                        className="text-xs mt-2 transition-all duration-500 overflow-hidden flex items-center"
-                        style={{
-                            height: activeSkill === skill.name ? '16px' : '0',
-                            opacity: activeSkill === skill.name ? 0.9 : 0,
-                            color: "var(--color-accent)",
-                            whiteSpace: "nowrap",
-                        }}
-                    >
-                        <span className="inline-block mr-1 flex-shrink-0" style={{ fontSize: '10px' }}>⌛</span>
-                        <span className="truncate">{skill.years} {skill.years === 1 ? 'year' : 'years'} experience</span>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
+// SkillCard component removed - now using VirtualizedSkillGrid for better performance
 
 
 
@@ -233,54 +139,35 @@ const AboutMe = () => {
 
     // This useEffect for skill breakdown has been removed as it was not being used
     
-    // Define skills with CDN icons, experience years and descriptions
+    // Define skills without CDN icons - OptimizedSkillIcon will handle icons locally
     const frontendSkills = [
-        { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", level: 95, years: 5, category: "frontend" },
-        { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", level: 90, years: 4, category: "frontend" },
-        { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", level: 85, years: 3, category: "frontend" },
-        { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", level: 95, years: 6, category: "frontend" },
-        { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", level: 90, years: 6, category: "frontend" },
-        { name: "Redux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg", level: 88, years: 4, category: "frontend" },
-        { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", level: 92, years: 3, category: "frontend", customIcon: true },
+        { name: "JavaScript", level: 95, years: 5, category: "frontend" },
+        { name: "React", level: 90, years: 4, category: "frontend" },
+        { name: "TypeScript", level: 85, years: 3, category: "frontend" },
+        { name: "HTML5", level: 95, years: 6, category: "frontend" },
+        { name: "CSS3", level: 90, years: 6, category: "frontend" },
+        { name: "Redux", level: 88, years: 4, category: "frontend" },
+        { name: "Tailwind CSS", level: 92, years: 3, category: "frontend" },
     ];
     
     const backendSkills = [
-        { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", level: 90, years: 4, category: "backend" },
-        { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", level: 88, years: 4, category: "backend" },
-        { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", level: 85, years: 3, category: "backend" },
-        { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", level: 80, years: 3, category: "backend" },
-        { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg", level: 75, years: 2, category: "backend" },
-        { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", level: 70, years: 2, category: "backend" },
-        { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", level: 78, years: 2, category: "backend", customIcon: true },
+        { name: "Node.js", level: 90, years: 4, category: "backend" },
+        { name: "Express", level: 88, years: 4, category: "backend" },
+        { name: "MongoDB", level: 85, years: 3, category: "backend" },
+        { name: "PostgreSQL", level: 80, years: 3, category: "backend" },
+        { name: "GraphQL", level: 75, years: 2, category: "backend" },
+        { name: "Docker", level: 70, years: 2, category: "backend" },
+        { name: "AWS", level: 78, years: 2, category: "backend" },
     ];
     
     const aiSkills = [
-        { name: "PySpark", icon: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg", level: 82, years: 3, customIcon: true, category: "ai" },
-        { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", level: 80, years: 4, category: "ai" },
-        { 
-            name: "OpenAI", 
-            icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", 
-            level: 85,
-            years: 2,
-            customIcon: true,
-            category: "ai"
-        },
-        { 
-            name: "Generative AI", 
-            icon: "https://static.vecteezy.com/system/resources/previews/021/495/996/original/chatgpt-openai-logo-icon-free-png.png", 
-            level: 78,
-            years: 1,
-            customIcon: true,
-            category: "ai"
-        },
-        { name: "TensorFlow", 
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", 
-          level: 75, 
-          years: 2,
-          category: "ai"
-        },
-        { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", level: 92, years: 5, category: "tools" },
-        { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", level: 90, years: 5, category: "tools" },
+        { name: "PySpark", level: 82, years: 3, category: "ai" },
+        { name: "Python", level: 80, years: 4, category: "ai" },
+        { name: "OpenAI", level: 85, years: 2, category: "ai" },
+        { name: "Generative AI", level: 78, years: 1, category: "ai" },
+        { name: "TensorFlow", level: 75, years: 2, category: "ai" },
+        { name: "Git", level: 92, years: 5, category: "tools" },
+        { name: "GitHub", level: 90, years: 5, category: "tools" },
     ];
 
     // Determine appropriate editor background based on theme
@@ -395,83 +282,27 @@ const AboutMe = () => {
             
             {/* Skills section with enhanced styling */}
             <div className="w-full mb-8">
-                {/* Tech Stack Header with animated underline */}
+                {/* Tech Stack Header - simplified for better performance */}
                 <div className="flex items-center mb-6 relative">
                     <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
-                    <span className="text-xl font-bold tracking-wider relative" 
+                    <span className="text-xl font-bold tracking-wider" 
                         style={{ 
                             color: "var(--color-primary)", 
-                            textShadow: "0px 0px 3px rgba(0,0,0,0.15)",
                             fontFamily: FONT_FAMILY,
                             letterSpacing: '2px'
                         }}>
                         Tech Stack
-                        {/* Animated underline effect */}
-                        <span 
-                            className="absolute bottom-0 left-0 w-full h-[2px] rounded-full animate-pulse"
-                            style={{
-                                background: `linear-gradient(to right, var(--color-primary), var(--color-accent), var(--color-primary))`,
-                                opacity: 0.7,
-                                transform: 'translateY(5px)'
-                            }}
-                        ></span>
                     </span>
                     <div className="h-[3px] flex-grow bg-gradient-to-r from-[var(--color-accent)] to-transparent ml-4 rounded-full"></div>
                 </div>
                 
-                {/* Skill stats summary */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
-                    <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20 overflow-hidden" 
-                        style={{ borderColor: `rgba(${getSkillCategoryColor('frontend')}, 0.3)` }}>
-                        <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Frontend</span>
-                            <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: `rgba(${getSkillCategoryColor('frontend')}, 0.8)` }}></div>
-                        </div>
-                        <div className="mt-1 flex items-baseline flex-wrap">
-                            <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{frontendSkills.length}</span>
-                            <span className="text-xs ml-1 opacity-70 truncate" style={{ color: 'var(--color-accent)' }}>technologies</span>
-                        </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20 overflow-hidden"
-                        style={{ borderColor: `rgba(${getSkillCategoryColor('backend')}, 0.3)` }}>
-                        <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Backend</span>
-                            <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: `rgba(${getSkillCategoryColor('backend')}, 0.8)` }}></div>
-                        </div>
-                        <div className="mt-1 flex items-baseline flex-wrap">
-                            <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{backendSkills.length}</span>
-                            <span className="text-xs ml-1 opacity-70 truncate" style={{ color: 'var(--color-accent)' }}>technologies</span>
-                        </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20 overflow-hidden"
-                        style={{ borderColor: `rgba(${getSkillCategoryColor('ai')}, 0.3)` }}>
-                        <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>AI & ML</span>
-                            <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: `rgba(${getSkillCategoryColor('ai')}, 0.8)` }}></div>
-                        </div>
-                        <div className="mt-1 flex items-baseline flex-wrap">
-                            <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{aiSkills.filter(s => s.category === 'ai').length}</span>
-                            <span className="text-xs ml-1 opacity-70 truncate" style={{ color: 'var(--color-accent)' }}>technologies</span>
-                        </div>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20 overflow-hidden"
-                        style={{ borderColor: 'rgba(var(--color-accent-rgb), 0.3)' }}>
-                        <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium truncate" style={{ color: 'var(--color-accent)' }}>Total Mastery</span>
-                            <div className="w-2 h-2 rounded-full flex-shrink-0 ml-2" style={{ background: 'var(--color-accent)' }}></div>
-                        </div>
-                        <div className="mt-1 flex items-baseline flex-wrap">
-                            <span className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>
-                                {Math.round(([...frontendSkills, ...backendSkills, ...aiSkills].reduce((acc, skill) => acc + skill.level, 0) / 
-                                ([...frontendSkills, ...backendSkills, ...aiSkills].length * 100)) * 100)}%
-                            </span>
-                            <span className="text-xs ml-1 opacity-70 truncate" style={{ color: 'var(--color-accent)' }}>avg. proficiency</span>
-                        </div>
-                    </div>
-                </div>
+                {/* Optimized Skill stats summary - use existing memoized component */}
+                <SkillSummary 
+                    frontendSkills={frontendSkills} 
+                    backendSkills={backendSkills} 
+                    aiSkills={aiSkills} 
+                    activeFilter={activeFilter} 
+                />
 
                 {/* Filter tabs for skills with enhanced transitions */}
                 <div className="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
@@ -537,25 +368,10 @@ const AboutMe = () => {
                                     </span>
                                 </div>
                                 
-                                {/* Enhanced active indicator with smooth animation */}
+                                {/* Simplified active indicator */}
                                 {activeFilter === filter && (
-                                    <span className="absolute -bottom-2 left-0 right-0 mx-auto flex justify-center items-center animate-pulse" 
-                                        style={{ 
-                                            animation: 'pulse 1.5s infinite'
-                                        }}>
-                                        <span className="inline-block w-1 h-1 rounded-full"
-                                            style={{
-                                                background: filter !== 'all' 
-                                                    ? `rgba(${getSkillCategoryColor(filter)}, 0.8)` 
-                                                    : 'var(--color-primary)'
-                                            }}></span>
-                                        <span className="inline-block w-[3px] h-[3px] rounded-full mx-[2px]"
-                                            style={{
-                                                background: filter !== 'all' 
-                                                    ? `rgba(${getSkillCategoryColor(filter)}, 0.6)` 
-                                                    : 'rgba(var(--color-primary-rgb), 0.6)'
-                                            }}></span>
-                                        <span className="inline-block w-1 h-1 rounded-full"
+                                    <span className="absolute -bottom-1 left-0 right-0 mx-auto flex justify-center items-center">
+                                        <span className="inline-block w-2 h-2 rounded-full"
                                             style={{
                                                 background: filter !== 'all' 
                                                     ? `rgba(${getSkillCategoryColor(filter)}, 0.8)` 
@@ -568,7 +384,7 @@ const AboutMe = () => {
                     })}
                 </div>
 
-                {/* Combined skill display with filtering */}
+                {/* Skills grid with transition effects - Virtualized for performance */}
                 <div className="relative overflow-hidden rounded-xl mb-2">
                     {/* Skills section background animations */}
                     <div className={`absolute -inset-1.5 rounded-xl bg-gradient-to-br opacity-10 blur-lg -z-10 transition-all duration-500`}
@@ -603,86 +419,25 @@ const AboutMe = () => {
                         {activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Skills
                     </div>
 
-                    {/* Skills grid with transition effects */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 transition-all duration-500 min-h-[400px] p-2 relative">
-                        {/* Animated category indicator - only visible during transitions */}
-                        {isFilterTransitioning && activeFilter !== 'all' && (
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                                <div className="flex flex-col items-center justify-center opacity-0 scale-50 transition-all duration-300" 
-                                    style={{ 
-                                        animation: 'scaleIn 0.3s ease forwards', 
-                                        color: `rgba(${getSkillCategoryColor(activeFilter)}, 1)`,
-                                    }}>
-                                    <div className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm mb-2"
-                                        style={{
-                                            background: `rgba(${getSkillCategoryColor(activeFilter)}, 0.1)`,
-                                            border: `2px solid rgba(${getSkillCategoryColor(activeFilter)}, 0.4)`,
-                                            boxShadow: `0 0 15px rgba(${getSkillCategoryColor(activeFilter)}, 0.3)`,
-                                        }}>
-                                        <span className="text-3xl font-bold transition-all duration-500 animate-pulse">
-                                            {activeFilter === 'frontend' ? '⚛️' : 
-                                             activeFilter === 'backend' ? '🖥️' : 
-                                             activeFilter === 'ai' ? '🧠' : '🛠️'}
-                                        </span>
+                    {/* Virtualized skills grid for better performance */}
+                    <div className="p-2 min-h-[400px]">
+                        <Suspense fallback={
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                                {[...Array(6)].map((_, i) => (
+                                    <div key={i} className="animate-pulse">
+                                        <div className="flex items-center p-3 rounded-lg bg-gray-200 h-20"></div>
                                     </div>
-                                    <span className="text-sm font-semibold tracking-wider" 
-                                        style={{ 
-                                            textShadow: `0 1px 3px rgba(0,0,0,0.2)`,
-                                            letterSpacing: '1px'
-                                        }}>
-                                        {activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)}
-                                    </span>
-                                </div>
+                                ))}
                             </div>
-                        )}
-                        
-                        {/* Current filter skills with staggered animation */}
-                        {[...frontendSkills, ...backendSkills, ...aiSkills]
-                            .filter(skill => activeFilter === 'all' || skill.category === activeFilter)
-                            .sort((a, b) => b.level - a.level)
-                            .map((skill, index) => (
-                                <div 
-                                    key={skill.name}
-                                    style={{
-                                        opacity: isFilterTransitioning ? 0 : 1,
-                                        transform: isFilterTransitioning ? 'translateY(10px)' : 'translateY(0)',
-                                        transition: `all 500ms ease ${isFilterTransitioning ? 0 : index * 50}ms`,
-                                        animation: isFilterTransitioning ? 'none' : `scaleIn 600ms ease forwards ${index * 70}ms`
-                                    }}
-                                >
-                                    <SkillCard 
-                                        skill={skill} 
-                                        activeSkill={activeSkill}
-                                        setActiveSkill={setActiveSkill}
-                                    />
-                                </div>
-                            ))
-                        }
-
-                        {/* Empty state when no skills match the filter */}
-                        {[...frontendSkills, ...backendSkills, ...aiSkills]
-                            .filter(skill => activeFilter === 'all' || skill.category === activeFilter).length === 0 && (
-                            <div className="col-span-full flex flex-col items-center justify-center py-10 opacity-0 animate-fadeIn" 
-                                style={{ animation: 'fadeIn 0.5s forwards 0.3s' }}>
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[rgba(var(--color-primary-rgb),0.1)] to-[rgba(var(--color-accent-rgb),0.1)] flex items-center justify-center mb-3 animate-pulse">
-                                    <span className="text-2xl">🔍</span>
-                                </div>
-                                <p className="text-center opacity-80" style={{ color: 'var(--color-secondary)' }}>
-                                    No {activeFilter} skills found
-                                </p>
-                                <button 
-                                    className="mt-3 px-3 py-1 text-xs rounded-full transition-all duration-300"
-                                    style={{
-                                        background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                        color: 'var(--color-primary)',
-                                        border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                    }}
-                                    onClick={() => handleFilterChange('all')}
-                                >
-                                    View All Skills
-                                </button>
-                            </div>
-                        )}
+                        }>
+                            <VirtualizedSkillGrid
+                                skills={[...frontendSkills, ...backendSkills, ...aiSkills]}
+                                activeSkill={activeSkill}
+                                setActiveSkill={setActiveSkill}
+                                isFilterTransitioning={isFilterTransitioning}
+                                activeFilter={activeFilter}
+                            />
+                        </Suspense>
                     </div>
                 </div>
                 

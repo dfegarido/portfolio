@@ -25,7 +25,9 @@
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "build:clean": "rm -rfv ./build && npm run build",
-    "analyze": "yarn build && npx webpack-bundle-analyzer docs/static/js/*.js"
+    "analyze": "yarn build && npx webpack-bundle-analyzer docs/static/js/*.js",
+    "serve": "npx serve -s docs -l 3000 --single",
+    "serve:local": "PUBLIC_URL=/ npm run build && npx serve -s docs -l 3000"
   },
   "homepage": "https://dfegarido.github.io/portfolio",
   "eslintConfig": {

@@ -7,12 +7,12 @@
     transform-style: preserve-3d;
 }
 
-/* Flipper container with GPU-accelerated transitions */
+/* Flipper container with simplified transitions */
 .flipper {
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease;
     transform-style: preserve-3d;
     position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     will-change: transform;
 }
 
@@ -29,37 +29,19 @@
     will-change: transform;
 }
 
-/* Front card styling with hardware acceleration */
+/* Simplified front and back card styling */
 .front {
     z-index: 2;
     transform: translate3d(0, 0, 0) rotateY(0deg);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease;
 }
 
-/* Glass effect overlay for front card on hover */
-.front::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.flipper:hover .front::after {
-    opacity: 0.4;
-}
-
-/* Back card styling with GPU-accelerated initial rotation */
+/* Back card styling with simplified rotation */
 .back {
     transform: translate3d(0, 0, 0) rotateY(180deg);
     display: flex;
     flex-direction: column;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease;
 }
 
 /* Back animation on hover - no animation-delay to reduce composited elements */
@@ -82,37 +64,9 @@
     transform: translate3d(0, 0, 0) rotateY(180deg);
 }
 
-/* Enhanced hover effects with GPU acceleration */
+/* Simplified hover effects */
 .flipper:hover {
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 
-                0 0 20px rgba(var(--color-primary-rgb), 0.2);
-}
-
-/* Enhanced shine effect on hover - using translate3d for GPU acceleration */
-.flipper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to right,
-        transparent 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        transparent 100%
-    );
-    z-index: 10;
-    background-size: 200% 100%;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    will-change: opacity, transform;
-}
-
-.flipper:hover::before {
-    opacity: 1;
-    animation: shine 1.5s infinite;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Scrollbar styling for description text */
@@ -165,48 +119,19 @@
     }
 }
 
-/* Floating effect for card containers with GPU acceleration */
+/* Simplified floating effect for card containers */
 .portfolio-card {
-    animation: fadeSlideUp 0.6s ease-out forwards, shadowPulse 4s infinite ease-in-out;
-    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0), opacity 0.4s ease;
+    animation: fadeSlideUp 0.4s ease-out forwards;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     will-change: transform, opacity;
     transform: translate3d(0, 0, 0);
 }
 
-/* Add staggered animation classes (without delays) for cards when filtered */
+/* Simplified card animations */
 .portfolio-card.filtered-in {
     animation-name: fadeSlideUp;
-    animation-duration: 0.6s;
+    animation-duration: 0.4s;
     animation-fill-mode: both;
-}
-
-/* Add shadow pulse effect for cards */
-@keyframes shadowPulse {
-    0% {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    50% {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-    100% {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-}
-
-/* GPU-accelerated ripple effect */
-.portfolio-card:hover .flipper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    transform: translate3d(-50%, -50%, 0) scale(0);
-    background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 70%);
-    animation: ripple 1.5s ease-out;
-    pointer-events: none;
-    z-index: 0;
 }
 
 /* Optimize back side styling */

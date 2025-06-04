@@ -38,7 +38,9 @@ const Body = () => {
             // If there's no hash in the URL, ensure we show the home section
             if (!window.location.hash) {
                 // Reset scroll position to top on initial load
-                window.scrollTo(0, 0);
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                }, 100);
             }
         }
     }, [dispatch])

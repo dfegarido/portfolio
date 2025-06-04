@@ -31,13 +31,13 @@ const Portfolio = memo(() => {
 
     // Animation handling optimized - now using external CSS file
 
-    // Generate random positions for stars - reduced count for better performance and memoize to avoid unnecessary re-renders
+    // Generate random positions for stars - further reduced for better performance
     const stars = useMemo(() => {
         const starsArray = [];
-        // Reduced star count for better performance
-        for (let i = 0; i < 10; i++) {
-            // Using only 3 delay classes to reduce composited animations
-            const delayIndex = i % 3;
+        // Further reduced star count for better performance
+        for (let i = 0; i < 6; i++) {
+            // Using only 2 delay classes to reduce composited animations
+            const delayIndex = i % 2;
             starsArray.push({
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -130,9 +130,9 @@ const Portfolio = memo(() => {
                 ></div>
             ))}
             
-            {/* Reduced particle effects for better performance */}
+            {/* Further reduced particle effects for better performance */}
             <div className="particles-portfolio">
-                {[...Array(3)].map((_, i) => (
+                {[...Array(2)].map((_, i) => (
                     <div key={i} className={`particle particle-${i+1}`}></div>
                 ))}
             </div>
