@@ -16,7 +16,7 @@ module.exports = {
         ]
     },
     about: {
-        profileImage: require('../assets/profile-image.png'),
+        profileImage: require('../assets/profile-image.webp'),
         title: "About Me",
         subtitle: "Full Stack Engineer & AI Specialist",
         description: "As a passionate Full Stack Engineer with a specialization in AI, I bridge the gap between cutting-edge artificial intelligence and practical web solutions. With 9+ years of hands-on experience, I've mastered the art of integrating AI capabilities into modern web applications, creating intelligent systems that transform user experiences. My expertise spans the full technology stack - from React and Node.js to TensorFlow and PyTorch, complemented by deep knowledge of cloud platforms and MLOps practices. I'm driven by the challenge of building next-generation applications that leverage AI to solve real-world problems, always staying ahead of technological trends and pushing the boundaries of what's possible in web development."
