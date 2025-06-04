@@ -58,7 +58,7 @@ module.exports = {
             "brand": "website",
             'name': 'RC Gem Web Portal',
             'description': 'Led the development of a comprehensive web portal for Rémy Cointreau using React and Node.js. Implemented responsive design and complex data visualization features.',
-            'url': require('../assets/chillflixweb.png'), // Changed from SVG to webp image
+            'url': require('../assets/chillflixweb.webp'), // Changed from PNG to webp image
             'link': 'https://github.com/dfegarido'
         },
         {
@@ -67,6 +67,13 @@ module.exports = {
             'description': 'Created a modern analytics dashboard using React, Redux, and D3.js. Features real-time data updates, interactive charts, and comprehensive reporting tools.',
             'url': require('../assets/moneytracker.webp'), // Changed from SVG to webp image
             'link': 'https://github.com/dfegarido'
+        },
+        {
+            "brand": "website",
+            'name': 'Chatbot AI Platform',
+            'description': 'Developed a chatbot AI platform using React, Node.js, and TensorFlow. Features natural language processing, real-time user interactions, and analytics dashboards.',
+            'url': require('../assets/chatbot-ai.webp'), // Changed from PNG to webp image
+            'link': 'https://dfegarido.github.io/chatbot/'
         },
         {
             "brand": "mobile",
