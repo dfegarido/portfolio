@@ -37,7 +37,7 @@ const Services = memo(() => {
     return (
         <div 
             ref={serviceRef}
-            className={`flex flex-col items-center pt-16 pb-20 relative overflow-hidden`}
+            className={`flex flex-col items-center pt-12 md:pt-16 pb-16 md:pb-20 relative overflow-hidden px-4 md:px-6 lg:px-8`}
             style={{
                 background: 'var(--color-background)',
                 backdropFilter: 'blur(10px)',
@@ -59,13 +59,13 @@ const Services = memo(() => {
                 }}
             ></div>
 
-            <div className="w-full flex items-center mb-10 px-8">
+            <div className="w-full flex items-center mb-8 md:mb-10 px-4 md:px-8 max-w-6xl">
                 <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
                 <Title label={SERVICE} style={{color: 'var(--color-primary)', textShadow: '0 1px 2px rgba(0,0,0,0.1)'}}/>
                 <div className="h-[3px] flex-grow bg-gradient-to-r from-[var(--color-accent)] to-transparent ml-4 rounded-full"></div>
             </div>
             
-            <div className="grid grid-rows sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 mx-8 relative">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-6 md:mt-8 relative max-w-7xl w-full px-2 md:px-4">
                 {/* Animated background mesh for the grid */}
                 <div className="absolute inset-0 -z-10" 
                     style={{
@@ -109,7 +109,7 @@ const Services = memo(() => {
                             ></div>
                             
                             <Card 
-                                className={'relative p-6 grid items-start place-items-center max-w-xs rounded-2xl overflow-hidden backdrop-blur-md z-10'} 
+                                className={'relative p-6 md:p-8 grid items-start w-full rounded-2xl overflow-hidden backdrop-blur-md z-10'} 
                                 style={{
                                     background: themeKey === 'minimalist' 
                                         ? `rgba(255, 255, 255, ${hoveredCard === key ? '0.75' : '0.65'})` 
@@ -126,7 +126,7 @@ const Services = memo(() => {
                                     transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
                                 }}
                             >
-                                <div className="relative mb-6 group">
+                                <div className="relative mb-6 group flex justify-center w-full">
                                     {/* Icon background with animated gradient */}
                                     <div 
                                         className={`absolute inset-0 rounded-full blur-sm ${hoveredCard === key ? 'animate-pulse-slow' : ''}`}
@@ -188,54 +188,56 @@ const Services = memo(() => {
                                         />
                                     </div>
                                 </div>
-                                <CardTitle 
-                                    label={title} 
-                                    className="font-bold tracking-wide mb-3 text-center text-lg relative"
-                                    style={{
-                                        color: 'var(--color-primary)',
-                                        fontFamily: FONT_FAMILY,
-                                        letterSpacing: '2px',
-                                        textShadow: hoveredCard === key ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
-                                        transform: hoveredCard === key ? 'translateY(-2px)' : 'translateY(0)',
+                                <div className="w-full flex flex-col items-center">
+                                    <CardTitle 
+                                        label={title} 
+                                        className="font-bold tracking-wide mb-3 text-center text-lg md:text-xl relative"
+                                        style={{
+                                            color: 'var(--color-primary)',
+                                            fontFamily: FONT_FAMILY,
+                                            letterSpacing: '2px',
+                                            textShadow: hoveredCard === key ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
+                                            transform: hoveredCard === key ? 'translateY(-2px)' : 'translateY(0)',
+                                            transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
+                                        }}
+                                    />
+                                    
+                                    {/* Animated underline for title */}
+                                    <div className="w-16 h-0.5 mb-4 rounded-full" style={{
+                                        background: `linear-gradient(to right, var(--color-primary), var(--color-accent))`,
+                                        transform: hoveredCard === key ? 'scaleX(1.5)' : 'scaleX(1)',
+                                        opacity: hoveredCard === key ? 1 : 0.7,
                                         transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
-                                    }}
-                                />
-                                
-                                {/* Animated underline for title */}
-                                <div className="w-16 h-0.5 mb-4 rounded-full" style={{
-                                    background: `linear-gradient(to right, var(--color-primary), var(--color-accent))`,
-                                    transform: hoveredCard === key ? 'scaleX(1.5)' : 'scaleX(1)',
-                                    opacity: hoveredCard === key ? 1 : 0.7,
-                                    transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
-                                }}></div>
-                                
-                                <CardDescription 
-                                    className="text-center px-2" 
-                                    label={description}
-                                    style={{
-                                        color: 'var(--color-primary)',
-                                        opacity: hoveredCard === key ? 0.95 : 0.8,
-                                        fontFamily: FONT_FAMILY,
-                                        letterSpacing: '0.5px',
-                                        lineHeight: '1.6',
-                                        transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
-                                    }}
-                                />
-                                
-                                {/* Learn more indicator that appears on hover */}
-                                <div 
-                                    className="mt-4 text-xs font-semibold tracking-wider uppercase flex items-center gap-1"
-                                    style={{
-                                        color: 'var(--color-primary)',
-                                        opacity: hoveredCard === key ? 0.8 : 0,
-                                        transform: hoveredCard === key ? 'translateY(0)' : 'translateY(10px)',
-                                        transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
-                                    }}
-                                >
-                                    <span>Learn more</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    }}></div>
+                                    
+                                    <CardDescription 
+                                        className="text-center px-2" 
+                                        label={description}
+                                        style={{
+                                            color: 'var(--color-primary)',
+                                            opacity: hoveredCard === key ? 0.95 : 0.8,
+                                            fontFamily: FONT_FAMILY,
+                                            letterSpacing: '0.5px',
+                                            lineHeight: '1.7',
+                                            transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)'
+                                        }}
+                                    />
+                                    
+                                    {/* Learn more indicator that appears on hover */}
+                                    <div 
+                                        className="mt-4 text-xs font-semibold tracking-wider uppercase flex items-center gap-1"
+                                        style={{
+                                            color: 'var(--color-primary)',
+                                            opacity: hoveredCard === key ? 0.8 : 0,
+                                            transform: hoveredCard === key ? 'translateY(0)' : 'translateY(10px)',
+                                            transition: 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0)',
+                                        }}
+                                    >
+                                        <span>Learn more</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </Card>
                         </div>

@@ -22,18 +22,16 @@ export const PORTFOLIO = 'Portfolio'
 
 
 /* CONTENTS */
-export const DESCRIPTION = "Senior Full Stack Developer with 9+ years of expertise crafting exceptional digital experiences. " +
-"I transform complex ideas into elegant, high-performance applications using modern JavaScript frameworks and best practices. " +
-"I've architected scalable frontend systems with React/TypeScript and built robust backends with Node.js, Express, and GraphQL. " +
-"I'm passionate about code quality and user experience—writing clean, maintainable solutions that solve real business challenges. " +
-"My technical toolkit includes the entire React ecosystem, state management with Redux, RESTful and GraphQL APIs, " +
-"and database systems like PostgreSQL and MongoDB. Beyond coding, I excel at optimizing performance, implementing CI/CD workflows, " +
-"and mentoring development teams. Recently, I've been integrating AI solutions to enhance application intelligence and user workflows. " +
-"I approach each project with both technical precision and creative vision—building applications that not only function flawlessly but " +
-"provide compelling user experiences that drive business success."
+export const DESCRIPTION = "Backend Developer with over 7 years of experience in backend and full-stack development, now extending expertise into AI integration and LLM-powered applications. " +
+"Skilled in building scalable APIs, microservices, and real-time systems with Node.js, Python, and cloud services, alongside hands-on experience with ETL pipelines and data engineering. " +
+"Proven track record in developing AI-driven solutions, including RAG (Retrieval-Augmented Generation) pipelines that leverage vector databases for knowledge retrieval and intelligent search. " +
+"Adept at integrating LLMs (ChatGPT, Ollama, OpenAI APIs) into applications to enhance automation, chat systems, and data workflows. " +
+"Successfully mentored developers and optimized CI/CD pipelines across Azure, AWS, and GitHub Actions, improving team efficiency and deployment reliability. " +
+"Experienced in creating integrated platforms, CMS solutions, and real-time chat systems, while ensuring data normalization, performance optimization, and security best practices. " +
+"Passionate about blending traditional backend engineering with AI-powered systems, driving innovation through LLM integration, vector search, and intelligent automation to deliver next-generation solutions."
 
 export const ABOUT_ME = 'About Me'
 export const CONTACT = 'Contact'
 export const CONTACT_ME = 'Contact Me'
-export const TITLE = 'Full Stack Engineer'
+export const TITLE = 'Backend Engineer | Full Stack Developer | AI Integration Specialist'
 export const LOGO = "Fegarido"

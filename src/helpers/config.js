@@ -5,89 +5,89 @@ module.exports = {
         fullname: "Darwin",
         subText: "Full Stack Engineer",
         description: [
-            "Frontend Developer",
-            "React.js Expert",
-            "UI/UX Designer",
-            "Node.js Developer",
-            "Web Architect",
-            "JavaScript Ninja",
-            "Problem Solver",
-            "Code Craftsman"
+            "Backend Developer",
+            "Node.js Expert", 
+            "Python Developer",
+            "AI Integration Specialist",
+            "Microservices Architect",
+            "LLM Integration Expert",
+            "Cloud Solutions Engineer",
+            "ETL Pipeline Developer"
         ]
     },
     about: {
         profileImage: require('../assets/profile-image.webp'),
         title: "About Me",
-        subtitle: "Full Stack Engineer & AI Specialist",
-        description: "As a passionate Full Stack Engineer with a specialization in AI, I bridge the gap between cutting-edge artificial intelligence and practical web solutions. With 9+ years of hands-on experience, I've mastered the art of integrating AI capabilities into modern web applications, creating intelligent systems that transform user experiences. My expertise spans the full technology stack - from React and Node.js to TensorFlow and PyTorch, complemented by deep knowledge of cloud platforms and MLOps practices. I'm driven by the challenge of building next-generation applications that leverage AI to solve real-world problems, always staying ahead of technological trends and pushing the boundaries of what's possible in web development."
+        subtitle: "Backend Engineer | Full Stack Developer | AI Integration Specialist",
+        description: "Backend Developer with over 7 years of experience in backend and full-stack development, now extending expertise into AI integration and LLM-powered applications. Skilled in building scalable APIs, microservices, and real-time systems with Node.js, Python, and cloud services, alongside hands-on experience with ETL pipelines and data engineering. Proven track record in developing AI-driven solutions, including RAG (Retrieval-Augmented Generation) pipelines that leverage vector databases for knowledge retrieval and intelligent search. Adept at integrating LLMs (ChatGPT, Ollama, OpenAI APIs) into applications to enhance automation, chat systems, and data workflows. Successfully mentored developers and optimized CI/CD pipelines across Azure, AWS, and GitHub Actions, improving team efficiency and deployment reliability."
     },
     services: [
         {
-            'logo':'computer',
-            'title':'Modern Frontend Development',
-            'description': "Build cutting-edge web applications using React, Next.js and TypeScript. Create engaging, accessible user interfaces with component-driven architecture and optimal performance.",
-        },
-        {
             'logo':'developer',
-            'title':'API & Backend Systems',
-            'description': "Develop robust backend systems using Node.js, Express, and GraphQL. Design and implement scalable microservices and efficient data pipelines for modern applications.",
+            'title':'Backend & API Development',
+            'description': "Build scalable backend systems using Node.js, Python, and Express. Design robust REST APIs, microservices architecture, and real-time systems with WebSocket integration for enterprise applications.",
         },
         {
             'logo':'architecture',
-            'title':'AI Integration Services',
-            'description': "Seamlessly integrate AI capabilities into web applications. Implement machine learning models, natural language processing, and intelligent features that transform user experiences.",
+            'title':'AI & LLM Integration',
+            'description': "Implement RAG (Retrieval-Augmented Generation) pipelines, integrate ChatGPT and OpenAI APIs, and build AI-powered automation workflows. Expertise in vector databases, prompt engineering, and intelligent search systems.",
         },
         {
             'logo':'cloud',
-            'title':'Cloud Architecture',
-            'description': "Design and deploy cloud-native applications using AWS, Azure, or GCP. Implement serverless architectures, containerization, and CI/CD pipelines for scalable solutions.",
+            'title':'Cloud & DevOps Solutions',
+            'description': "Deploy scalable applications on AWS (ECS Fargate, S3, CloudFront) and Azure. Implement CI/CD pipelines with GitHub Actions, Docker containerization, and infrastructure as code for reliable deployments.",
         },
         {
-            'logo':'monetization',
-            'title':'Performance & Analytics',
-            'description': "Optimize applications for speed and user engagement. Implement sophisticated analytics systems to track KPIs, user behavior, and business metrics for data-driven decisions.",
+            'logo':'computer',
+            'title':'Data Engineering & ETL',
+            'description': "Design and implement ETL pipelines using PySpark and Python. Build data normalization workflows, real-time data processing systems, and analytics dashboards for large-scale data operations.",
         },
         {
             'logo':'mobile',
-            'title':'Full Stack Solutions',
-            'description': "Deliver end-to-end development solutions from concept to deployment. Create cohesive experiences across frontend, backend, and infrastructure with modern tech stacks.",
+            'title':'Mobile & Full Stack Development',
+            'description': "Develop cross-platform mobile applications using React Native and Firebase. Create end-to-end solutions combining backend services, mobile apps, and web interfaces with seamless user experiences.",
+        },
+        {
+            'logo':'monetization',
+            'title':'Real-Time & Chat Systems',
+            'description': "Build real-time communication platforms using Socket.IO and Firebase. Implement 1-to-1 and group messaging features, push notifications, and live data synchronization for interactive applications.",
         },
     ],
     portfolio: [
         {
-            "brand": "website",
-            'name': 'RC Gem Web Portal',
-            'description': 'Led the development of a comprehensive web portal for Rémy Cointreau using React and Node.js. Implemented responsive design and complex data visualization features.',
-            'url': require('../assets/chillflixweb.webp'), // Changed from PNG to webp image
-            'link': 'https://github.com/dfegarido'
+            "brand": "mobile",
+            'name': 'Shareikna App - Saudi Arabia',
+            'description': 'Social networking platform built with Node.js (Express), React Native, deployed via AWS ECS Fargate (ECR + ALB). Features real-time messaging and social interactions.',
+            'url': require('../assets/gemapp.webp'),
+            'link': 'https://shareikna.com'
         },
         {
             "brand": "website",
-            'name': 'Analytics Dashboard',
-            'description': 'Created a modern analytics dashboard using React, Redux, and D3.js. Features real-time data updates, interactive charts, and comprehensive reporting tools.',
-            'url': require('../assets/moneytracker.webp'), // Changed from SVG to webp image
-            'link': 'https://github.com/dfegarido'
-        },
-        {
-            "brand": "website",
-            'name': 'Chatbot AI Platform',
-            'description': 'Developed a chatbot AI platform using React, Node.js, and TensorFlow. Features natural language processing, real-time user interactions, and analytics dashboards.',
-            'url': require('../assets/chatbot-ai.webp'), // Changed from PNG to webp image
-            'link': 'https://dfegarido.github.io/chatbot/'
+            'name': 'Shareikna Admin Panel',
+            'description': 'ReactJS admin panel deployed to Amazon S3 + CloudFront with automated CI/CD via GitHub Actions for secure, scalable delivery.',
+            'url': require('../assets/moneytracker.webp'),
+            'link': 'https://admin.shareikna.com'
         },
         {
             "brand": "mobile",
-            'name': 'RC Gem Mobile App',
-            'description': 'Developed the RC Gem mobile application with React Native. Implemented key features including inventory management, sales tracking, and user authentication.',
+            'name': 'ILeafU - Plant E-commerce (USA)',
+            'description': 'Mobile e-commerce app for plant sales powered by Firebase Functions + React Native. Features seamless payments and push notifications.',
             'url': require('../assets/gemapp.webp'),
-            'link': 'https://play.google.com/store/apps/details?id=com.remycointreau.gem'
+            'link': 'https://github.com/dfegarido'
         },
         {
             "brand": "website",
-            'name': 'Trading Platform UI',
-            'description': 'Built a responsive trading platform interface using React and WebSocket for real-time data. Implemented complex trading views and interactive charts.',
+            'name': 'PhillyMatch - Social Networking',
+            'description': 'Social networking platform in Laravel with questionnaire-driven profile matching and advanced user recommendation algorithms.',
+            'url': require('../assets/chillflixweb.webp'),
+            'link': 'https://phillymatch.org'
+        },
+        {
+            "brand": "website",
+            'name': 'MasayaTripPH - Travel Platform',
+            'description': 'Travel booking platform enabling hotel reservations with integrated search workflows and payment processing.',
             'url': require('../assets/trading.webp'),
-            'link': 'https://github.com/dfegarido'
+            'link': 'https://masayatrip.com'
         },
         {
             "brand": "ecommerce",
@@ -106,19 +106,19 @@ module.exports = {
     ],
     contact: [
         {
-            logo: 'facebook',
-            name: 'Facebook',
-            link: 'https://www.facebook.com/dfegarido'
-        },
-        {
-            logo: 'instagram',
-            name: 'Instagram',
-            link: 'https://www.instagram.com/darwin.fegarido/'
-        },
-        {
             logo: 'linkedin',
             name: 'LinkedIn',
             link: 'https://ph.linkedin.com/in/darwinfegarido'
+        },
+        {
+            logo: 'github',
+            name: 'GitHub',
+            link: 'https://github.com/dfegarido'
+        },
+        {
+            logo: 'email',
+            name: 'Email',
+            link: 'mailto:darwinfegarido@gmail.com'
         },
         // Additional social platforms - uncomment and customize as needed
         /*

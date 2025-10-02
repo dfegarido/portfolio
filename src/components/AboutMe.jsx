@@ -36,7 +36,7 @@ const SkillSummary = memo(({ frontendSkills, backendSkills, aiSkills, activeFilt
     if (activeFilter !== 'all') return null;
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6">
             <div className="bg-gradient-to-br from-[rgba(var(--color-background-rgb),0.7)] to-[rgba(var(--color-background-rgb),0.5)] p-3 rounded-lg border border-opacity-20" 
                 style={{ borderColor: `rgba(${getSkillCategoryColor('frontend')}, 0.3)` }}>
                 <div className="flex justify-between items-center">
@@ -141,33 +141,35 @@ const AboutMe = () => {
     
     // Define skills without CDN icons - OptimizedSkillIcon will handle icons locally
     const frontendSkills = [
-        { name: "JavaScript", level: 95, years: 5, category: "frontend" },
-        { name: "React", level: 90, years: 4, category: "frontend" },
-        { name: "TypeScript", level: 85, years: 3, category: "frontend" },
-        { name: "HTML5", level: 95, years: 6, category: "frontend" },
-        { name: "CSS3", level: 90, years: 6, category: "frontend" },
+        { name: "JavaScript", level: 95, years: 7, category: "frontend" },
+        { name: "React", level: 92, years: 5, category: "frontend" },
+        { name: "VueJs", level: 88, years: 4, category: "frontend" },
+        { name: "HTML5", level: 95, years: 7, category: "frontend" },
+        { name: "CSS3", level: 90, years: 7, category: "frontend" },
         { name: "Redux", level: 88, years: 4, category: "frontend" },
-        { name: "Tailwind CSS", level: 92, years: 3, category: "frontend" },
+        { name: "React Native", level: 85, years: 3, category: "frontend" },
     ];
     
     const backendSkills = [
-        { name: "Node.js", level: 90, years: 4, category: "backend" },
-        { name: "Express", level: 88, years: 4, category: "backend" },
-        { name: "MongoDB", level: 85, years: 3, category: "backend" },
-        { name: "PostgreSQL", level: 80, years: 3, category: "backend" },
-        { name: "GraphQL", level: 75, years: 2, category: "backend" },
-        { name: "Docker", level: 70, years: 2, category: "backend" },
-        { name: "AWS", level: 78, years: 2, category: "backend" },
+        { name: "Node.js", level: 95, years: 7, category: "backend" },
+        { name: "Express", level: 92, years: 7, category: "backend" },
+        { name: "Python", level: 90, years: 6, category: "backend" },
+        { name: "MongoDB", level: 88, years: 5, category: "backend" },
+        { name: "PostgreSQL", level: 85, years: 4, category: "backend" },
+        { name: "Firebase", level: 87, years: 4, category: "backend" },
+        { name: "Docker", level: 82, years: 3, category: "backend" },
+        { name: "AWS", level: 85, years: 4, category: "backend" },
     ];
     
     const aiSkills = [
-        { name: "PySpark", level: 82, years: 3, category: "ai" },
-        { name: "Python", level: 80, years: 4, category: "ai" },
-        { name: "OpenAI", level: 85, years: 2, category: "ai" },
-        { name: "Generative AI", level: 78, years: 1, category: "ai" },
-        { name: "TensorFlow", level: 75, years: 2, category: "ai" },
-        { name: "Git", level: 92, years: 5, category: "tools" },
-        { name: "GitHub", level: 90, years: 5, category: "tools" },
+        { name: "PySpark", level: 88, years: 4, category: "ai" },
+        { name: "OpenAI", level: 90, years: 3, category: "ai" },
+        { name: "RAG Systems", level: 85, years: 2, category: "ai" },
+        { name: "Vector Databases", level: 82, years: 2, category: "ai" },
+        { name: "LLM Integration", level: 87, years: 2, category: "ai" },
+        { name: "ChatGPT API", level: 88, years: 2, category: "ai" },
+        { name: "Git", level: 95, years: 7, category: "tools" },
+        { name: "GitHub", level: 92, years: 7, category: "tools" },
     ];
 
     // Determine appropriate editor background based on theme
@@ -206,7 +208,7 @@ const AboutMe = () => {
     const editorStyle = getEditorBackgroundStyle();
 
     return (
-        <div className="flex flex-col items-center sm:items-end mt-10 mb-10 pt-10 p-6 w-[95%] rounded-xl shrink-0 drop-shadow-xl transition-all duration-300" 
+        <div className="flex flex-col items-center sm:items-end mt-6 md:mt-10 mb-6 md:mb-10 pt-6 md:pt-10 px-3 md:px-6 py-6 w-full max-w-full rounded-xl shrink-0 drop-shadow-xl transition-all duration-300 box-border" 
              style={{
                  background: "rgba(var(--color-background-rgb), 0.9)",
                  backdropFilter: "blur(10px)",
@@ -217,14 +219,14 @@ const AboutMe = () => {
              }}>
             
             {/* Title with decorative elements */}
-            <div className="w-full flex items-center mb-2">
+            <div className="w-full flex flex-wrap items-center gap-2 mb-2">
                 <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
                 <Title label={ABOUT_ME} style={{ color: "var(--color-primary)", fontFamily: FONT_FAMILY, textShadow: "0px 0px 2px rgba(0,0,0,0.15)" }} />
                 <div className="h-[3px] flex-grow bg-gradient-to-r from-[var(--color-accent)] to-transparent ml-4 rounded-full"></div>
             </div>
             
             {/* Description with Python code styling */}
-            <div className="relative w-full mb-8 rounded-lg overflow-hidden p-1" style={{ background: editorStyle.backgroundColor, boxShadow: "0 4px 15px rgba(0,0,0,0.2)" }}>
+            <div className="relative w-full mb-8 rounded-lg overflow-hidden overflow-x-auto p-1" style={{ background: editorStyle.backgroundColor, boxShadow: "0 4px 15px rgba(0,0,0,0.2)" }}>
                 <div className="w-full flex items-center px-3 py-1 text-xs text-slate-300" style={{ background: 'rgba(0,0,0,0.4)' }}>
                     <span className="mr-auto font-mono">about_me.py</span>
                     <div className="flex space-x-2">
@@ -233,8 +235,8 @@ const AboutMe = () => {
                         <div className="w-3 h-3 rounded-full bg-green-500 opacity-70"></div>
                     </div>
                 </div>
-                <div className="px-5 py-4 overflow-auto text-left" style={{maxHeight: '380px'}}>
-                    <pre className="text-sm sm:text-base font-mono">
+                <div className="px-3 md:px-5 py-4 overflow-auto text-left" style={{ maxHeight: '380px', wordBreak: 'break-word' }}>
+                    <pre className="text-xs sm:text-sm md:text-base font-mono whitespace-pre-wrap break-words">
                         <span className="text-blue-400">class</span> <span className="text-green-400">DeveloperProfile</span>:
                         <br/>
                         <span className="pl-4 text-slate-400"># Initialize developer profile</span>
@@ -281,9 +283,9 @@ const AboutMe = () => {
             </div>
             
             {/* Skills section with enhanced styling */}
-            <div className="w-full mb-8">
+            <div className="w-full max-w-full mb-8 overflow-hidden">
                 {/* Tech Stack Header - simplified for better performance */}
-                <div className="flex items-center mb-6 relative">
+                <div className="flex flex-wrap items-center gap-3 mb-6 relative">
                     <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
                     <span className="text-xl font-bold tracking-wider" 
                         style={{ 
@@ -305,7 +307,7 @@ const AboutMe = () => {
                 />
 
                 {/* Filter tabs for skills with enhanced transitions */}
-                <div className="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
+                <div className="flex flex-wrap gap-2 mb-8 justify-center sm:justify-start overflow-x-auto pb-2">
                     {['all', 'frontend', 'backend', 'ai', 'tools'].map(filter => {
                         // Calculate item count for each filter
                         const itemCount = filter === 'all' 
@@ -316,7 +318,7 @@ const AboutMe = () => {
                             <button
                                 key={filter}
                                 onClick={() => handleFilterChange(filter)}
-                                className="px-4 py-1.5 text-sm rounded-full transition-all duration-300 relative"
+                                className="px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-full transition-all duration-300 relative"
                                 style={{
                                     background: activeFilter === filter 
                                         ? filter !== 'all' 
@@ -385,7 +387,7 @@ const AboutMe = () => {
                 </div>
 
                 {/* Skills grid with transition effects - Virtualized for performance */}
-                <div className="relative overflow-hidden rounded-xl mb-2">
+                <div className="relative overflow-hidden rounded-xl mb-2 max-w-full">
                     {/* Skills section background animations */}
                     <div className={`absolute -inset-1.5 rounded-xl bg-gradient-to-br opacity-10 blur-lg -z-10 transition-all duration-500`}
                         style={{
@@ -420,7 +422,7 @@ const AboutMe = () => {
                     </div>
 
                     {/* Virtualized skills grid for better performance */}
-                    <div className="p-2 min-h-[400px]">
+                    <div className="p-1 md:p-2 min-h-[400px]">
                         <Suspense fallback={
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                                 {[...Array(6)].map((_, i) => (
@@ -443,7 +445,7 @@ const AboutMe = () => {
                 
                 {/* Skill breakdown sections with animations */}
                 <div 
-                    className={`mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 border-t border-opacity-10 transition-all duration-500`} 
+                    className={`mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 pt-5 border-t border-opacity-10 transition-all duration-500 max-w-full`} 
                     style={{ 
                         borderColor: 'var(--color-accent)',
                         height: activeFilter === 'all' ? 'auto' : '0',

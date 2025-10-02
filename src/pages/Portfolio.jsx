@@ -90,7 +90,7 @@ const Portfolio = memo(() => {
     return (
         <div 
             ref={portfolioRef}
-            className={`grid grid-cols-1 gap-6 px-4 sm:px-8 relative py-10`}
+            className={`grid grid-cols-1 gap-6 md:gap-8 px-4 md:px-6 lg:px-8 relative py-8 md:py-12 lg:py-16`}
             style={{
                 background: 'var(--color-background)',
                 position: 'relative',
@@ -138,7 +138,7 @@ const Portfolio = memo(() => {
             </div>
             
             {/* Portfolio Title with About Me inspired styling */}
-            <div className="w-full flex items-center mb-8 px-2 sm:px-8 z-10">
+            <div className="w-full flex items-center mb-6 md:mb-8 px-4 md:px-8 z-10 max-w-6xl mx-auto">
                 <div className="h-[3px] w-[30px] bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mr-4 rounded-full"></div>
                 <Title 
                     label={PORTFOLIO} 
@@ -152,11 +152,12 @@ const Portfolio = memo(() => {
             </div>
             
             {/* Category tabs with enhanced About Me inspired styling */}
-            <div className="flex flex-wrap justify-center gap-5 sm:gap-8 mt-3 mb-8 relative z-10">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-5 lg:gap-8 mt-3 mb-6 md:mb-8 relative z-10 px-4">
                 {/* Glass morphism container inspired by About Me */}
-                <div className="tab-container relative p-4 sm:p-5 rounded-xl" style={{
+                <div className="tab-container relative p-3 md:p-4 lg:p-5 rounded-xl" style={{
                     width: 'fit-content',
-                    minWidth: '240px'
+                    minWidth: '200px',
+                    maxWidth: '100%'
                 }}>
                     <div
                         className="absolute inset-0 -z-1 rounded-xl"

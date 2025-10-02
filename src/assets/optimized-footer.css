@@ -74,17 +74,52 @@
 .footer-delay-4 { animation-delay: 0.4s; }
 .footer-delay-5 { animation-delay: 0.5s; }
 
-/* Social icon animation classes - use these instead of generated ones */
+/* Enhanced social icon animations */
 .footer-social-item {
     opacity: 0;
     animation: socialIconEntrance 0.8s cubic-bezier(0.25, 0.1, 0.25, 1.4) forwards;
     will-change: transform, opacity;
 }
 
+.footer-social-item:hover {
+    transform: translate3d(0, -8px, 0) scale(1.05);
+}
+
+/* Enhanced shadow glow effect */
+.shadow-glow:hover {
+    box-shadow: 
+        0 0 20px rgba(var(--color-primary-rgb), 0.4),
+        0 0 40px rgba(var(--color-primary-rgb), 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
 /* Footer animation class for initial state */
 .footer-animation {
     opacity: 0;
-    transform: translate3d(0, 20px, 0);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translate3d(0, 30px, 0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
     will-change: transform, opacity;
+}
+
+/* Enhanced responsive utilities */
+@media (max-width: 768px) {
+    .footer-social-item {
+        animation-duration: 0.6s;
+    }
+}
+
+/* Additional status indicator animation */
+@keyframes statusPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.animate-pulse {
+    animation: statusPulse 2s ease-in-out infinite;
 }

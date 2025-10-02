@@ -103,93 +103,115 @@ const Navigation = () => {
     ]
 
     return (
-        <div 
-            className="flex flex-row min-w-full items-center justify-between"
+        <nav 
+            className="flex flex-row min-w-full items-center justify-between relative"
             style={{
                 position: 'fixed',
                 left: '0px',
                 top: '0px',
-                background: 'rgba(var(--color-background-rgb), 0.75)',
-                backdropFilter: 'blur(12px)',
-                height: '60px',
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(var(--color-background-rgb), 0.85)',
+                backdropFilter: 'blur(20px)',
+                height: isMobile ? '64px' : (scrollTop > 500 ? '50px' : '64px'),
+                boxShadow: scrollTop > 100 ? '0 4px 32px rgba(0, 0, 0, 0.15)' : '0 2px 16px rgba(0, 0, 0, 0.1)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                 zIndex: 1000,
-                transition: 'all .4s ease-in-out',
-                ...(scrollTop > 500 && !isMobile ? {
-                    height: '45px',
-                    background: 'rgba(var(--color-background-rgb), 0.85)',
-                    backdropFilter: 'blur(16px)',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-                } : {})
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                willChange: 'transform, background-color, box-shadow'
             }}
         >
-            <div className={`${isSmallScreen ? 'pl-3' : 'pl-6'} content-center`}>
+            <div className={`${isMobile ? 'pl-4' : isSmallScreen ? 'pl-3' : 'pl-6'} flex items-center`}>
                 <Logo  
                     label={LOGO} 
                     onClick={() => {
                         setNavigation('Home')
                         scrollTo(listRef.home)
+                        setToggleMenu(false) // Close mobile menu when logo clicked
                     }}
-                    className={isSmallScreen ? "scale-90" : ""}
+                    className={`${isSmallScreen ? 'scale-90' : ''} cursor-pointer transition-transform hover:scale-105`}
                 />
             </div>
 
-            <div className={`grid grid-flow-col content-center ${isMobile ? 'hidden' : isSmallScreen ? 'gap-3 mr-3' : 'gap-6 mr-6'}`}>
+            <div className={`${isMobile ? 'hidden' : 'flex items-center'} ${isSmallScreen ? 'gap-2 mr-3' : 'gap-8 mr-6'}`}>
                 {
-                    labels.map(label => (
-                        <Anchor 
-                            key={label} 
-                            label={label}
-                            isActive={label === currentNavigation}
-                            className={isSmallScreen ? "text-sm px-1" : ""} 
-                            onClick={() => {
-                                setNavigation(label)
-                                scrollTo(listRef[label.toLocaleLowerCase()])
-                            }} 
-                        />
+                    labels.map((label, index) => (
+                        <div key={label} className="relative">
+                            <Anchor 
+                                label={label}
+                                isActive={label === currentNavigation}
+                                className={`${isSmallScreen ? 'text-sm px-2 py-1' : 'px-3 py-2'} transition-all duration-200 hover:scale-105`} 
+                                onClick={() => {
+                                    setNavigation(label)
+                                    scrollTo(listRef[label.toLocaleLowerCase()])
+                                }}
+                            />
+                        </div>
                     ))
                 }
             </div>
 
             {isMobile && (
-                <div className="grid justify-items-end pr-6">
-                    <Icon 
-                        height={24}
-                        width={24}
+                <div className="flex items-center pr-4">
+                    {/* Enhanced hamburger menu button */}
+                    <button
                         onClick={() => setToggleMenu(prevState => !prevState)}
-                        name={'menu'} 
-                        className={`h-8 w-8 pt-3 pl-2 cursor-pointer origin-center transition-transform duration-300 ${toggleMenu ? 'rotate-90' : ''}`}
-                    />
+                        className="relative p-3 rounded-lg transition-all duration-300 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20"
+                        style={{
+                            background: toggleMenu ? 'rgba(var(--color-primary-rgb), 0.1)' : 'transparent'
+                        }}
+                        aria-label="Toggle navigation menu"
+                        aria-expanded={toggleMenu}
+                    >
+                        <div className="w-6 h-6 flex flex-col justify-center items-center">
+                            <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ${toggleMenu ? 'rotate-45 translate-y-1.5' : 'translate-y-0'}`} style={{ backgroundColor: 'var(--color-primary)' }} />
+                            <span className={`block w-5 h-0.5 bg-current transition-all duration-300 my-1 ${toggleMenu ? 'opacity-0' : 'opacity-100'}`} style={{ backgroundColor: 'var(--color-primary)' }} />
+                            <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ${toggleMenu ? '-rotate-45 -translate-y-1.5' : 'translate-y-0'}`} style={{ backgroundColor: 'var(--color-primary)' }} />
+                        </div>
+                    </button>
+                    {/* Enhanced mobile menu dropdown */}
                     <div 
                         style={{
-                            background: 'rgba(var(--color-background-rgb), 0.9)',
-                            backdropFilter: 'blur(16px)',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-                            borderRadius: '0 0 10px 10px',
+                            background: 'rgba(var(--color-background-rgb), 0.95)',
+                            backdropFilter: 'blur(20px)',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
+                            borderRadius: '0 0 16px 16px',
                         }}
-                        className={`fixed gap-4 -mr-6 w-full justify-items-end text-right pr-6 pt-3 pb-4 grid grid-rows-6 transition-all ease-in-out duration-300 
-                        ${toggleMenu ? 'h-auto opacity-100 mt-12 rounded-b-xl' : 'h-0 pt-10 opacity-0 -z-10'}`}
+                        className={`fixed left-0 w-full transition-all duration-300 ease-in-out overflow-hidden
+                        ${toggleMenu ? 'top-16 opacity-100 visible' : 'top-0 opacity-0 invisible'}`}
                     >
-                        {
-                            labels.map(label => (
-                                <Anchor 
-                                    key={label}
-                                    className={`text-right ${!toggleMenu ? 'hidden' : ''}`}
-                                    isActive={label === currentNavigation}
-                                    label={label}
-                                    onClick={() => {
-                                        setNavigation(label)
-                                        closeMenu(listRef[label.toLocaleLowerCase()])
-                                    }}
-                                />
-                            ))
-                        }
+                        <div className="px-4 py-6 space-y-1">
+                            {
+                                labels.map((label, index) => (
+                                    <div
+                                        key={label}
+                                        className={`transform transition-all duration-300 delay-${index * 50}
+                                        ${toggleMenu ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'}`}
+                                    >
+                                        <Anchor 
+                                            className={`block w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all duration-200
+                                            ${label === currentNavigation ? 'bg-white/10 text-primary' : 'hover:bg-white/5'}`}
+                                            isActive={label === currentNavigation}
+                                            label={label}
+                                            onClick={() => {
+                                                setNavigation(label)
+                                                closeMenu(listRef[label.toLocaleLowerCase()])
+                                            }}
+                                        />
+                                    </div>
+                                ))
+                            }
+                            
+                            {/* Mobile menu footer */}
+                            <div className="pt-4 mt-4 border-t border-white/10">
+                                <div className="text-center text-sm opacity-70" style={{ color: 'var(--color-primary)' }}>
+                                    Darwin Fegarido - Backend Engineer
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
-        </div>
+        </nav>
     )
 }
 

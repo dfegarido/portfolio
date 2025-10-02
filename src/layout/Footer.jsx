@@ -79,10 +79,10 @@ const Footer = () => {
                 </div>
 
                 {/* Content container */}
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                         {/* Left section - Logo & tagline */}
-                        <div className="mb-4 md:mb-0 flex items-center">
+                        <div className="flex items-center order-1 lg:order-1">
                             <div className="relative">
                                 <div 
                                     className="w-10 h-10 rounded-full mr-3 flex items-center justify-center relative overflow-hidden"
@@ -137,92 +137,83 @@ const Footer = () => {
                                         letterSpacing: '0.5px'
                                     }}
                                 >
-                                    Full Stack Engineer
+                                    Backend Engineer | AI Specialist
                                 </p>
                             </div>
                         </div>
                         
-                        {/* Center section - Social links - reduce number of animation delay classes */}
-                        <div className="flex space-x-6 mb-4 md:mb-0 items-center">
-                            {socialLinks.map((social, index) => (
-                                <a 
-                                    key={social.name}
-                                    href={social.link}
-                                    className={`footer-social-item footer-delay-${(index % 3) + 1} group`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <div 
-                                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-glow relative"
-                                        style={{
-                                            background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                            border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                            backdropFilter: 'blur(5px)',
-                                            transform: 'translate3d(0, 0, 0)', // Force GPU acceleration
-                                            willChange: 'transform, box-shadow'
-                                        }}
+                        {/* Center section - Social links with improved layout */}
+                        <div className="flex items-center justify-center order-3 lg:order-2">
+                            <div className="flex space-x-4 items-center">
+                                {socialLinks.map((social, index) => (
+                                    <a 
+                                        key={social.name}
+                                        href={social.link}
+                                        className={`footer-social-item footer-delay-${(index % 3) + 1} group`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title={social.name}
                                     >
-                                        <SocialIcon name={social.logo} color="var(--color-primary)" size={18} />
-                                        
-                                        {/* Hover highlight effect */}
-                                        <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                                            style={{ 
-                                                background: 'var(--color-primary)'
+                                        <div 
+                                            className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-2 hover:shadow-glow relative group touch-manipulation"
+                                            style={{
+                                                background: 'linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1), rgba(var(--color-accent-rgb), 0.1))',
+                                                border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
+                                                backdropFilter: 'blur(10px)',
+                                                transform: 'translate3d(0, 0, 0)',
+                                                willChange: 'transform, box-shadow',
+                                                minHeight: '44px',
+                                                minWidth: '44px'
                                             }}
-                                        ></div>
-                                        
-                                        {/* Tooltip on hover */}
-                                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-                                            {social.name}
+                                        >
+                                            <SocialIcon name={social.logo} color="var(--color-primary)" size={20} />
+                                            
+                                            {/* Enhanced hover highlight effect */}
+                                            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 transition-all duration-300"
+                                                style={{ 
+                                                    background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
+                                                    transform: 'scale(0.8)'
+                                                }}
+                                            ></div>
+                                            
+                                            {/* Enhanced tooltip */}
+                                            <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
+                                                <div className="bg-gray-900 text-white text-xs rounded-lg py-2 px-3 shadow-lg border border-gray-700">
+                                                    <div className="text-center font-medium">{social.name}</div>
+                                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            ))}
+                                    </a>
+                                ))}
+                            </div>
                             
-                            {/* GitHub link (if not in config) */}
-                            {!socialLinks.some(social => social.logo === 'github') && (
-                                <a 
-                                    href="https://github.com/dfegarido"
-                                    className="footer-social-item group"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <div 
-                                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-glow relative"
-                                        style={{
-                                            background: 'rgba(var(--color-primary-rgb), 0.1)',
-                                            border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                                            backdropFilter: 'blur(5px)',
-                                            transform: 'translate3d(0, 0, 0)', // Force GPU acceleration
-                                            willChange: 'transform, box-shadow'
-                                        }}
-                                    >
-                                        <SocialIcon name="github" color="var(--color-primary)" size={18} />
-                                        
-                                        {/* Hover highlight effect */}
-                                        <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                                            style={{ 
-                                                background: 'var(--color-primary)'
-                                            }}
-                                        ></div>
-                                        
-                                        {/* Tooltip on hover */}
-                                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-                                            GitHub
-                                        </div>
-                                    </div>
-                                </a>
-                            )}
-                            
-                            {/* Connecting line */}
-                            <div className="hidden md:block h-[1px] w-12 bg-gradient-to-r from-primary to-transparent opacity-30"></div>
+                            {/* Decorative connecting lines */}
+                            <div className="hidden xl:flex items-center ml-6">
+                                <div className="h-px w-16 bg-gradient-to-r from-primary via-accent to-transparent opacity-30"></div>
+                                <div className="w-2 h-2 rounded-full bg-primary opacity-50 mx-2"></div>
+                            </div>
                         </div>
                         
-                        {/* Right section - Copyright */}
-                        <div>
-                            <div className="flex flex-col items-center md:items-end">
+                        {/* Right section - Copyright & Status */}
+                        <div className="order-2 lg:order-3">
+                            <div className="flex flex-col items-center lg:items-end">
+                                <div className="flex items-center mb-2">
+                                    <div className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
+                                    <p 
+                                        className="text-xs font-medium"
+                                        style={{ 
+                                            color: 'var(--color-primary)',
+                                            fontFamily: FONT_FAMILY,
+                                            letterSpacing: '0.5px'
+                                        }}
+                                    >
+                                        Available for projects
+                                    </p>
+                                </div>
+                                
                                 <p 
-                                    className="text-xs text-center md:text-right mb-1"
+                                    className="text-xs text-center lg:text-right mb-1"
                                     style={{ 
                                         color: 'rgba(var(--color-primary-rgb), 0.7)',
                                         fontFamily: FONT_FAMILY,
@@ -232,18 +223,18 @@ const Footer = () => {
                                     &copy; {currentYear} Darwin Fegarido
                                 </p>
                                 
-                                {/* Subtle line */}
-                                <div className="h-px w-12 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30 mb-1"></div>
+                                {/* Enhanced decorative line */}
+                                <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-accent opacity-40 mb-1"></div>
                                 
                                 <p 
-                                    className="text-[10px] text-center md:text-right"
+                                    className="text-[10px] text-center lg:text-right opacity-60"
                                     style={{ 
-                                        color: 'rgba(var(--color-primary-rgb), 0.5)',
+                                        color: 'var(--color-primary)',
                                         fontFamily: FONT_FAMILY,
                                         letterSpacing: '0.5px'
                                     }}
                                 >
-                                    All rights reserved
+                                    Crafted with ♥ using React
                                 </p>
                             </div>
                         </div>

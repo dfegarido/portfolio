@@ -35,7 +35,7 @@ const About = memo(() => {
     return (
         <div 
             ref={aboutRef}
-            className={`grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 sm:px-8 relative py-10`}
+            className={`grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 px-4 md:px-6 lg:px-8 relative py-8 md:py-12 lg:py-16 max-w-full overflow-x-hidden`}
             style={{
                 background: 'var(--color-background)',
                 position: 'relative',
@@ -55,7 +55,7 @@ const About = memo(() => {
             ></div>
             
             {/* Profile image section for mobile */}
-            <div className='flex justify-center sm:hidden my-6 z-10'>
+            <div className='flex justify-center lg:hidden my-4 md:my-6 z-10 order-1 lg:order-2'>
                 <div className="relative profile-container">
                     <div className="accent-shape accent-shape-1"></div>
                     <div className="accent-shape accent-shape-2"></div>
@@ -83,12 +83,12 @@ const About = memo(() => {
             </div>
             
             {/* About Me content */}
-            <div className="w-full grid justify-items-center relative z-10" >
+            <div className="w-full grid justify-items-center relative z-10 order-2 lg:order-1 overflow-x-hidden" >
                 <AboutMe />
             </div>
             
             {/* Profile image section for desktop */}
-            <div className='hidden sm:flex flex-col items-center justify-start mt-10 relative z-10' >
+            <div className='hidden lg:flex flex-col items-center justify-start mt-10 relative z-10 order-2' >
                 <div className="relative profile-container">
                     {/* Background accent shapes */}
                     <div className="accent-shape accent-shape-1"></div>
