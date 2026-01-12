@@ -1,58 +1,27 @@
 {
-  "name": "my-sitev2",
-  "author": "darwinfegarido@gmail.com",
-  "version": "0.1.0",
+  "name": "darwin-fegarido-portfolio",
   "private": true,
-  "dependencies": {
-    "@formspree/react": "^2.2.5",
-    "@reduxjs/toolkit": "^1.8.1",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^7.2.6",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "engines": {
-    "node": ">=22.15.0",
-    "npm": ">=11.3.0"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "BUILD_PATH='./docs' react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject",
-    "build:clean": "rm -rfv ./build && npm run build",
-    "analyze": "yarn build && npx webpack-bundle-analyzer docs/static/js/*.js",
-    "serve": "npx serve -s docs -l 3000 --single",
-    "serve:local": "PUBLIC_URL=/ npm run build && npx serve -s docs -l 3000"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "homepage": "https://dfegarido.github.io/portfolio",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "lucide-react": "^0.561.0",
+    "@google/genai": "^1.33.0",
+    "react-dom": "^19.2.3",
+    "react": "^19.2.3",
+    "framer-motion": "^11.0.8"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.4",
-    "jest-watch-typeahead": "^0.6.5",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.0.23",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
   }
 }
