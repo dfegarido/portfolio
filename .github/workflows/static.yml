@@ -53,6 +53,8 @@ jobs:
         run: pnpm build
         env:
           CI: false
+          GITHUB_PAGES: 'true'
+          GITHUB_REPOSITORY: ${{ github.repository }}
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
