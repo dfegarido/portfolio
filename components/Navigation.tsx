@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, PORTFOLIO_OWNER } from '../constants';
+import { Magnetic } from './Magnetic';
 
 export const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,27 +62,29 @@ export const Navigation: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold text-slate-100 tracking-tighter hover:text-cyan-400 transition-colors z-50" data-magnetic="true">
-            DF<span className="text-cyan-500">.</span>
-          </a>
+          <Magnetic>
+            <a href="#" className="text-2xl font-bold text-slate-100 tracking-tighter hover:text-cyan-400 transition-colors z-50">
+              DF<span className="text-cyan-500">.</span>
+            </a>
+          </Magnetic>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
-                className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors"
-                data-magnetic="true"
-              >
-                <span className="text-cyan-500 mr-1">0{navLinks.indexOf(link) + 1}.</span>
-                {link.name}
-              </a>
+              <Magnetic key={link.name}>
+                <a 
+                  href={link.href}
+                  className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors px-2 py-1"
+                >
+                  <span className="text-cyan-500 mr-1 font-mono text-xs tracking-widest">0{navLinks.indexOf(link) + 1}.</span>
+                  {link.name}
+                </a>
+              </Magnetic>
             ))}
             <div className="h-6 w-px bg-slate-700 mx-2"></div>
             <div className="flex gap-4">
-               <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors" data-magnetic="true"><Github size={18} /></a>
-               <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors" data-magnetic="true"><Linkedin size={18} /></a>
+               <Magnetic><a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Github size={18} /></a></Magnetic>
+               <Magnetic><a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Linkedin size={18} /></a></Magnetic>
             </div>
           </nav>
 
@@ -113,7 +116,7 @@ export const Navigation: React.FC = () => {
               variants={linkVariants}
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="text-cyan-500 text-lg align-top mr-2">0{i+1}.</span>
+              <span className="text-cyan-500 text-lg align-top mr-2 font-mono">0{i+1}.</span>
               {link.name}
             </motion.a>
           ))}

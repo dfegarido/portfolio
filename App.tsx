@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Navigation } from './components/Navigation';
 import { ChatWidget } from './components/ChatWidget';
 import { Button } from './components/Button';
@@ -12,6 +12,7 @@ import { TiltCard } from './components/TiltCard';
 import { Counter } from './components/Counter';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Parallax } from './components/Parallax';
+import { Magnetic } from './components/Magnetic';
 import { 
   PORTFOLIO_OWNER, 
   PORTFOLIO_TAGLINE, 
@@ -26,12 +27,40 @@ import {
 import { Github, Linkedin, Mail, MapPin, ChevronDown } from 'lucide-react';
 
 const App: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <div className="min-h-screen text-slate-300 relative selection:bg-cyan-500/30 selection:text-cyan-200">
       <CustomCursor />
       
+      {/* Accessibility Skip Link */}
+      <a 
+        href="#about" 
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cyan-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+      >
+        Skip to main content
+      </a>
+
+      {/* Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-cyan-500 origin-left z-[100]"
+        style={{ scaleX }}
+      />
+
       {/* Background Layers - Positive Stacking Context */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black z-0 pointer-events-none"></div>
+      
+      {/* Dot Grid Layer */}
+      <div className="fixed inset-0 z-[1] pointer-events-none dot-grid opacity-40"></div>
+      
+      {/* Noise Texture Overlay */}
+      <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+      
       <ParticleBackground />
 
       {/* Decorative Parallax Background Elements */}
@@ -60,13 +89,13 @@ const App: React.FC = () => {
                   </span>
                 </motion.div>
                 
-                <h1 className="text-6xl md:text-8xl font-bold text-slate-100 tracking-tight leading-tight">
-                  <TextReveal>{PORTFOLIO_OWNER}</TextReveal>
-                </h1>
-                
-                <h2 className="text-4xl md:text-6xl font-bold text-slate-400 leading-tight">
-                   <TextReveal delay={0.2}>I build things for the web.</TextReveal>
-                </h2>
+              <h1 className="text-6xl md:text-8xl font-black text-slate-100 tracking-tighter leading-tight">
+                <TextReveal>{PORTFOLIO_OWNER}</TextReveal>
+              </h1>
+              
+              <h2 className="text-4xl md:text-6xl font-bold text-slate-400 tracking-tight leading-tight">
+                 <TextReveal delay={0.2}>I build things for the web.</TextReveal>
+              </h2>
                 
                 <motion.p 
                   initial={{ opacity: 0 }}
@@ -98,15 +127,21 @@ const App: React.FC = () => {
                   transition={{ delay: 1.2, duration: 0.5 }}
                   className="pt-12 flex items-center gap-6 text-slate-500"
                 >
-                   <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110" data-magnetic="true">
-                      <Github size={24} />
-                   </a>
-                   <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110" data-magnetic="true">
-                      <Linkedin size={24} />
-                   </a>
-                   <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-cyan-400 transition-colors transform hover:scale-110" data-magnetic="true">
-                      <Mail size={24} />
-                   </a>
+                   <Magnetic>
+                    <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <Github size={24} />
+                    </a>
+                   </Magnetic>
+                   <Magnetic>
+                    <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <Linkedin size={24} />
+                    </a>
+                   </Magnetic>
+                   <Magnetic>
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <Mail size={24} />
+                    </a>
+                   </Magnetic>
                    <div className="h-px w-20 bg-slate-700 ml-2"></div>
                 </motion.div>
               </div>
@@ -305,11 +340,10 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-slate-500 text-sm font-mono text-center md:text-left">
             <p>Designed & Built by {PORTFOLIO_OWNER}</p>
-            <p className="text-xs opacity-70 mt-1">Powered by React, Tailwind & Gemini AI</p>
           </div>
           <div className="flex gap-6">
-               <a href={GITHUB_URL} className="text-slate-400 hover:text-cyan-400 transition-colors" data-magnetic="true"><Github size={20} /></a>
-               <a href={LINKEDIN_URL} className="text-slate-400 hover:text-cyan-400 transition-colors" data-magnetic="true"><Linkedin size={20} /></a>
+               <Magnetic><a href={GITHUB_URL} className="text-slate-400 hover:text-cyan-400 transition-colors"><Github size={20} /></a></Magnetic>
+               <Magnetic><a href={LINKEDIN_URL} className="text-slate-400 hover:text-cyan-400 transition-colors"><Linkedin size={20} /></a></Magnetic>
           </div>
         </div>
       </footer>

@@ -12,8 +12,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   
   return (
     <div className={`group relative grid md:grid-cols-12 gap-8 items-center ${!isEven ? 'text-right' : ''}`}>
+      {/* Glow effect background */}
+      <div className={`absolute -inset-4 bg-cyan-500/5 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0`}></div>
+
       {/* Image Layer - Spans 7 cols */}
-      <div className={`md:col-span-7 relative ${!isEven ? 'md:order-2' : 'md:order-1'}`}>
+      <div className={`md:col-span-7 relative z-10 ${!isEven ? 'md:order-2' : 'md:order-1'}`}>
         <div className="relative rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 group-hover:border-cyan-500/40 group-hover:shadow-cyan-500/10 transition-all duration-500 ease-out">
           <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
           <img 

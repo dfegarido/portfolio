@@ -1,4 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
+import { motion } from 'framer-motion';
+import { useMagnetic } from '../hooks/useMagnetic';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -14,15 +16,16 @@ export const Button: React.FC<ButtonProps> = ({
   ...props 
 }) => {
   const [ripples, setRipples] = useState<{x: number, y: number, id: number}[]>([]);
+  const { ref, x, y } = useMagnetic();
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     const button = e.currentTarget;
     const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const rippleX = e.clientX - rect.left;
+    const rippleY = e.clientY - rect.top;
     const id = Date.now();
 
-    setRipples(prev => [...prev, { x, y, id }]);
+    setRipples(prev => [...prev, { x: rippleX, y: rippleY, id }]);
     setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 600);
 
     if (props.onClick) props.onClick(e);
@@ -44,10 +47,11 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button 
+    <motion.button 
+      ref={ref as any}
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       onClick={handleClick}
-      data-magnetic="true"
+      style={{ x, y }}
       {...props}
     >
       {ripples.map(ripple => (
@@ -58,6 +62,6 @@ export const Button: React.FC<ButtonProps> = ({
         />
       ))}
       <span className="relative z-10 flex items-center">{children}</span>
-    </button>
+    </motion.button>
   );
 };

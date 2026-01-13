@@ -23,9 +23,22 @@
 /* Glass card utility */
 @layer utilities {
   .glass-card {
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+}
+
+/* Global Typography tweaks */
+@layer base {
+  .font-mono {
+    @apply tracking-wider;
   }
 }
 
