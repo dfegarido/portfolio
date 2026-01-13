@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from './Parallax';
 
 interface SectionProps {
   id: string;
@@ -16,16 +17,17 @@ export const Section: React.FC<SectionProps> = ({ id, className = '', children }
 };
 
 export const SectionTitle: React.FC<{ children: React.ReactNode, subtitle?: string }> = ({ children, subtitle }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-    className="mb-12"
-  >
-    <h2 className="text-3xl md:text-4xl font-bold text-slate-100 flex items-center gap-3 after:content-[''] after:h-px after:flex-1 after:bg-slate-800 after:ml-6">
-      <span className="text-primary mr-2">#</span>{children}
-    </h2>
-    {subtitle && <p className="mt-4 text-slate-400 max-w-2xl text-lg">{subtitle}</p>}
-  </motion.div>
+  <Parallax offset={20} className="mb-12">
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <h2 className="text-3xl md:text-4xl font-bold text-slate-100 flex items-center gap-3 after:content-[''] after:h-px after:flex-1 after:bg-slate-800 after:ml-6">
+        <span className="text-primary mr-2">#</span>{children}
+      </h2>
+      {subtitle && <p className="mt-4 text-slate-400 max-w-2xl text-lg">{subtitle}</p>}
+    </motion.div>
+  </Parallax>
 );
