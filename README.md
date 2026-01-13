@@ -1,20 +1,82 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+## Darwin Fegarido — Portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio site for **Darwin Fegarido** (Software Engineer | Full Stack Web Developer), built with **React + Vite + TypeScript + Tailwind** and enhanced with **Framer Motion** interactions.
 
-This contains everything you need to run your app locally.
+- **GitHub**: `https://github.com/dfegarido`
+- **LinkedIn**: `https://www.linkedin.com/in/darwinfegarido/`
+- **Email**: `darwinfegarido@gmail.com`
 
-View your app in AI Studio: https://ai.studio/apps/drive/1XSjvnh03hH_eH4RzOpSsKLoTWGj6cpvC
+## Features
 
-## Run Locally
+- **Modern UI**: glassmorphism, custom cursor, magnetic hover, scroll progress indicator, parallax elements
+- **Interactive background**: layered dot/starfield canvas with smooth cursor connections + depth micro-dots
+- **Projects / Experience / Skills**: content-driven from `constants.tsx`
+- **AI Chat (Gemini)**: optional API key to enable Gemini chat session (falls back to in-memory Q&A if you don’t provide a key)
 
-**Prerequisites:**  Node.js
+## Tech Stack
 
+- **Frontend**: React, TypeScript, TailwindCSS
+- **Animations**: Framer Motion
+- **Build**: Vite
+- **AI (optional)**: Google Gemini via `@google/genai`
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Getting Started (Local)
+
+### Prerequisites
+
+- Node.js (recommended: Node 18+)
+
+### Install
+
+Using pnpm (recommended):
+
+```bash
+pnpm install
+```
+
+Or npm:
+
+```bash
+npm install
+```
+
+### Environment Variables (Optional Gemini)
+
+Create a `.env.local` file (or copy from `.env.example`):
+
+```bash
+cp .env.example .env.local
+```
+
+Set your Gemini key:
+
+```bash
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+```
+
+### Run
+
+```bash
+pnpm dev
+```
+
+## Build / Preview
+
+```bash
+pnpm build
+pnpm preview
+```
+
+## Customize Content
+
+Most portfolio content is centralized here:
+
+- `constants.tsx`: name, tagline, about, skills, experiences, projects, links
+- `public/images/`: project images
+
+## Deployment Notes (GitHub Pages)
+
+This repo is configured for GitHub Pages style hosting.
+
+- `vite.config.ts` switches base path when `GITHUB_PAGES=true` (e.g. `/portfolio/`)
+- If you deploy to a different repo name, update the base path accordingly

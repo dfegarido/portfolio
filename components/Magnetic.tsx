@@ -25,3 +25,4 @@ export const Magnetic: React.FC<MagneticProps> = ({ children, pull = 0.3 }) => {
   );
 };
 
+
