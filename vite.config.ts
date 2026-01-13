@@ -5,15 +5,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     // Set base path for GitHub Pages
-    // If GITHUB_REPOSITORY is set (in CI), use it to determine base path
-    // For user/organization pages (repo name ends with .github.io), use '/'
-    // For project pages, use '/repository-name/'
-    let base = '/';
-    if (process.env.GITHUB_PAGES === 'true') {
-      const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'portfolio';
-      // If it's a user/organization page, base is '/', otherwise use repo name
-      base = repoName.endsWith('.github.io') ? '/' : `/${repoName}/`;
-    }
+    // For project pages on GitHub Pages, use '/repository-name/'
+    // Change 'portfolio' to your actual repository name if different
+    const base = process.env.GITHUB_PAGES === 'true' ? '/portfolio/' : '/';
     
     return {
       base,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Project, Experience, Skill } from './types';
 import { Brain, Cloud, Database } from 'lucide-react';
+import { getImagePath } from './helpers/imagePath';
 
 export const PORTFOLIO_OWNER = "Darwin Fegarido";
 export const PORTFOLIO_ROLE = "Software Engineer | Full Stack Web Developer";
@@ -221,14 +222,14 @@ export const PROJECTS: Project[] = [
     title: 'Advertising Automation with AI',
     description: 'Automated advertising workflows using Make.com and AI integration (ChatGPT, Groq) to streamline content generation, campaign execution, and performance tracking.',
     tags: ['AI', 'Make.com', 'ChatGPT', 'Automation'],
-    imageUrl: '/images/automation.png'
+    imageUrl: getImagePath('/images/automation.png')
   },
   {
     id: '2',
     title: 'Shareikna App & Admin Panel',
     description: 'Social networking platform (Saudi Arabia) built with Node.js and React Native. Deployed backend with AWS ECS Fargate and frontend to Amazon S3 + CloudFront.',
     tags: ['Node.js', 'React Native', 'AWS', 'ReactJS', 'CI/CD'],
-    imageUrl: '/images/shareikna.png',
+    imageUrl: getImagePath('/images/shareikna.png'),
     liveUrl: 'https://shareikna.com/'
   },
   {
@@ -236,7 +237,7 @@ export const PROJECTS: Project[] = [
     title: 'ILeafU Mobile App',
     description: 'Mobile e-commerce app for plant sales (USA), powered by Firebase Functions + React Native, supporting seamless payments, order tracking, and push notifications.',
     tags: ['React Native', 'Firebase', 'eCommerce', 'Mobile'],
-    imageUrl: '/images/ileafu.png',
+    imageUrl: getImagePath('/images/ileafu.png'),
     liveUrl: 'https://ileafu.com/'
   },
   {
@@ -244,7 +245,7 @@ export const PROJECTS: Project[] = [
     title: 'PhillyMatch',
     description: 'A social networking platform (USA) created using Laravel, enabling users to match based on questionnaire-driven profiles.',
     tags: ['Laravel', 'Social Network', 'PHP', 'Matching Algo'],
-    imageUrl: '/images/philymatch.png',
+    imageUrl: getImagePath('/images/philymatch.png'),
     liveUrl: 'https://phillymatch.org'
   },
   {
@@ -252,7 +253,7 @@ export const PROJECTS: Project[] = [
     title: 'MasayaTripPH',
     description: 'A travel and hotel booking platform (Philippines) allowing users to book accommodations across selected destinations with integrated search and reservation workflows.',
     tags: ['Travel Tech', 'Booking System', 'Web App'],
-    imageUrl: '/images/masayatrip.png',
+    imageUrl: getImagePath('/images/masayatrip.png'),
     liveUrl: 'https://masayatrip.com'
   },
   {
@@ -260,7 +261,7 @@ export const PROJECTS: Project[] = [
     title: 'Remy Cointreau eCommerce',
     description: 'Implemented a branded Shopify eCommerce solution with integrated payment systems, product catalog, and SEO optimization for improved visibility and conversions.',
     tags: ['Shopify', 'eCommerce', 'SEO', 'Payment Integration'],
-    imageUrl: '/images/remy.png',
+    imageUrl: getImagePath('/images/remy.png'),
     liveUrl: 'https://www.remy-cointreau.com/'
   },
   {
@@ -268,21 +269,21 @@ export const PROJECTS: Project[] = [
     title: 'Railway Load Prediction System',
     description: 'Designed a predictive analytics tool (Melbourne, Australia) that estimates passenger overflow during station disruptions and calculates optimal bus dispatching using real-time data inputs.',
     tags: ['Analytics', 'Prediction', 'Real-time', 'Data Science'],
-    imageUrl: '/images/Railway.png'
+    imageUrl: getImagePath('/images/Railway.png')
   },
   {
     id: '8',
     title: 'Real-Time Chat System',
     description: 'Developed robust 1-to-1 and group messaging features using Supabase, enabling instant real-time communication across mobile and web platforms.',
     tags: ['Supabase', 'Real-time', 'Chat', 'WebSocket'],
-    imageUrl: '/images/chatsystem.png'
+    imageUrl: getImagePath('/images/chatsystem.png')
   },
    {
     id: '9',
     title: 'Data ETL Automation',
     description: 'Built a modular and scalable data ingestion pipeline using PySpark and Python, automating daily analytics and reporting processes for large datasets.',
     tags: ['ETL', 'PySpark', 'Python', 'Big Data'],
-    imageUrl: '/images/etl.png'
+    imageUrl: getImagePath('/images/etl.png')
   }
 ];
 

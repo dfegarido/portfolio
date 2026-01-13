@@ -161,7 +161,7 @@ const App: React.FC = () => {
                 <div className="relative w-full aspect-square max-w-sm mx-auto">
                    <div className="absolute inset-0 border-2 border-cyan-500 rounded-2xl translate-x-5 translate-y-5 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300"></div>
                    <img 
-                      src="/images/profile_photo.png" 
+                      src={`${import.meta.env.BASE_URL}images/profile_photo.png`}
                       alt="Darwin Fegarido" 
                       className="rounded-2xl object-cover w-full h-full shadow-2xl relative z-0" 
                       onError={(e) => {
