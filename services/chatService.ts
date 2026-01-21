@@ -56,6 +56,10 @@ const knowledgeBase: QAPair[] = [
     answer: `MasayaTripPH is a travel and hotel booking platform for the Philippines. It allows users to book accommodations across selected destinations with integrated search and reservation workflows. Visit https://masayatrip.com to see it in action.`
   },
   {
+    keywords: ['amanah', 'muslim', 'community', 'mosque', 'ummah', 'masjid'],
+    answer: `Amanah is a comprehensive digital ecosystem for Muslim communities that I built to connect mosques, Muslim-owned businesses, and community members. It features a mosque finder, Muslim business directory, event management, donation system, and direct communication tools. The platform exists to revive trust-based commerce and strengthen Muslim communities. You can visit https://www.amanahbiz.com/ to learn more. Amanah means "trust" and represents our mission to build a safe, authentic space where Muslims can connect and support each other.`
+  },
+  {
     keywords: ['automation', 'make.com', 'workflow'],
     answer: `I've built advertising automation workflows using Make.com and AI integration (ChatGPT, Groq) to streamline content generation, campaign execution, and performance tracking. This system automates the entire advertising workflow from content creation to performance analysis.`
   },
@@ -172,6 +176,7 @@ export const getSuggestedQuestions = (): string[] => {
     "What's your experience with AI?",
     "How can I contact you?",
     "What technologies do you use?",
+    "Tell me about Amanah",
     "Tell me about Shareikna",
     "What is iLeafU?",
     "Tell me about your backend experience",

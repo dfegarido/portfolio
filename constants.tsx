@@ -219,13 +219,21 @@ export const EXPERIENCES: Experience[] = [
 export const PROJECTS: Project[] = [
   {
     id: '1',
+    title: 'Amanah - Muslim Community Platform',
+    description: 'A comprehensive digital ecosystem for Muslim communities that connects mosques, Muslim-owned businesses, and community members. Features include mosque finder, business directory, event management, donations, and direct communication tools. Built to revive trust-based commerce and strengthen Muslim communities through technology.',
+    tags: ['Mobile App', 'iOS', 'Android', 'Community Platform', 'Social Network'],
+    imageUrl: getImagePath('/images/amanah-website.png'),
+    liveUrl: 'https://www.amanahbiz.com/'
+  },
+  {
+    id: '2',
     title: 'Advertising Automation with AI',
     description: 'Automated advertising workflows using Make.com and AI integration (ChatGPT, Groq) to streamline content generation, campaign execution, and performance tracking.',
     tags: ['AI', 'Make.com', 'ChatGPT', 'Automation'],
     imageUrl: getImagePath('/images/automation.png')
   },
   {
-    id: '2',
+    id: '3',
     title: 'Shareikna App & Admin Panel',
     description: 'Social networking platform (Saudi Arabia) built with Node.js and React Native. Deployed backend with AWS ECS Fargate and frontend to Amazon S3 + CloudFront.',
     tags: ['Node.js', 'React Native', 'AWS', 'ReactJS', 'CI/CD'],
@@ -233,7 +241,7 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://shareikna.com/'
   },
   {
-    id: '3',
+    id: '4',
     title: 'ILeafU Mobile App',
     description: 'Mobile e-commerce app for plant sales (USA), powered by Firebase Functions + React Native, supporting seamless payments, order tracking, and push notifications.',
     tags: ['React Native', 'Firebase', 'eCommerce', 'Mobile'],
@@ -241,7 +249,7 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://ileafu.com/'
   },
   {
-    id: '4',
+    id: '5',
     title: 'PhillyMatch',
     description: 'A social networking platform (USA) created using Laravel, enabling users to match based on questionnaire-driven profiles.',
     tags: ['Laravel', 'Social Network', 'PHP', 'Matching Algo'],
@@ -249,7 +257,7 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://phillymatch.org'
   },
   {
-    id: '5',
+    id: '6',
     title: 'MasayaTripPH',
     description: 'A travel and hotel booking platform (Philippines) allowing users to book accommodations across selected destinations with integrated search and reservation workflows.',
     tags: ['Travel Tech', 'Booking System', 'Web App'],
@@ -257,7 +265,7 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://masayatrip.com'
   },
   {
-    id: '6',
+    id: '7',
     title: 'Remy Cointreau eCommerce',
     description: 'Implemented a branded Shopify eCommerce solution with integrated payment systems, product catalog, and SEO optimization for improved visibility and conversions.',
     tags: ['Shopify', 'eCommerce', 'SEO', 'Payment Integration'],
@@ -265,21 +273,21 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://www.remy-cointreau.com/'
   },
   {
-    id: '7',
+    id: '8',
     title: 'Railway Load Prediction System',
     description: 'Designed a predictive analytics tool (Melbourne, Australia) that estimates passenger overflow during station disruptions and calculates optimal bus dispatching using real-time data inputs.',
     tags: ['Analytics', 'Prediction', 'Real-time', 'Data Science'],
     imageUrl: getImagePath('/images/Railway.png')
   },
   {
-    id: '8',
+    id: '9',
     title: 'Real-Time Chat System',
     description: 'Developed robust 1-to-1 and group messaging features using Supabase, enabling instant real-time communication across mobile and web platforms.',
     tags: ['Supabase', 'Real-time', 'Chat', 'WebSocket'],
     imageUrl: getImagePath('/images/chatsystem.png')
   },
    {
-    id: '9',
+    id: '10',
     title: 'Data ETL Automation',
     description: 'Built a modular and scalable data ingestion pipeline using PySpark and Python, automating daily analytics and reporting processes for large datasets.',
     tags: ['ETL', 'PySpark', 'Python', 'Big Data'],
