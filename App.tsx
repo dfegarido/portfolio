@@ -6,15 +6,15 @@ import { Button } from './components/Button';
 import { Section, SectionTitle } from './components/Section';
 import { ProjectCard } from './components/ProjectCard';
 import { ExperienceTimeline } from './components/ExperienceTimeline';
-import { CustomCursor } from './components/CustomCursor';
 import { TextReveal } from './components/TextReveal';
 import { TiltCard } from './components/TiltCard';
 import { Counter } from './components/Counter';
-import { ParticleBackground } from './components/ParticleBackground';
 import { Parallax } from './components/Parallax';
 import { Magnetic } from './components/Magnetic';
+import { useGithubStats } from './hooks/useGithubStats';
 import { 
   PORTFOLIO_OWNER, 
+  PORTFOLIO_ROLE,
   PORTFOLIO_TAGLINE, 
   ABOUT_ME, 
   SKILLS, 
@@ -28,6 +28,7 @@ import { Github, Linkedin, Mail, MapPin, ChevronDown } from 'lucide-react';
 
 const App: React.FC = () => {
   const { scrollYProgress } = useScroll();
+  const { repos, commits } = useGithubStats();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -35,20 +36,18 @@ const App: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen text-slate-300 relative selection:bg-cyan-500/30 selection:text-cyan-200">
-      <CustomCursor />
-      
+    <div className="min-h-screen text-slate-300 relative selection:bg-white/20 selection:text-white">
       {/* Accessibility Skip Link */}
       <a 
         href="#about" 
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cyan-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-slate-800 focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
       >
         Skip to main content
       </a>
 
       {/* Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-cyan-500 origin-left z-[100]"
+        className="fixed top-0 left-0 right-0 h-1 bg-slate-200 origin-left z-[100]"
         style={{ scaleX }}
       />
 
@@ -56,19 +55,10 @@ const App: React.FC = () => {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black z-0 pointer-events-none"></div>
       
       {/* Dot Grid Layer */}
-      <div className="fixed inset-0 z-[1] pointer-events-none dot-grid opacity-40"></div>
+      <div className="fixed inset-0 z-[1] pointer-events-none dot-grid opacity-20"></div>
       
       {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-      
-      <ParticleBackground />
-
-      {/* Decorative Parallax Background Elements */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <Parallax offset={150} className="absolute top-[10%] left-[5%] w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
-        <Parallax offset={-200} className="absolute top-[60%] right-[10%] w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-        <Parallax offset={100} className="absolute bottom-[10%] left-[20%] w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
+      <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.02] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
       <Navigation />
       
@@ -84,8 +74,8 @@ const App: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <span className="text-cyan-400 font-mono tracking-wide text-sm md:text-base border border-cyan-500/30 bg-cyan-950/30 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
-                    Hi, my name is
+                  <span className="text-slate-300 font-mono tracking-wide text-sm md:text-base border border-white/10 bg-white/5 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
+                    Hello, I'm
                   </span>
                 </motion.div>
                 
@@ -93,8 +83,8 @@ const App: React.FC = () => {
                 <TextReveal>{PORTFOLIO_OWNER}</TextReveal>
               </h1>
               
-              <h2 className="text-4xl md:text-6xl font-bold text-slate-400 tracking-tight leading-tight">
-                 <TextReveal delay={0.2}>I build things for the web.</TextReveal>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-400 tracking-tight leading-tight">
+                 <TextReveal delay={0.2}>{PORTFOLIO_ROLE}</TextReveal>
               </h2>
                 
                 <motion.p 
@@ -128,17 +118,17 @@ const App: React.FC = () => {
                   className="pt-12 flex items-center gap-6 text-slate-500"
                 >
                    <Magnetic>
-                    <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                    <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
                         <Github size={24} />
                     </a>
                    </Magnetic>
                    <Magnetic>
-                    <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                    <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
                         <Linkedin size={24} />
                     </a>
                    </Magnetic>
                    <Magnetic>
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-cyan-400 transition-colors transform hover:scale-110">
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-white transition-colors transform hover:scale-110">
                         <Mail size={24} />
                     </a>
                    </Magnetic>
@@ -161,9 +151,9 @@ const App: React.FC = () => {
         {/* Stats Section */}
         <Section id="stats" className="py-10 md:py-16">
            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <Counter to={7} label="Years Exp." />
-              <Counter to={20} label="Projects" />
-              <Counter to={5000} label="Commits" from={4000} />
+              <Counter to={new Date().getFullYear() - 2018} label="Years Exp." />
+              <Counter to={repos} label="Projects" />
+              <Counter to={commits} label="Commits" />
               <Counter to={10} label="Coffees/Day" />
            </div>
         </Section>
@@ -187,7 +177,7 @@ const App: React.FC = () => {
                    <ul className="grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-sm">
                       {SKILLS.slice(0, 6).map((skill, i) => (
                         <li key={i} className="flex items-center gap-2">
-                           <span className="text-cyan-400">▹</span> {skill.name}
+                           <span className="text-white/50">▹</span> {skill.name}
                         </li>
                       ))}
                    </ul>
@@ -205,10 +195,11 @@ const App: React.FC = () => {
                   className="animate-float"
                 >
                   <div className="relative w-full aspect-square max-w-sm mx-auto">
-                     <div className="absolute inset-0 border-2 border-cyan-500 rounded-2xl translate-x-5 translate-y-5 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300"></div>
+                     <div className="absolute inset-0 border-2 border-white/20 rounded-2xl translate-x-5 translate-y-5 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300"></div>
                      <img 
                         src={`${import.meta.env.BASE_URL}images/profile_photo.png`}
                         alt="Darwin Fegarido" 
+                        loading="lazy"
                         className="rounded-2xl object-cover w-full h-full shadow-2xl relative z-0" 
                         onError={(e) => {
                           // Fallback to placeholder if image not found
@@ -218,7 +209,7 @@ const App: React.FC = () => {
                   </div>
                 </motion.div>
               </Parallax>
-              <Parallax offset={-20} className="absolute -inset-4 border border-cyan-500/10 rounded-3xl -z-10 pointer-events-none" />
+              <Parallax offset={-20} className="absolute -inset-4 border border-white/5 rounded-3xl -z-10 pointer-events-none" />
             </div>
           </div>
         </Section>
@@ -274,10 +265,10 @@ const App: React.FC = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.05 }}
-                    className="glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 hover:-translate-y-2 hover:border-cyan-500/50 hover:shadow-cyan-500/20 transition-all duration-300 group"
+                    className="glass-card p-6 rounded-xl flex flex-col items-center justify-center gap-4 hover:-translate-y-2 hover:border-white/20 hover:shadow-white/5 transition-all duration-300 group"
                     data-magnetic="true"
                   >
-                    <div className="text-slate-400 group-hover:text-cyan-400 transition-colors scale-125">
+                    <div className="text-slate-400 group-hover:text-white transition-colors scale-125">
                       {skill.icon}
                     </div>
                     <span className="font-medium text-slate-300 text-center">{skill.name}</span>
@@ -297,7 +288,7 @@ const App: React.FC = () => {
              transition={{ duration: 0.6 }}
              className="max-w-3xl mx-auto text-center"
            >
-              <span className="text-cyan-400 font-mono mb-4 block text-lg">04. What's Next?</span>
+              <span className="text-slate-400 font-mono mb-4 block text-lg">04. What's Next?</span>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-6">Get In Touch</h2>
               <p className="text-slate-400 text-lg mb-12 leading-relaxed">
                 I'm currently looking for new opportunities, and my inbox is always open. 
@@ -306,16 +297,16 @@ const App: React.FC = () => {
               
               <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mb-12">
                 <div className="flex flex-col items-center gap-4 text-slate-400">
-                  <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-cyan-400 mb-2">
+                  <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-white/80 mb-2">
                     <Mail size={28} />
                   </div>
                   <div className="text-center">
                       <p className="text-sm font-mono text-slate-500 mb-1">Email Me</p>
-                      <a href={`mailto:${CONTACT_EMAIL}`} className="text-slate-200 hover:text-cyan-400 transition-colors text-lg" data-magnetic="true">{CONTACT_EMAIL}</a>
+                      <a href={`mailto:${CONTACT_EMAIL}`} className="text-slate-200 hover:text-white transition-colors text-lg" data-magnetic="true">{CONTACT_EMAIL}</a>
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-4 text-slate-400">
-                  <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-cyan-400 mb-2">
+                  <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-white/80 mb-2">
                     <MapPin size={28} />
                   </div>
                   <div className="text-center">
@@ -342,8 +333,8 @@ const App: React.FC = () => {
             <p>Designed & Built by {PORTFOLIO_OWNER}</p>
           </div>
           <div className="flex gap-6">
-               <Magnetic><a href={GITHUB_URL} className="text-slate-400 hover:text-cyan-400 transition-colors"><Github size={20} /></a></Magnetic>
-               <Magnetic><a href={LINKEDIN_URL} className="text-slate-400 hover:text-cyan-400 transition-colors"><Linkedin size={20} /></a></Magnetic>
+               <Magnetic><a href={GITHUB_URL} className="text-slate-400 hover:text-white transition-colors"><Github size={20} /></a></Magnetic>
+               <Magnetic><a href={LINKEDIN_URL} className="text-slate-400 hover:text-white transition-colors"><Linkedin size={20} /></a></Magnetic>
           </div>
         </div>
       </footer>

@@ -31,13 +31,13 @@ export const Button: React.FC<ButtonProps> = ({
     if (props.onClick) props.onClick(e);
   };
 
-  const baseStyles = "ripple-container relative inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 disabled:opacity-50 disabled:pointer-events-none";
+  const baseStyles = "ripple-container relative inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 disabled:opacity-50 disabled:pointer-events-none";
   
   const variants = {
-    primary: "bg-primary text-white hover:bg-cyan-600 shadow-lg shadow-cyan-500/20",
-    secondary: "bg-slate-700 text-white hover:bg-slate-600",
-    outline: "border border-cyan-500 text-cyan-400 hover:bg-cyan-950",
-    ghost: "text-slate-300 hover:text-white hover:bg-slate-800",
+    primary: "bg-white text-slate-900 hover:bg-slate-200 shadow-lg shadow-white/10",
+    secondary: "bg-slate-800 text-white hover:bg-slate-700",
+    outline: "border border-white/20 text-white/90 hover:bg-white/5",
+    ghost: "text-slate-300 hover:text-white hover:bg-white/5",
   };
 
   const sizes = {

@@ -63,8 +63,8 @@ export const Navigation: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
           {/* Logo */}
           <Magnetic>
-            <a href="#" className="text-2xl font-bold text-slate-100 tracking-tighter hover:text-cyan-400 transition-colors z-50">
-              DF<span className="text-cyan-500">.</span>
+            <a href="#" className="text-2xl font-bold text-slate-100 tracking-tighter hover:text-white transition-colors z-50">
+              DF<span className="text-white/50">.</span>
             </a>
           </Magnetic>
 
@@ -74,18 +74,21 @@ export const Navigation: React.FC = () => {
               <Magnetic key={link.name}>
                 <a 
                   href={link.href}
-                  className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors px-2 py-1"
+                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors px-2 py-1"
                 >
-                  <span className="text-cyan-500 mr-1 font-mono text-xs tracking-widest">0{navLinks.indexOf(link) + 1}.</span>
                   {link.name}
                 </a>
               </Magnetic>
             ))}
             <div className="h-6 w-px bg-slate-700 mx-2"></div>
-            <div className="flex gap-4">
-               <Magnetic><a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Github size={18} /></a></Magnetic>
-               <Magnetic><a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Linkedin size={18} /></a></Magnetic>
-            </div>
+            <Magnetic>
+              <a 
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-sm font-medium text-slate-900 bg-white hover:bg-slate-200 px-5 py-2 rounded-md transition-colors shadow-lg shadow-white/10"
+              >
+                Let's Talk
+              </a>
+            </Magnetic>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -111,12 +114,11 @@ export const Navigation: React.FC = () => {
             <motion.a 
               key={link.name} 
               href={link.href}
-              className="text-4xl font-bold text-slate-200 hover:text-cyan-400"
+              className="text-4xl font-bold text-slate-200 hover:text-white"
               custom={i}
               variants={linkVariants}
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="text-cyan-500 text-lg align-top mr-2 font-mono">0{i+1}.</span>
               {link.name}
             </motion.a>
           ))}

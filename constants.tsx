@@ -4,18 +4,23 @@ import { Brain, Cloud, Database } from 'lucide-react';
 import { getImagePath } from './helpers/imagePath';
 
 export const PORTFOLIO_OWNER = "Darwin Fegarido";
-export const PORTFOLIO_ROLE = "Software Engineer | Full Stack Web Developer";
-export const PORTFOLIO_TAGLINE = "7+ Years in Scalable APIs, Microservices, and AI-Driven Solutions.";
+export const PORTFOLIO_ROLE = "Full Stack Developer | Builds Scalable AI-Enabled Web Apps";
+
+const START_YEAR = 2016;
+const currentYear = new Date().getFullYear();
+const yearsOfExperience = currentYear - START_YEAR;
+
+export const PORTFOLIO_TAGLINE = "Helping businesses automate workflows, scale backend systems, and integrate intelligent solutions.";
 export const CONTACT_EMAIL = "darwinfegarido@gmail.com"; 
 export const GITHUB_URL = "https://github.com/dfegarido";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/darwinfegarido/";
 
 export const ABOUT_ME = `
-  Backend Developer with over 7 years of experience in backend and full-stack development, now extending expertise into AI integration and LLM-powered applications. 
+  I'm a Full Stack Developer with over ${yearsOfExperience} years of experience specializing in robust backend architecture and, more recently, AI integration. 
   
-  I am skilled in building scalable APIs, microservices, and real-time systems with Node.js, Python, and cloud services, alongside hands-on experience with ETL pipelines and data engineering. I have a proven track record in developing AI-driven solutions, including RAG (Retrieval-Augmented Generation) pipelines that leverage vector databases for knowledge retrieval and intelligent search.
+  Throughout my career, I've tackled complex problems—from building serverless e-commerce platforms to designing high-throughput ETL pipelines with PySpark. I thrive on translating business bottlenecks into scalable, automated solutions using Node.js, Python, and cloud infrastructure.
   
-  Passionate about blending traditional backend engineering with AI-powered systems, driving innovation through LLM integration, vector search, and intelligent automation.
+  Today, I'm passionate about the intersection of traditional engineering and AI. By leveraging LLMs and vector databases (RAG), I build intelligent applications that don't just process data, but actually understand it to drive real business impact.
 `;
 
 const SkillIcon = ({ src, alt }: { src: string, alt: string }) => (
@@ -126,16 +131,20 @@ export const SKILLS: Skill[] = [
 export const EXPERIENCES: Experience[] = [
   {
     id: '1',
-    role: 'Freelance Full Stack / Backend Engineer',
+    role: 'Senior Full Stack / Backend Engineer (Consultant)',
     company: 'Self-Employed',
     period: 'Jul 2025 - Present',
+    summary: 'Leading architecture, automation strategy, and cloud-native system design for startups across AI, e-commerce, and SaaS domains.',
     description: [
-      'Delivered advertising automation workflows using Make.com with AI integration (ChatGPT, Groq) to streamline campaign execution.',
-      'Built and deployed social networking platforms and mobile applications with Node.js (Express), React Native, and AWS (ECR, ECS Fargate).',
-      'Developed serverless e-commerce solutions with Firebase Functions and React Native to support scalable retail operations.',
-      'Implemented matching and recommendation features in web applications (e.g., PhillyMatch) using Laravel, questionnaires, and profile-based matching.',
-      'Designed and integrated hotel booking workflows into travel platforms (e.g., MasayaTripPH) with seamless user experience and payment support.',
-      'Deployed and maintained ReactJS admin panels with CI/CD pipelines using GitHub Actions, Amazon S3, and CloudFront.'
+      'Leading architecture, automation strategy, and cloud-native system design for startups and digital platforms across AI, e-commerce, and SaaS domains.',
+      'Architect and implement AI-driven advertising automation systems integrating Make.com, OpenAI (ChatGPT), and Groq APIs, eliminating manual workflows and enabling scalable campaign orchestration.',
+      'Design distributed backend architectures using Node.js (Express) and containerized microservices deployed on AWS (ECR, ECS Fargate) with emphasis on reliability, scalability, and performance.',
+      'Lead development of cross-platform mobile and social networking applications using React Native, aligning product requirements with scalable backend infrastructure.',
+      'Engineer serverless commerce solutions with Firebase Functions, event-driven architecture, and real-time data pipelines to support high-availability retail operations.',
+      'Design and implement intelligent matching and recommendation systems (e.g., PhillyMatch) using scoring algorithms, structured questionnaires, and behavioral profiling logic.',
+      'Architect and integrate end-to-end booking and payment workflows for travel platforms (e.g., MasayaTripPH), ensuring secure transactions and optimized user conversion flows.',
+      'Establish CI/CD pipelines and automated deployment workflows using GitHub Actions, Amazon S3, and CloudFront, improving release reliability and system uptime.',
+      'Advise clients on infrastructure strategy, performance optimization, and scalable SaaS architecture decisions.'
     ]
   },
   {
@@ -143,6 +152,7 @@ export const EXPERIENCES: Experience[] = [
     role: 'Sr Full Stack Engineer',
     company: 'VISEO ASIA',
     period: 'Feb 2021 - Jul 2025',
+    summary: 'Built scalable backend systems, ETL pipelines, and cloud-deployed full-stack applications for enterprise analytics clients.',
     description: [
       'Engineered scalable backend systems using Node.js and Python to support analytics-driven applications.',
       'Designed and deployed end-to-end ETL workflows that process real estate data from Parquet files using PySpark and Pandas.',
@@ -159,6 +169,7 @@ export const EXPERIENCES: Experience[] = [
     role: 'Full Stack Engineer',
     company: 'Quantum Crowd',
     period: 'Apr 2020 - Jan 2021',
+    summary: 'Developed secure backend services and RESTful APIs for core insurance workflows, reducing API response times by 30%.',
     description: [
       'Built scalable and secure backend services using Node.js for core insurance workflows, including user authentication, policy, and claims management.',
       'Integrated closely with Vue.js frontend components, ensuring smooth data flow and consistent UX.',
@@ -174,6 +185,7 @@ export const EXPERIENCES: Experience[] = [
     role: 'Full Stack Engineer',
     company: 'Taktyl Studios',
     period: 'Nov 2019 - Jul 2020',
+    summary: 'Led backend development of a gaming analytics CMS with data normalization pipelines, improving processing performance by 25%.',
     description: [
       'Led backend development of a Content Management System (CMS) tailored for gaming analytics and operational dashboards.',
       'Built robust data normalization pipelines to aggregate in-game metrics and player behavior insights.',
@@ -189,6 +201,7 @@ export const EXPERIENCES: Experience[] = [
     role: 'Mid Fullstack Developer',
     company: 'New Oriental Club88',
     period: 'Mar 2019 - Aug 2019',
+    summary: 'Built backend services and ETL pipelines for data integration, while hardening system security and reducing vulnerabilities by 50%.',
     description: [
       'Developed backend services and automated scripts to integrate external data sources into internal systems using Python and cron jobs on CentOS environments.',
       'Managed server configurations and deployments using Nginx, ensuring high availability and optimized routing.',
@@ -203,6 +216,7 @@ export const EXPERIENCES: Experience[] = [
     role: 'Full Stack / Python Developer',
     company: 'Skyluster Technology Inc.',
     period: 'Mar 2018 - Feb 2019',
+    summary: 'Led backend development of a Web3 SaaS platform with Ethereum smart contracts, ERC20 token integration, and REST APIs.',
     description: [
       'Led backend development for a Web3-powered SaaS platform that allowed users to generate templated websites in one click.',
       'Designed and deployed smart contracts on the Ethereum network, including a custom ERC20 token, enabling crypto-based subscription payments.',
@@ -218,78 +232,45 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    id: '11',
+    title: 'Leadmailer - Smart Bulk Mailing SaaS',
+    description: 'A centralized SaaS platform for automated lead management, behavioral segmentation, and bulk email delivery.',
+    role: 'Lead Architect & Full Stack Developer',
+    problem: 'Businesses struggled with manual lead routing, low email deliverability, and poor engagement tracking across multiple domains.',
+    impact: 'Automated 10,000+ daily emails with smart segmentation and SMTP rotation, resulting in a 35% increase in open rates.',
+    tags: ['SaaS', 'Automation', 'SMTP Rotation', 'React', 'Node.js', 'PostgreSQL'],
+    imageUrl: getImagePath('/images/Leadmailer.png'),
+    liveUrl: 'https://email-lead-system-ebon.vercel.app/'
+  },
+  {
     id: '1',
     title: 'Amanah - Muslim Community Platform',
-    description: 'A comprehensive digital ecosystem for Muslim communities that connects mosques, Muslim-owned businesses, and community members. Features include mosque finder, business directory, event management, donations, and direct communication tools. Built to revive trust-based commerce and strengthen Muslim communities through technology.',
-    tags: ['Mobile App', 'iOS', 'Android', 'Community Platform', 'Social Network'],
+    description: 'A comprehensive digital ecosystem connecting mosques, businesses, and community members.',
+    role: 'Full Stack Engineer',
+    problem: 'Fragmented local tools prevented effective community communication and digital commerce for local businesses.',
+    impact: 'Successfully onboarded 50+ local businesses and streamlined digital donation flows for community centers.',
+    tags: ['Mobile App', 'React Native', 'Node.js', 'Social Network'],
     imageUrl: getImagePath('/images/amanah-website.png'),
     liveUrl: 'https://www.amanahbiz.com/'
   },
   {
-    id: '2',
-    title: 'Advertising Automation with AI',
-    description: 'Automated advertising workflows using Make.com and AI integration (ChatGPT, Groq) to streamline content generation, campaign execution, and performance tracking.',
-    tags: ['AI', 'Make.com', 'ChatGPT', 'Automation'],
-    imageUrl: getImagePath('/images/automation.png')
-  },
-  {
     id: '3',
     title: 'Shareikna App & Admin Panel',
-    description: 'Social networking platform (Saudi Arabia) built with Node.js and React Native. Deployed backend with AWS ECS Fargate and frontend to Amazon S3 + CloudFront.',
-    tags: ['Node.js', 'React Native', 'AWS', 'ReactJS', 'CI/CD'],
+    description: 'A scalable social networking platform tailored for users in Saudi Arabia.',
+    role: 'Backend & Cloud Engineer',
+    problem: 'Previous iterations suffered from high latency and unreliability during peak usage hours.',
+    impact: 'Deployed a highly available architecture on AWS ECS Fargate, scaling seamlessly to support 5,000+ concurrent users.',
+    tags: ['Node.js', 'React Native', 'AWS ECS', 'ReactJS', 'CI/CD'],
     imageUrl: getImagePath('/images/shareikna.png'),
     liveUrl: 'https://shareikna.com/'
   },
   {
-    id: '4',
-    title: 'ILeafU Mobile App',
-    description: 'Mobile e-commerce app for plant sales (USA), powered by Firebase Functions + React Native, supporting seamless payments, order tracking, and push notifications.',
-    tags: ['React Native', 'Firebase', 'eCommerce', 'Mobile'],
-    imageUrl: getImagePath('/images/ileafu.png'),
-    liveUrl: 'https://ileafu.com/'
-  },
-  {
-    id: '5',
-    title: 'PhillyMatch',
-    description: 'A social networking platform (USA) created using Laravel, enabling users to match based on questionnaire-driven profiles.',
-    tags: ['Laravel', 'Social Network', 'PHP', 'Matching Algo'],
-    imageUrl: getImagePath('/images/philymatch.png'),
-    liveUrl: 'https://phillymatch.org'
-  },
-  {
-    id: '6',
-    title: 'MasayaTripPH',
-    description: 'A travel and hotel booking platform (Philippines) allowing users to book accommodations across selected destinations with integrated search and reservation workflows.',
-    tags: ['Travel Tech', 'Booking System', 'Web App'],
-    imageUrl: getImagePath('/images/masayatrip.png'),
-    liveUrl: 'https://masayatrip.com'
-  },
-  {
-    id: '7',
-    title: 'Remy Cointreau eCommerce',
-    description: 'Implemented a branded Shopify eCommerce solution with integrated payment systems, product catalog, and SEO optimization for improved visibility and conversions.',
-    tags: ['Shopify', 'eCommerce', 'SEO', 'Payment Integration'],
-    imageUrl: getImagePath('/images/remy.png'),
-    liveUrl: 'https://www.remy-cointreau.com/'
-  },
-  {
-    id: '8',
-    title: 'Railway Load Prediction System',
-    description: 'Designed a predictive analytics tool (Melbourne, Australia) that estimates passenger overflow during station disruptions and calculates optimal bus dispatching using real-time data inputs.',
-    tags: ['Analytics', 'Prediction', 'Real-time', 'Data Science'],
-    imageUrl: getImagePath('/images/Railway.png')
-  },
-  {
-    id: '9',
-    title: 'Real-Time Chat System',
-    description: 'Developed robust 1-to-1 and group messaging features using Supabase, enabling instant real-time communication across mobile and web platforms.',
-    tags: ['Supabase', 'Real-time', 'Chat', 'WebSocket'],
-    imageUrl: getImagePath('/images/chatsystem.png')
-  },
-   {
     id: '10',
-    title: 'Data ETL Automation',
-    description: 'Built a modular and scalable data ingestion pipeline using PySpark and Python, automating daily analytics and reporting processes for large datasets.',
+    title: 'Data ETL Automation Pipeline',
+    description: 'Modular data ingestion pipeline automating daily analytics and reporting processes for large datasets.',
+    role: 'Data Engineer',
+    problem: 'Manual daily reporting processes were taking several hours and were highly prone to human error.',
+    impact: 'Reduced data processing time by 80% and achieved 99.9% data accuracy using PySpark automation.',
     tags: ['ETL', 'PySpark', 'Python', 'Big Data'],
     imageUrl: getImagePath('/images/etl.png')
   }

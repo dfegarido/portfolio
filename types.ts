@@ -8,6 +8,9 @@ export interface Project {
   imageUrl: string;
   githubUrl?: string;
   liveUrl?: string;
+  role?: string;
+  problem?: string;
+  impact?: string;
 }
 
 export interface Experience {
@@ -15,6 +18,7 @@ export interface Experience {
   role: string;
   company: string;
   period: string;
+  summary: string;
   description: string[];
 }
 

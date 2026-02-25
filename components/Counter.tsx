@@ -38,7 +38,7 @@ export const Counter: React.FC<CounterProps> = ({ from = 0, to, duration = 2, la
 
   return (
     <div ref={ref} className="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700 backdrop-blur-sm">
-      <div className="text-4xl md:text-5xl font-bold text-cyan-400 font-mono mb-2">
+      <div className="text-4xl md:text-5xl font-bold text-slate-100 font-mono mb-2">
         {count}+
       </div>
       <div className="text-slate-400 font-medium tracking-wide text-sm uppercase">
