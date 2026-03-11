@@ -255,14 +255,14 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '3',
-    title: 'Shareikna App & Admin Panel',
-    description: 'A scalable social networking platform tailored for users in Saudi Arabia.',
-    role: 'Backend & Cloud Engineer',
-    problem: 'Previous iterations suffered from high latency and unreliability during peak usage hours.',
-    impact: 'Deployed a highly available architecture on AWS ECS Fargate, scaling seamlessly to support 5,000+ concurrent users.',
-    tags: ['Node.js', 'React Native', 'AWS ECS', 'ReactJS', 'CI/CD'],
-    imageUrl: getImagePath('/images/shareikna.png'),
-    liveUrl: 'https://shareikna.com/'
+    title: 'AI-Powered Data Analytics',
+    description: 'A platform transforming raw data into actionable insights using real-time processing, predictive analytics, and machine learning.',
+    role: 'Full Stack Developer',
+    problem: 'Organizations needed to move from reactive reporting to proactive strategy, leveraging AI to identify patterns, forecast trends, and optimize operations.',
+    impact: 'Enables 25–40% increase in operational efficiency and supports scalable AI integration with robust data protection for data-driven decision-making.',
+    tags: ['AI', 'Data Analytics', 'Machine Learning', 'Predictive Analytics', 'React'],
+    imageUrl: getImagePath('/images/analytics.png'),
+    liveUrl: 'https://analytics-website-lovat.vercel.app/'
   },
   {
     id: '10',
