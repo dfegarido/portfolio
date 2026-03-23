@@ -15,6 +15,9 @@ export const CONTACT_EMAIL = "darwinfegarido@gmail.com";
 export const GITHUB_URL = "https://github.com/dfegarido";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/darwinfegarido/";
 
+/** HLS video URL for the portfolio background */
+export const BACKGROUND_VIDEO = 'https://stream.mux.com/JNJEOYI6B3EffB9f5ZhpGbuxzc6gSyJcXaCBbCgZKRg.m3u8';
+
 export const ABOUT_ME = `
   I'm a Full Stack Developer with over ${yearsOfExperience} years of experience specializing in robust backend architecture and, more recently, AI integration. 
   
@@ -133,7 +136,7 @@ export const EXPERIENCES: Experience[] = [
     id: '1',
     role: 'Senior Full Stack / Backend Engineer (Consultant)',
     company: 'Self-Employed',
-    period: 'Jul 2025 - Present',
+    period: 'Jul 2024 - Present',
     summary: 'Leading architecture, automation strategy, and cloud-native system design for startups across AI, e-commerce, and SaaS domains.',
     description: [
       'Leading architecture, automation strategy, and cloud-native system design for startups and digital platforms across AI, e-commerce, and SaaS domains.',
@@ -240,7 +243,8 @@ export const PROJECTS: Project[] = [
     impact: 'Automated 10,000+ daily emails with smart segmentation and SMTP rotation, resulting in a 35% increase in open rates.',
     tags: ['SaaS', 'Automation', 'SMTP Rotation', 'React', 'Node.js', 'PostgreSQL'],
     imageUrl: getImagePath('/images/Leadmailer.png'),
-    liveUrl: 'https://email-lead-system-ebon.vercel.app/'
+    liveUrl: 'https://email-lead-system-ebon.vercel.app/',
+    githubUrl: 'https://github.com/dfegarido/leadmailer'
   },
   {
     id: '1',
@@ -251,7 +255,8 @@ export const PROJECTS: Project[] = [
     impact: 'Successfully onboarded 50+ local businesses and streamlined digital donation flows for community centers.',
     tags: ['Mobile App', 'React Native', 'Node.js', 'Social Network'],
     imageUrl: getImagePath('/images/amanah-website.png'),
-    liveUrl: 'https://www.amanahbiz.com/'
+    liveUrl: 'https://www.amanahbiz.com/',
+    githubUrl: 'https://github.com/dfegarido/amanah'
   },
   {
     id: '3',
@@ -262,7 +267,8 @@ export const PROJECTS: Project[] = [
     impact: 'Enables 25–40% increase in operational efficiency and supports scalable AI integration with robust data protection for data-driven decision-making.',
     tags: ['AI', 'Data Analytics', 'Machine Learning', 'Predictive Analytics', 'React'],
     imageUrl: getImagePath('/images/analytics.png'),
-    liveUrl: 'https://analytics-website-lovat.vercel.app/'
+    liveUrl: 'https://analytics-website-lovat.vercel.app/',
+    githubUrl: 'https://github.com/dfegarido/analytics-website'
   },
   {
     id: '10',
@@ -272,7 +278,8 @@ export const PROJECTS: Project[] = [
     problem: 'Manual daily reporting processes were taking several hours and were highly prone to human error.',
     impact: 'Reduced data processing time by 80% and achieved 99.9% data accuracy using PySpark automation.',
     tags: ['ETL', 'PySpark', 'Python', 'Big Data'],
-    imageUrl: getImagePath('/images/etl.png')
+    imageUrl: getImagePath('/images/etl.png'),
+    githubUrl: 'https://github.com/dfegarido/etl-pipeline'
   }
 ];
 

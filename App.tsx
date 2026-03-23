@@ -11,18 +11,22 @@ import { TiltCard } from './components/TiltCard';
 import { Counter } from './components/Counter';
 import { Parallax } from './components/Parallax';
 import { Magnetic } from './components/Magnetic';
+import { VideoBackground } from './components/VideoBackground';
+import { ParallaxBackground } from './components/ParallaxBackground';
+import { ContactForm } from './components/ContactForm';
 import { useGithubStats } from './hooks/useGithubStats';
-import { 
-  PORTFOLIO_OWNER, 
+import {
+  PORTFOLIO_OWNER,
   PORTFOLIO_ROLE,
-  PORTFOLIO_TAGLINE, 
-  ABOUT_ME, 
-  SKILLS, 
-  PROJECTS, 
-  EXPERIENCES, 
+  PORTFOLIO_TAGLINE,
+  ABOUT_ME,
+  SKILLS,
+  PROJECTS,
+  EXPERIENCES,
   CONTACT_EMAIL,
   GITHUB_URL,
-  LINKEDIN_URL
+  LINKEDIN_URL,
+  BACKGROUND_VIDEO,
 } from './constants';
 import { Github, Linkedin, Mail, MapPin, ChevronDown } from 'lucide-react';
 
@@ -52,11 +56,14 @@ const App: React.FC = () => {
       />
 
       {/* Background Layers - Positive Stacking Context */}
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black z-0 pointer-events-none"></div>
-      
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black" />
+        <VideoBackground src={BACKGROUND_VIDEO} />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-black/80" />
+      </div>
+      <ParallaxBackground />
       {/* Dot Grid Layer */}
       <div className="fixed inset-0 z-[1] pointer-events-none dot-grid opacity-20"></div>
-      
       {/* Noise Texture Overlay */}
       <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.02] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
@@ -74,7 +81,7 @@ const App: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <span className="text-slate-300 font-mono tracking-wide text-sm md:text-base border border-white/10 bg-white/5 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
+                  <span className="text-slate-300 font-mono tracking-wide text-sm md:text-base liquid-glass px-4 py-1.5 rounded-full inline-block">
                     Hello, I'm
                   </span>
                 </motion.div>
@@ -291,10 +298,10 @@ const App: React.FC = () => {
               <span className="text-slate-400 font-mono mb-4 block text-lg">04. What's Next?</span>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-6">Get In Touch</h2>
               <p className="text-slate-400 text-lg mb-12 leading-relaxed">
-                I'm currently looking for new opportunities, and my inbox is always open. 
+                I'm currently looking for new opportunities, and my inbox is always open.
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
-              
+
               <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mb-12">
                 <div className="flex flex-col items-center gap-4 text-slate-400">
                   <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-white/80 mb-2">
@@ -315,14 +322,8 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
-              <Button 
-                size="lg" 
-                className="h-16 px-10 text-lg"
-                onClick={() => window.location.href = `mailto:${CONTACT_EMAIL}`}
-              >
-                Say Hello
-              </Button>
+
+              <ContactForm />
            </motion.div>
         </Section>
       </main>

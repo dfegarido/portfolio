@@ -33,6 +33,25 @@
     background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
     background-size: 30px 30px;
   }
+
+  .liquid-glass {
+    backdrop-filter: blur(24px) saturate(1.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.15) 0%, transparent 40%);
+    pointer-events: none;
+  }
 }
 
 /* Global Typography tweaks */
